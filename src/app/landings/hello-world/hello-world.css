@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Schibsted+Grotesk:wght@500;700;800&display=swap');
+
+/* Showcase for voice-sphere. Tokens follow the grask brand kit (paper / ink / petrol); the
+   dark set previews the product's dark theme. --brand is the currently chosen institution
+   colour and is set on the stage from the swatches. */
+:host {
+  --paper: #fafaf7;
+  --ink: #111827;
+  --petrol: #0e5a66;
+  --tint: #dceff1;
+  --line: #e5e7eb;
+  --muted: #6b7280;
+  --text-2: #4b5563;
+  --surface: #ffffff;
+  --danger: #be123c;
+
+  --bg: var(--paper);
+  --card: var(--surface);
+  --border: var(--line);
+  --text: var(--ink);
+  --accent: var(--petrol);
+  --accent-soft: var(--tint);
+  --on-accent: var(--paper);
+  --hairline: rgba(17, 24, 39, 0.12);
+  --ring: var(--accent);
+  --brand: var(--petrol);
+
+  --font-ui: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-code: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  display: block;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
+  scrollbar-color: var(--hairline) transparent;
+  scrollbar-width: thin;
+}
+:host(.dark) {
+  --bg: var(--ink);
+  --card: #1a2233;
+  --border: rgba(250, 250, 247, 0.14);
+  --text: var(--paper);
+  --text-2: #c7cbd3;
+  --muted: #9aa1ad;
+  --accent: #9ad1d9;
+  --accent-soft: rgba(154, 209, 217, 0.16);
+  --on-accent: var(--ink);
+  --hairline: rgba(250, 250, 247, 0.18);
+}
+
+:host ::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+:host :focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+p,
+pre,
+dl,
+dd {
+  margin: 0;
+}
+button,
+input,
+label,
+output {
+  font: inherit;
+  color: inherit;
+}
+code {
+  font-family: var(--font-code);
+  font-size: 0.92em;
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 24px 96px;
+}
+
+/* top ─────────────────────────────────────────────────── */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+.chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.chip svg,
+.play svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* stage ───────────────────────────────────────────────── */
+.stage {
+  display: grid;
+  justify-items: center;
+  min-height: 460px;
+  align-content: center;
+  padding: 24px 0 8px;
+}
+.status {
+  margin-top: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 300ms ease;
+}
+.hint {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--text-2);
+  text-align: center;
+}
+
+/* states ──────────────────────────────────────────────── */
+.states {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.segment {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--card);
+}
+.segment button {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+.segment button:hover {
+  color: var(--text);
+}
+.segment button.on {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.segment.small button {
+  min-height: 34px;
+  padding: 0 13px;
+  font-size: 13px;
+}
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px 0 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 150ms ease;
+}
+.play svg {
+  fill: currentColor;
+  stroke: none;
+}
+.play:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.play[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* controls ────────────────────────────────────────────── */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.label output {
+  font-weight: 400;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.note {
+  font-size: 13px;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+.note.error {
+  color: var(--danger);
+}
+:host(.dark) .note.error {
+  color: #fb7185;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.swatch {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+.swatch:hover {
+  transform: scale(1.08);
+}
+.swatch.on {
+  outline: 2px solid var(--swatch);
+  outline-offset: 3px;
+}
+.swatch.on:focus-visible {
+  outline-color: var(--ring);
+}
+.swatch.custom {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #fff;
+}
+.swatch.custom:not(.on) {
+  background: linear-gradient(135deg, #f0a8a8, #b6d8f2, #c9ecc4, #f3e4a3);
+}
+.swatch.custom input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.swatch.custom svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
+input[type='range'] {
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  background: transparent;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* usage ───────────────────────────────────────────────── */
+.usage {
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.usage > * {
+  max-width: 68ch;
+}
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+pre {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+pre + pre {
+  margin-top: 8px;
+}
+pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+.api {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 16px;
+}
+.api > div {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.api dt {
+  font-weight: 600;
+}
+.api dd {
+  color: var(--text-2);
+}
+
+/* responsive ──────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .page {
+    padding: 20px 16px 72px;
+  }
+  .stage {
+    min-height: 380px;
+  }
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .api > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host,
+  .chip,
+  .play,
+  .segment button,
+  .swatch {
+    transition: none;
+  }
+}

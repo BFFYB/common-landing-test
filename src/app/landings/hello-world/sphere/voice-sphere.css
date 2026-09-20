@@ -1,0 +1,294 @@
+/* voice-sphere
+   One brand colour in (--sphere-color); every tone, glow and ring is derived from it, so an
+   institution's accent restyles the whole thing. Three registered properties let colour, glow
+   and breath cross-fade between states instead of snapping. Every length scales with
+   --sphere-size through --_u, the "1px" of a 160px sphere. */
+
+@property --vs-c {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #0e5a66;
+}
+@property --vs-halo {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.22;
+}
+@property --vs-amp {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1.02;
+}
+
+:host {
+  /* public ─────────────────────────────────────────────── */
+  --sphere-color: #0e5a66;
+  --sphere-color-listening: color-mix(in oklab, var(--sphere-color) 64%, #fafaf7);
+  --sphere-size: 160px;
+
+  /* private ────────────────────────────────────────────── */
+  --vs-c: var(--sphere-color);
+  --vs-halo: 0.22;
+  --vs-amp: 1.02;
+  --vs-breath: 5.2s;
+  --vs-spin: 24s;
+  --vs-drift: 11s;
+  --vs-level: var(--sphere-level, 0);
+  --vs-glow: color-mix(in oklab, var(--vs-c) 58%, white);
+  --_u: calc(var(--sphere-size) / 160);
+
+  display: inline-grid;
+  place-items: center;
+  inline-size: var(--sphere-size);
+  block-size: var(--sphere-size);
+  position: relative;
+  isolation: isolate;
+  pointer-events: none;
+  user-select: none;
+  transition:
+    --vs-c 700ms ease,
+    --vs-halo 700ms ease,
+    --vs-amp 700ms ease;
+}
+
+:host > * {
+  grid-area: 1 / 1;
+  border-radius: 50%;
+}
+
+/* Where the browser can, derive the lighter tones by lightness alone so they keep the brand's
+   chroma instead of greying towards white. */
+@supports (color: oklch(from red l c h)) {
+  :host {
+    --sphere-color-listening: oklch(from var(--sphere-color) calc(l + 0.24) calc(c * 0.85) h);
+    --vs-glow: oklch(from var(--vs-c) 0.84 calc(c * 1.05) h);
+  }
+}
+
+/* states ──────────────────────────────────────────────── */
+:host(.is-speaking) {
+  --vs-halo: 0.9;
+  --vs-amp: 1.055;
+  --vs-breath: 1.7s;
+  --vs-spin: 9s;
+  --vs-drift: 5s;
+}
+:host(.is-listening) {
+  --vs-c: var(--sphere-color-listening);
+  --vs-halo: 0.5;
+  --vs-amp: 1.025;
+  --vs-breath: 3.6s;
+  --vs-spin: 18s;
+  --vs-drift: 8s;
+}
+:host(.is-thinking) {
+  --vs-halo: 0.3;
+  --vs-amp: 1.015;
+  --vs-breath: 2.8s;
+  --vs-spin: 3.2s;
+  --vs-drift: 2.4s;
+}
+/* A real voice is driving the size; let the idle breath step back. */
+:host(.is-live) {
+  --vs-amp: 1.012;
+}
+:host(.is-offscreen) * {
+  animation-play-state: paused;
+}
+
+/* halo: what the sphere gives off. Its intensity is the state. Lighter than the ball, since
+   it is light, not shadow. */
+.halo {
+  inline-size: 100%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--vs-glow) 78%, transparent) 0%,
+    color-mix(in srgb, var(--vs-glow) 34%, transparent) 38%,
+    transparent 68%
+  );
+  filter: blur(calc(8 * var(--_u)));
+  opacity: var(--vs-halo);
+  scale: calc(1 + var(--vs-level) * 0.22);
+  animation: vs-halo var(--vs-breath) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* rings: outward while speaking, inward while listening. */
+.ring {
+  inline-size: 60%;
+  aspect-ratio: 1;
+  border: calc(1.5 * var(--_u)) solid
+    color-mix(in srgb, color-mix(in oklab, var(--vs-c) 55%, var(--vs-glow)) 62%, transparent);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+:host(.is-speaking) .ring {
+  animation: vs-emit 2.6s cubic-bezier(0.2, 0.55, 0.3, 1) infinite;
+}
+:host(.is-speaking) .ring:nth-child(3) {
+  animation-delay: 0.87s;
+}
+:host(.is-speaking) .ring:nth-child(4) {
+  animation-delay: 1.73s;
+}
+:host(.is-listening) .ring:nth-child(2) {
+  animation: vs-gather 3.2s ease-out infinite;
+}
+:host(.is-listening) .ring:nth-child(3) {
+  animation: vs-gather 3.2s ease-out 1.6s infinite;
+}
+
+/* ball: a petrol glass sphere lit from the top left, paper bouncing back in from below. */
+.ball {
+  inline-size: 60%;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(
+    circle at 31% 27%,
+    color-mix(in oklab, var(--vs-c) 20%, white) 0%,
+    color-mix(in oklab, var(--vs-c) 56%, white) 15%,
+    var(--vs-c) 47%,
+    color-mix(in oklab, var(--vs-c) 70%, black) 100%
+  );
+  box-shadow:
+    inset calc(-8 * var(--_u)) calc(-12 * var(--_u)) calc(26 * var(--_u))
+      color-mix(in srgb, black 32%, transparent),
+    inset calc(5 * var(--_u)) calc(7 * var(--_u)) calc(18 * var(--_u))
+      color-mix(in srgb, white 16%, transparent),
+    0 calc(12 * var(--_u)) calc(30 * var(--_u)) calc(-8 * var(--_u))
+      color-mix(in srgb, var(--vs-c) 60%, transparent),
+    0 calc(2 * var(--_u)) calc(6 * var(--_u)) color-mix(in srgb, var(--vs-c) 22%, transparent);
+  scale: calc(1 + var(--vs-level) * 0.16);
+  animation: vs-breathe var(--vs-breath) ease-in-out infinite;
+  will-change: transform;
+}
+
+/* light moving inside the glass: two soft spots orbiting the centre at different speeds,
+   opposite directions. */
+.aurora,
+.caustic {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.aurora {
+  background: radial-gradient(
+    circle at 28% 34%,
+    color-mix(in oklab, var(--vs-c) 38%, white) 0%,
+    transparent 44%
+  );
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  filter: blur(calc(6 * var(--_u)));
+  animation: vs-spin var(--vs-spin) linear infinite;
+}
+.caustic {
+  background: radial-gradient(
+    circle at 70% 60%,
+    color-mix(in oklab, var(--vs-c) 34%, white) 0%,
+    transparent 34%
+  );
+  opacity: 0.32;
+  mix-blend-mode: screen;
+  filter: blur(calc(8 * var(--_u)));
+  animation: vs-spin var(--vs-drift) linear infinite reverse;
+}
+.rim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 62% 118%,
+    color-mix(in oklab, var(--vs-c) 38%, #fafaf7) 0%,
+    transparent 44%
+  );
+  opacity: 0.6;
+}
+.gloss {
+  position: absolute;
+  left: 15%;
+  top: 8%;
+  inline-size: 40%;
+  block-size: 28%;
+  rotate: -18deg;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.14) 48%,
+    transparent 74%
+  );
+  filter: blur(calc(2.5 * var(--_u)));
+}
+
+/* motion ──────────────────────────────────────────────── */
+@keyframes vs-breathe {
+  50% {
+    transform: scale(var(--vs-amp));
+  }
+}
+@keyframes vs-halo {
+  50% {
+    transform: scale(1.07);
+  }
+}
+@keyframes vs-emit {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.66);
+    opacity: 0;
+  }
+}
+@keyframes vs-gather {
+  from {
+    transform: scale(1.62);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1.03);
+    opacity: 0;
+  }
+}
+@keyframes vs-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Reduced motion: nothing moves, but each state still reads — halo strength, tone and one
+   still ring. A live voice level still nudges the size, at half amplitude, because that is
+   feedback rather than decoration. */
+@media (prefers-reduced-motion: reduce) {
+  .halo,
+  .ring,
+  .ball,
+  .aurora,
+  .caustic,
+  :host(.is-speaking) .ring,
+  :host(.is-listening) .ring {
+    animation: none;
+  }
+  .ball {
+    scale: calc(1 + var(--vs-level) * 0.08);
+  }
+  :host(.is-speaking) .ring:nth-child(2) {
+    opacity: 0.55;
+    transform: scale(1.3);
+  }
+  :host(.is-listening) .ring:nth-child(2) {
+    opacity: 0.5;
+    transform: scale(1.16);
+    border-style: dashed;
+  }
+  :host(.is-thinking) .aurora {
+    opacity: 0.85;
+    transform: rotate(140deg);
+  }
+}
