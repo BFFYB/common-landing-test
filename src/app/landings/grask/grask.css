@@ -15,6 +15,11 @@
 .grask-lp .on-dark a:hover { color: var(--g-accent-soft-2); }
 .grask-lp .plain { text-decoration: none; }
 .grask-lp .plain:hover { text-decoration: underline; }
+.grask-lp .hero { position: relative; min-height: calc(100dvh - 78px); } /* the opening: one full screen (minus the header in flow) before the demo */
+.grask-lp .title .w { display: inline-block; }
+.grask-lp .cue { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; width: 44px; height: 44px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(var(--g-ink-rgb), .14); background: var(--g-surface); color: var(--g-text-2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color .2s ease, color .2s ease; }
+.grask-lp .cue:hover { border-color: var(--g-accent); color: var(--g-accent); }
+.grask-lp .cue svg { display: block; }
 .grask-lp .btn-dark, .grask-lp .btn-light { transition: transform .2s ease, background-color .2s ease, border-color .2s ease; }
 .grask-lp .btn-dark:hover { background: var(--g-accent-hover) !important; color: var(--g-on-accent) !important; transform: translateY(-1px); }
 .grask-lp .btn-light:hover { border-color: var(--g-accent) !important; color: var(--g-accent) !important; transform: translateY(-1px); }
@@ -45,16 +50,26 @@
   .grask-lp .pause-label { display: none !important; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .grask-lp .mark-in { animation: glp-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) .85s both; }
+  .grask-lp .title .w { animation: glp-word .6s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--i) * 80ms) both; } /* the last word lands at ~1.5s */
+  .grask-lp .mark-in { animation: glp-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) 1.25s both; }
   .grask-lp .rise { animation: glp-rise .9s cubic-bezier(.2, .7, .2, 1) both; }
-  .grask-lp .rise-2 { animation-delay: .08s; }
-  .grask-lp .rise-3 { animation-delay: .16s; }
-  .grask-lp .rise-4 { animation-delay: .24s; }
+  .grask-lp .rise-3 { animation-delay: 1s; }
+  .grask-lp .rise-4 { animation-delay: 1.15s; }
   .grask-lp .rise-5 { animation-delay: .36s; }
+  .grask-lp .rise-6 { animation-delay: 1.5s; }
+  .grask-lp .cue svg { animation: glp-bob 2.4s ease-in-out 2.6s infinite; }
 }
 @keyframes glp-mark-in {
   0% { background-size: 0% 56%; }
   100% { background-size: 100% 56%; }
+}
+@keyframes glp-word {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes glp-bob {
+  0%, 100% { transform: none; }
+  50% { transform: translateY(5px); }
 }
 @keyframes glp-rise {
   0% { opacity: 0; transform: translateY(16px); filter: blur(6px); }

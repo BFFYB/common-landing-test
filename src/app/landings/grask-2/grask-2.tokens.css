@@ -1,7 +1,8 @@
 /* grask design tokens — copied from bffyb/common/styling/tokens.css (generated 2026-09-19).
    Source of truth is styling/tokens.json; if the palette changes, regenerate there and re-copy the values here.
-   Scoped to .grask-2-lp instead of :root so nothing leaks out of this landing. */
-.grask-2-lp {
+   Scoped to .grask-2-lp instead of :root so nothing leaks out of this landing (html.glp2-page is the same landing while it is on screen:
+   grask-2.ts adds it so the page scrollbar can be styled with these tokens too). */
+.grask-2-lp, html.glp2-page {
   --g-paper: #FAFAF7;
   --g-ink: #111827;
   --g-petrol: #0E5A66;
@@ -46,4 +47,5 @@
   --g-on-accent-2: rgba(250, 250, 247, 0.72);                                       /* secondary copy on petrol / ink */
   --g-text-faint: color-mix(in srgb, var(--g-muted) 50%, var(--g-surface));        /* not-yet-spoken words in the demo captions */
   --g-tint-strong-rgb: 154, 209, 217;                                               /* for the grade-box focus ring in the demo */
+  --g-surface-2: color-mix(in srgb, var(--g-line) 45%, var(--g-surface));          /* quiet grey tile behind each LMS logo */
 }

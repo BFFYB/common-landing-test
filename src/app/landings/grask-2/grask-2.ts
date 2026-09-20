@@ -42,6 +42,7 @@ export class Grask2 {
     afterNextRender(() => {
       this.setupReveals();
       this.setupLiquidGlass();
+      this.stylePageScrollbar();
     });
   }
 
@@ -116,6 +117,16 @@ export class Grask2 {
     root.classList.add('glp2-js');
     targets.forEach((el) => io.observe(el));
     this.destroyRef.onDestroy(() => io.disconnect());
+  }
+
+  /**
+   * The page scrollbar lives on <html>, outside this component, so grask-2.css styles it through
+   * a class that is only there while this landing is on screen (see "Page scrollbar" there).
+   */
+  private stylePageScrollbar(): void {
+    const html = document.documentElement;
+    html.classList.add('glp2-page');
+    this.destroyRef.onDestroy(() => html.classList.remove('glp2-page'));
   }
 
   /**

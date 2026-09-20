@@ -14,7 +14,7 @@
 </div>
 </header>
 
-<section id="top" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: clamp(56px, 7vw, 104px) clamp(20px, 4vw, 40px) clamp(48px, 5vw, 72px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;">
+<section id="top" class="hero" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: clamp(56px, 7vw, 104px) clamp(20px, 4vw, 40px) 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 28px;">
 <div class="hero-float rise" aria-hidden="true">
 <svg class="hero-lines" viewBox="0 0 1040 160"><path d="M62 96 L229 32 L374 118 L520 64 L686 124 L832 40 L978 100" fill="none" stroke-width="1.5" vector-effect="non-scaling-stroke"></path><circle cx="145.5" cy="64" r="3"></circle><circle cx="301.5" cy="75" r="3"></circle><circle cx="447" cy="91" r="3"></circle><circle cx="603" cy="94" r="3"></circle><circle cx="759" cy="82" r="3"></circle><circle cx="905" cy="70" r="3"></circle></svg>
 <div class="ft" style="left: 5.96%; top: 60.0%; --i: 0; --t: 4.6s;"><div class="ft-i" style="background: var(--g-accent-soft);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12.5 a3.3 3.3 0 1 0 0-6.6 a3.3 3.3 0 0 0 0 6.6 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 20 C5.5 16.5 8.4 14.5 12 14.5 C15.6 14.5 18.5 16.5 18.5 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
@@ -25,11 +25,7 @@
 <div class="ft" style="left: 80.00%; top: 25.0%; --i: 5; --t: 4.6s;"><div class="ft-i" style="background: var(--g-surface);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6.5 A2.5 2.5 0 0 1 6.5 4 H17.5 A2.5 2.5 0 0 1 20 6.5 V17.5 A2.5 2.5 0 0 1 17.5 20 H6.5 A2.5 2.5 0 0 1 4 17.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 9 H16 M8 12.5 H16 M8 16 H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
 <div class="ft" style="left: 94.04%; top: 62.5%; --i: 6; --t: 5.3s;"><div class="ft-i" style="background: var(--g-accent-soft-2);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 5 H20.5 V20.5 H3.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.5 10 H20.5 M8 3 V7 M16 3 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 15 L11.2 17 L15.2 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
 </div>
-<a href="#pilot" (click)="go($event)" class="plain rise" style="display: inline-flex; align-items: center; gap: 10px; min-height: 40px; box-sizing: border-box; padding: 0 18px 0 14px; background: var(--g-surface); border: 1px solid rgba(var(--g-ink-rgb), 0.1); border-radius: var(--g-radius-pill); font-size: 14.5px; font-weight: 500;">
-<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--g-accent);"></span>
-<span>Free formative pilots planned for December 2026</span>
-</a>
-<h1 class="rise rise-2" style="max-width: 1080px; font-size: clamp(40px, 5.8vw, 80px); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance;">Oral checks after every lab, at <span class="mark mark-in">no extra examiner time.</span></h1>
+<h1 class="title" style="max-width: 1080px; font-size: clamp(40px, 5.8vw, 80px); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance;"><span class="w" style="--i: 0;">Oral</span>&ngsp;<span class="w" style="--i: 1;">checks</span>&ngsp;<span class="w" style="--i: 2;">after</span>&ngsp;<span class="w" style="--i: 3;">every</span>&ngsp;<span class="w" style="--i: 4;">lab,</span>&ngsp;<span class="w" style="--i: 5;">at</span>&ngsp;<span class="mark mark-in"><span class="w" style="--i: 6;">no</span>&ngsp;<span class="w" style="--i: 7;">extra</span>&ngsp;<span class="w" style="--i: 8;">examiner</span>&ngsp;<span class="w" style="--i: 9;">time.</span></span></h1>
 <p class="rise rise-3" style="max-width: 680px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: var(--g-text-2); text-wrap: balance;">Grask is an AI examiner that conducts short oral checks and defences by voice call, following your rubric. You receive the recording, a transcript organised by criterion, and an evidence report. You do the grading.</p>
 <div class="rise rise-4" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding-top: 4px;">
 <a href="#pilot" (click)="go($event)" class="btn-dark" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 30px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-pill); font-size: 16.5px; font-weight: 600; text-decoration: none;">Apply for a pilot</a>
@@ -38,6 +34,7 @@
 <span>Watch a check run</span>
 </a>
 </div>
+<a href="#how" (click)="go($event)" class="cue rise rise-6" aria-label="See what an oral check looks like"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
 </section>
 
 <section id="how" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px);">
@@ -225,41 +222,26 @@
 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3 V7 M15 3 V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M6 7 H18 V11 C18 14.3 15.3 17 12 17 C8.7 17 6 14.3 6 11 Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M12 17 V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
 </span>
 <h2 style="max-width: 760px; font-size: clamp(32px, 3.9vw, 54px); line-height: 1.05; letter-spacing: -0.025em; text-wrap: balance;">Works with the LMS you already use</h2>
-<p style="max-width: 620px; font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.55; color: var(--g-text-2);">[One sentence on what the integration does today. For example: students start a check from the course page, and the evidence report links back to the assignment.]</p>
 
 <div class="orbit">
 <div class="orbit-tiles" aria-hidden="true">
 <div class="orbit-tile"><img src="/landings/grask-2/lms/moodle.svg" alt="" width="72" height="49"></div>
+<div class="orbit-tile"><img src="/landings/grask-2/lms/blackboard.svg" alt="" width="68" height="72"></div>
 <div class="orbit-tile"><img src="/landings/grask-2/lms/canvas.svg" alt="" width="60" height="60"></div>
-<div class="orbit-tile">Br</div>
-<div class="orbit-tile">Bb</div>
-<div class="orbit-tile">Il</div>
-<div class="orbit-tile">its</div>
+<div class="orbit-tile"><img src="/landings/grask-2/lms/brightspace.svg" alt="" width="72" height="34"></div>
 </div>
 <div class="orbit-labels">
 <div class="orbit-label">
 <span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Moodle</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
-</div>
-<div class="orbit-label">
-<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Canvas</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
-</div>
-<div class="orbit-label">
-<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Brightspace</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
 </div>
 <div class="orbit-label">
 <span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Blackboard</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
 </div>
 <div class="orbit-label">
-<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">ILIAS</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Canvas</span>
 </div>
 <div class="orbit-label">
-<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">itslearning</span>
-<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Brightspace</span>
 </div>
 </div>
 </div>

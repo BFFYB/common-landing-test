@@ -15,6 +15,22 @@
 .grask-2-lp .on-dark a:hover { color: var(--g-accent-soft-2); }
 .grask-2-lp .plain { text-decoration: none; }
 .grask-2-lp .plain:hover { text-decoration: underline; }
+/* Page scrollbar, while this landing is on screen (grask-2.ts puts .glp2-page on <html>): a slim rounded thumb in muted petrol on the
+   paper track, no rail. WebKit/Chromium via the pseudo-elements; Firefox via the standard properties (kept apart on purpose:
+   Chromium ignores the pseudo-elements once scrollbar-color is set). */
+html.glp2-page::-webkit-scrollbar { width: 12px; height: 12px; }
+html.glp2-page::-webkit-scrollbar-track { background: var(--g-bg); }
+html.glp2-page::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--g-accent) 32%, var(--g-bg)); background-clip: padding-box; border: 3px solid transparent; border-radius: 999px; }
+html.glp2-page::-webkit-scrollbar-thumb:hover, html.glp2-page::-webkit-scrollbar-thumb:active { background-color: color-mix(in srgb, var(--g-accent) 60%, var(--g-bg)); }
+html.glp2-page::-webkit-scrollbar-corner { background: var(--g-bg); }
+@supports not selector(::-webkit-scrollbar) {
+  html.glp2-page { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--g-accent) 32%, var(--g-bg)) var(--g-bg); }
+}
+.grask-2-lp .hero { position: relative; min-height: calc(100dvh - 78px); } /* the opening: one full screen (minus the header in flow) before the demo */
+.grask-2-lp .title .w { display: inline-block; }
+.grask-2-lp .cue { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; width: 44px; height: 44px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(var(--g-ink-rgb), .14); background: var(--g-surface); color: var(--g-text-2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color .2s ease, color .2s ease; }
+.grask-2-lp .cue:hover { border-color: var(--g-accent); color: var(--g-accent); }
+.grask-2-lp .cue svg { display: block; }
 .grask-2-lp .btn-dark, .grask-2-lp .btn-light { transition: transform .2s ease, background-color .2s ease, border-color .2s ease; }
 .grask-2-lp .btn-dark:hover { background: var(--g-accent-hover) !important; color: var(--g-on-accent) !important; transform: translateY(-1px); }
 .grask-2-lp .btn-light:hover { border-color: var(--g-accent) !important; color: var(--g-accent) !important; transform: translateY(-1px); }
@@ -47,16 +63,26 @@
   .grask-2-lp .pause-label { display: none !important; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .grask-2-lp .mark-in { animation: glp2-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) .85s both; }
+  .grask-2-lp .title .w { animation: glp2-word .6s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--i) * 80ms) both; } /* the last word lands at ~1.5s */
+  .grask-2-lp .mark-in { animation: glp2-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) 1.25s both; }
   .grask-2-lp .rise { animation: glp2-rise .9s cubic-bezier(.2, .7, .2, 1) both; }
-  .grask-2-lp .rise-2 { animation-delay: .08s; }
-  .grask-2-lp .rise-3 { animation-delay: .16s; }
-  .grask-2-lp .rise-4 { animation-delay: .24s; }
+  .grask-2-lp .rise-3 { animation-delay: 1s; }
+  .grask-2-lp .rise-4 { animation-delay: 1.15s; }
   .grask-2-lp .rise-5 { animation-delay: .36s; }
+  .grask-2-lp .rise-6 { animation-delay: 1.5s; }
+  .grask-2-lp .cue svg { animation: glp2-bob 2.4s ease-in-out 2.6s infinite; }
 }
 @keyframes glp2-mark-in {
   0% { background-size: 0% 56%; }
   100% { background-size: 100% 56%; }
+}
+@keyframes glp2-word {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes glp2-bob {
+  0%, 100% { transform: none; }
+  50% { transform: translateY(5px); }
 }
 @keyframes glp2-rise {
   0% { opacity: 0; transform: translateY(16px); filter: blur(6px); }
