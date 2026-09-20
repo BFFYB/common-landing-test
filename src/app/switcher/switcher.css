@@ -1,0 +1,99 @@
+.hud {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  font:
+    12px/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  color: #fff;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgb(18 18 22 / 0.9);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.btn,
+.name {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 999px;
+}
+.btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  text-decoration: none;
+}
+.name {
+  height: 28px;
+  padding: 0 10px;
+  font-weight: 600;
+}
+.name small {
+  margin-left: 6px;
+  font-weight: 400;
+  opacity: 0.55;
+}
+.btn:hover,
+.name:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.list {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  min-width: 260px;
+  max-height: 60vh;
+  overflow: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 12px;
+  background: rgb(18 18 22 / 0.95);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(10px);
+}
+.list a {
+  display: grid;
+  grid-template-columns: 1.5em 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+.list a:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.list a.active {
+  background: rgb(124 141 255 / 0.25);
+}
+.n {
+  opacity: 0.5;
+}
+.t {
+  font-weight: 600;
+}
+.s {
+  opacity: 0.5;
+}

@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+/* Tiny global reset only. Landing-specific styles live in the landing's own .css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}

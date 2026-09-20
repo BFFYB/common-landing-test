@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="grask">
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="#0E5A66"/>
+  <g fill="#FAFAF7">
+    <rect x="10.5" y="30" width="7" height="12" rx="3.5"/>
+    <rect x="20.0" y="23" width="7" height="26" rx="3.5"/>
+    <rect x="46.5" y="27" width="7" height="18" rx="3.5"/>
+  </g>
+  <path d="M30.5 20.5 A7 7 0 1 1 41 26 L38 28.2 V50" fill="none" stroke="#FAFAF7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

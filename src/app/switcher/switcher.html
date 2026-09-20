@@ -1,0 +1,30 @@
+@if (onLanding() && !hidden()) {
+  <div class="hud">
+    @if (open()) {
+      <ul class="list">
+        @for (l of landings; track l.slug; let i = $index) {
+          <li>
+            <a
+              [routerLink]="['/', l.slug]"
+              [class.active]="l.slug === slug()"
+              (click)="open.set(false)"
+            >
+              <span class="n">{{ i + 1 }}</span>
+              <span class="t">{{ l.title }}</span>
+              <span class="s">/{{ l.slug }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+    <div class="bar">
+      <a class="btn" routerLink="/" title="All landings">⌂</a>
+      <button class="btn" type="button" (click)="go(-1)" title="Previous  [">‹</button>
+      <button class="name" type="button" (click)="open.set(!open())">
+        {{ current()?.title }}
+        <small>{{ index() + 1 }}/{{ landings.length }}</small>
+      </button>
+      <button class="btn" type="button" (click)="go(1)" title="Next  ]">›</button>
+    </div>
+  </div>
+}

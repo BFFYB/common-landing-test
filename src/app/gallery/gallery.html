@@ -1,0 +1,36 @@
+<main class="wrap">
+  <header class="head">
+    <h1>Landings</h1>
+    <p class="meta">
+      {{ landings.length }} in the field · <code>npm run new -- my-slug "My Title"</code> to add one
+    </p>
+  </header>
+
+  @if (landings.length) {
+    <ul class="grid">
+      @for (l of landings; track l.slug; let i = $index) {
+        <li>
+          <a class="card" [routerLink]="['/', l.slug]">
+            <span class="idx">{{ i + 1 }}</span>
+            <span class="title">{{ l.title }}</span>
+            @if (l.description) {
+              <span class="desc">{{ l.description }}</span>
+            }
+            <span class="foot">
+              <code>/{{ l.slug }}</code>
+              <time [attr.datetime]="l.created">{{ l.created }}</time>
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="empty">Nothing here yet. Scaffold one with the command above.</p>
+  }
+
+  <footer class="keys">
+    <span><kbd>[</kbd> <kbd>]</kbd> prev / next landing</span>
+    <span><kbd>`</kbd> hide switcher</span>
+    <span><kbd>Esc</kbd> close list</span>
+  </footer>
+</main>

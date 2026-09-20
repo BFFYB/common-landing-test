@@ -1,0 +1,453 @@
+<div class="grask-lp" style="width: 100%; background: var(--g-bg); color: var(--g-text);">
+
+<header style="position: sticky; top: 14px; z-index: 30; box-sizing: border-box; padding: 14px clamp(12px, 3vw, 32px) 0;">
+<div class="glass" style="max-width: 1120px; margin: 0 auto; box-sizing: border-box; height: 64px; padding: 0 10px 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: rgba(255, 255, 255, 0.84); border: 1px solid rgba(var(--g-ink-rgb), 0.08); border-radius: var(--g-radius-pill);">
+<a href="#top" (click)="go($event)" class="plain" style="display: inline-flex; align-items: center;"><img src="/landings/grask/logo/grask-lockup.svg" alt="grask" width="107" height="30" style="display: block; height: 30px; width: auto;"></a>
+<nav class="nav-links" aria-label="Main" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+<a class="plain" href="#how" (click)="go($event)" style="padding: 12px 0;">How it works</a>
+<a class="plain" href="#lms" (click)="go($event)" style="padding: 12px 0;">Integrations</a>
+<a class="plain" href="#trust" (click)="go($event)" style="padding: 12px 0;">Students and data</a>
+<a class="plain" href="#pilot" (click)="go($event)" style="padding: 12px 0;">Pilot</a>
+<a class="plain" href="#faq" (click)="go($event)" style="padding: 12px 0;">Questions</a>
+</nav>
+<a href="#pilot" (click)="go($event)" class="btn-dark" style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-pill); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap;">Apply for a pilot</a>
+</div>
+</header>
+
+<section id="top" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: clamp(56px, 7vw, 104px) clamp(20px, 4vw, 40px) clamp(48px, 5vw, 72px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;">
+<div class="hero-float rise" aria-hidden="true">
+<svg class="hero-lines" viewBox="0 0 1040 160"><path d="M62 96 L229 32 L374 118 L520 64 L686 124 L832 40 L978 100" fill="none" stroke-width="1.5" vector-effect="non-scaling-stroke"></path><circle cx="145.5" cy="64" r="3"></circle><circle cx="301.5" cy="75" r="3"></circle><circle cx="447" cy="91" r="3"></circle><circle cx="603" cy="94" r="3"></circle><circle cx="759" cy="82" r="3"></circle><circle cx="905" cy="70" r="3"></circle></svg>
+<div class="ft" style="left: 5.96%; top: 60.0%; --i: 0; --t: 4.6s;"><div class="ft-i" style="background: var(--g-accent-soft);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12.5 a3.3 3.3 0 1 0 0-6.6 a3.3 3.3 0 0 0 0 6.6 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 20 C5.5 16.5 8.4 14.5 12 14.5 C15.6 14.5 18.5 16.5 18.5 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+<div class="ft" style="left: 22.02%; top: 20.0%; --i: 1; --t: 5.3s;"><div class="ft-i" style="background: var(--g-surface);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3 H14 L19 8 V21 H6 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 3 V8 H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 13 H16 M9 17 H14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+<div class="ft" style="left: 35.96%; top: 73.8%; --i: 2; --t: 6.0s;"><div class="ft-i" style="background: var(--g-accent-soft-2);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6.5 A3 3 0 0 1 15 6.5 V11 A3 3 0 0 1 9 11 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 11 C5.5 14.8 8.4 17.5 12 17.5 C15.6 17.5 18.5 14.8 18.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 17.5 V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+<div class="ft ft-c" style="left: 50.00%; top: 40.0%; --i: 3; --t: 4.9s;"><div class="ft-i"><img src="/landings/grask/logo/grask-mark-tile.svg" alt="" width="72" height="72" style="display: block; width: 100%; height: 100%;"></div></div>
+<div class="ft" style="left: 65.96%; top: 77.5%; --i: 4; --t: 5.6s;"><div class="ft-i" style="background: var(--g-accent-soft);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L21 5 V12 C21 17.5 17.2 21.2 12 23 C6.8 21.2 3 17.5 3 12 V5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+<div class="ft" style="left: 80.00%; top: 25.0%; --i: 5; --t: 4.6s;"><div class="ft-i" style="background: var(--g-surface);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6.5 A2.5 2.5 0 0 1 6.5 4 H17.5 A2.5 2.5 0 0 1 20 6.5 V17.5 A2.5 2.5 0 0 1 17.5 20 H6.5 A2.5 2.5 0 0 1 4 17.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 9 H16 M8 12.5 H16 M8 16 H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+<div class="ft" style="left: 94.04%; top: 62.5%; --i: 6; --t: 5.3s;"><div class="ft-i" style="background: var(--g-accent-soft-2);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 5 H20.5 V20.5 H3.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.5 10 H20.5 M8 3 V7 M16 3 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 15 L11.2 17 L15.2 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+</div>
+<a href="#pilot" (click)="go($event)" class="plain rise" style="display: inline-flex; align-items: center; gap: 10px; min-height: 40px; box-sizing: border-box; padding: 0 18px 0 14px; background: var(--g-surface); border: 1px solid rgba(var(--g-ink-rgb), 0.1); border-radius: var(--g-radius-pill); font-size: 14.5px; font-weight: 500;">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--g-accent);"></span>
+<span>Free formative pilots planned for December 2026</span>
+</a>
+<h1 class="rise rise-2" style="max-width: 1080px; font-size: clamp(40px, 5.8vw, 80px); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance;">Oral checks after every lab, at <span class="mark mark-in">no extra examiner time.</span></h1>
+<p class="rise rise-3" style="max-width: 680px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: var(--g-text-2); text-wrap: balance;">grask is an AI examiner that conducts short oral checks and defences by voice call, following your rubric. You receive the recording, a transcript organised by criterion, and an evidence report. You do the grading.</p>
+<div class="rise rise-4" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding-top: 4px;">
+<a href="#pilot" (click)="go($event)" class="btn-dark" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 30px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-pill); font-size: 16.5px; font-weight: 600; text-decoration: none;">Apply for a pilot</a>
+<a href="#how" (click)="go($event)" class="btn-light" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; box-sizing: border-box; padding: 0 28px; background: var(--g-surface); border: 1px solid rgba(var(--g-ink-rgb), 0.14); border-radius: var(--g-radius-pill); font-size: 16.5px; font-weight: 600; text-decoration: none;">
+<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.6 L12 7 L3 12.4 Z" fill="currentColor"></path></svg>
+<span>Watch a check run</span>
+</a>
+</div>
+</section>
+
+<section id="how" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px);">
+<div class="rise rise-5" style="position: relative; background: var(--g-accent-soft); border-radius: var(--g-radius-xl); padding: clamp(14px, 2.4vw, 32px); display: flex; flex-direction: column; gap: clamp(14px, 2vw, 24px);">
+<input type="checkbox" id="pause-demo" class="pause-box">
+<div class="plate-bar" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding: 4px 6px 0;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;">
+<h2 style="font-size: 26px; line-height: 1.1; letter-spacing: -0.02em;">What an oral check looks like</h2>
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.7); font-size: 13px; font-weight: 500; color: var(--g-text-2);">Scripted example, on a loop</span>
+</div>
+<label for="pause-demo" class="pause-label">
+<span class="p-on"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1" width="3" height="10" rx="1" fill="currentColor"></rect><rect x="7.5" y="1" width="3" height="10" rx="1" fill="currentColor"></rect></svg>Pause</span>
+<span class="p-off"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2 L10.5 6 L2.5 10.8 Z" fill="currentColor"></path></svg>Play</span>
+</label>
+</div>
+
+<div class="stage" style="display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px);">
+
+<div style="flex: 1 1 380px; min-width: 0; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), 0.04), 0 24px 48px -28px rgba(var(--g-ink-rgb), 0.22); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L21 5 V12 C21 17.5 17.2 21.2 12 23 C6.8 21.2 3 17.5 3 12 V5 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+<span style="font-size: 16px; font-weight: 600;">Your University</span>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); font-size: 13px; font-weight: 600; color: var(--g-accent);">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--g-accent);"></span>
+<span>Recording</span>
+</div>
+</div>
+<p style="font-size: 14.5px; font-weight: 500; color: var(--g-text-3);">Student’s view. Oral check for Lab 3, hash tables.</p>
+<div class="bars" aria-hidden="true">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="caps">
+<div class="cap cap-0">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 13px; font-weight: 600;">[Persona name], AI examiner</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;"><span class="say">“Hi, I’m [Persona name], an AI examiner working with Your University; this conversation is recorded and your instructor will review it.”</span></p>
+</div>
+<div class="cap cap-1">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 13px; font-weight: 600;">[Persona name], AI examiner</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;"><span class="say">“Your report shows lookups slowing once the table is about 70% full. Why does that happen with linear probing?”</span></p>
+</div>
+<div class="cap cap-2">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); font-size: 13px; font-weight: 600; color: var(--g-accent);">Student</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;"><span class="say">“Clustering. Occupied slots form long runs, so a new key has to walk to the end of a run, and then it makes that run longer.”</span></p>
+</div>
+<div class="cap cap-3">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 13px; font-weight: 600;">[Persona name], AI examiner</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;"><span class="say">“What would you change to keep lookups fast at that load?”</span></p>
+</div>
+<div class="cap cap-4">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); font-size: 13px; font-weight: 600; color: var(--g-accent);">Student</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;"><span class="say">“Resize earlier, or switch to double hashing so the probes spread out.”</span></p>
+</div>
+<div class="cap cap-5">
+<span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 13px; font-weight: 600;">Call ended</span>
+<p class="display" style="font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;">The recording, the transcript and the evidence report go to the instructor.</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--g-border);">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--g-text-2);"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.5" y="1.5" width="5" height="8.5" rx="2.5" stroke="currentColor" stroke-width="1.5"></rect><path d="M3 8 C3 10.8 5.2 12.6 8 12.6 C10.8 12.6 13 10.8 13 8 M8 12.6 V14.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg><span>Microphone on</span></span>
+<span style="display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: var(--g-radius-pill); border: 1px solid rgba(var(--g-ink-rgb), 0.14); font-size: 14px; font-weight: 600;">End call</span>
+</div>
+</div>
+
+<div style="flex: 1.25 1 440px; min-width: 0; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), 0.04), 0 24px 48px -28px rgba(var(--g-ink-rgb), 0.22); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-bottom: 18px; border-bottom: 1px solid var(--g-border);">
+<span class="display" style="font-size: 24px; line-height: 1.1; letter-spacing: -0.02em;">Evidence report</span>
+<span style="font-size: 14.5px; font-weight: 500; color: var(--g-text-3);">Instructor’s view. Lab 3, hash tables.</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 100px; box-sizing: border-box;">
+<span style="flex: 0 0 160px; font-size: 14.5px; font-weight: 600; line-height: 1.35;">Explains the measured result</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-1" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p style="font-size: 16.5px; line-height: 1.55;"><span class="hl">“Occupied slots form long runs, so a new key has to walk to the end of a run”</span></p>
+<span style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 12.5px; font-weight: 600; color: var(--g-text-2); font-variant-numeric: tabular-nums;"><span>Student</span><span>01:12</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 92px; box-sizing: border-box;">
+<span style="flex: 0 0 160px; font-size: 14.5px; font-weight: 600; line-height: 1.35;">Understands the mechanism</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-2" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p style="font-size: 16.5px; line-height: 1.55;"><span class="hl">“and then it makes that run longer”</span></p>
+<span style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 12.5px; font-weight: 600; color: var(--g-text-2); font-variant-numeric: tabular-nums;"><span>Student</span><span>01:19</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 100px; box-sizing: border-box;">
+<span style="flex: 0 0 160px; font-size: 14.5px; font-weight: 600; line-height: 1.35;">Reasons about alternatives</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-3" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p style="font-size: 16.5px; line-height: 1.55;"><span class="hl">“Resize earlier, or switch to double hashing so the probes spread out.”</span></p>
+<span style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); font-size: 12.5px; font-weight: 600; color: var(--g-text-2); font-variant-numeric: tabular-nums;"><span>Student</span><span>02:03</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 24px; padding-top: 20px;">
+<span style="flex: 0 0 160px; font-size: 14.5px; font-weight: 600; line-height: 1.35; padding-top: 15px;">Grade</span>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<div class="grade-box" style="height: 48px; box-sizing: border-box; border: 1px dashed var(--g-border-input); border-radius: var(--g-radius-md); background: var(--g-surface); display: flex; align-items: center; padding: 0 16px; font-size: 15px; font-weight: 500; color: var(--g-text-2);">Entered by you</div>
+<span style="font-size: 13px; font-weight: 500; color: var(--g-text-3);">grask does not score or grade.</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<ol style="list-style: none; margin: clamp(14px, 2vw, 24px) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px);">
+<li class="lift" data-reveal data-delay="1" style="flex: 1 1 230px; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="width: 34px; height: 34px; border-radius: 50%; background: var(--g-accent); color: var(--g-on-accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">1</span>
+<h3 style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; padding-top: 6px;">You set the rubric</h3>
+<p style="font-size: 16px; line-height: 1.55; color: var(--g-text-2);">grask runs the conversation against your rubric.</p>
+</li>
+<li class="lift" data-reveal data-delay="2" style="flex: 1 1 230px; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="width: 34px; height: 34px; border-radius: 50%; background: var(--g-accent); color: var(--g-on-accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">2</span>
+<h3 style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; padding-top: 6px;">The student takes a voice call</h3>
+<p style="font-size: 16px; line-height: 1.55; color: var(--g-text-2);">Every session opens with the same disclosure: an AI examiner, a recording, and an instructor who will review it.</p>
+</li>
+<li class="lift" data-reveal data-delay="3" style="flex: 1 1 230px; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="width: 34px; height: 34px; border-radius: 50%; background: var(--g-accent); color: var(--g-on-accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">3</span>
+<h3 style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; padding-top: 6px;">You receive the evidence</h3>
+<p style="font-size: 16px; line-height: 1.55; color: var(--g-text-2);">A recording, a transcript organised by rubric criterion, and an evidence report.</p>
+</li>
+<li class="lift" data-reveal data-delay="4" style="flex: 1 1 230px; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="width: 34px; height: 34px; border-radius: 50%; background: var(--g-accent); color: var(--g-on-accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">4</span>
+<h3 style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; padding-top: 6px;">You grade</h3>
+<p style="font-size: 16px; line-height: 1.55; color: var(--g-text-2);">Reviewing and grading stay with you. “No extra examiner time” refers to conducting the conversations.</p>
+</li>
+</ol>
+</section>
+
+<section id="why" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(20px, 4vw, 40px) clamp(64px, 8vw, 112px); display: flex; flex-direction: column; align-items: center; text-align: center;">
+<p class="display" data-reveal style="max-width: 980px; font-size: clamp(26px, 3vw, 40px); font-weight: 500; line-height: 1.22; letter-spacing: -0.02em; text-wrap: balance;">Generative AI has made written work an unreliable measure of what a student understands. <span style="color: var(--g-text-3);">Oral formats still hold up, but instructors and TAs spend tens of hours per course per term running them, so they are rationed or skipped.</span></p>
+</section>
+
+<section id="where" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px); display: flex; flex-direction: column; gap: clamp(32px, 4vw, 52px);">
+<div data-reveal style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 0 8px;">
+<h2 style="font-size: clamp(32px, 3.9vw, 54px); line-height: 1.05; letter-spacing: -0.025em;">Where it fits first</h2>
+<p style="max-width: 640px; font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.55; color: var(--g-text-2);">If you already run oral exams, grask adds the frequent, low-stakes checks in between, at no extra examiner time.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px);">
+<div class="lift drift" data-reveal data-delay="1" style="--dy: 22px; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent-soft); border-radius: var(--g-radius-xl); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
+<span style="width: 56px; height: 56px; border-radius: var(--g-radius-lg); background: var(--g-surface); display: flex; align-items: center; justify-content: center;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3 H14 L19 8 V21 H6 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="M14 3 V8 H19" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="M9 13 H16 M9 17 H14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+</span>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 class="display" style="font-size: 26px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;">After each lab report</h3>
+<p style="font-size: 16.5px; line-height: 1.55; color: var(--g-text-2);">A short conversation about the report the student has just handed in.</p>
+</div>
+</div>
+<div class="lift drift" data-reveal data-delay="2" style="--dy: -14px; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent-soft-2); border-radius: var(--g-radius-xl); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
+<span style="width: 56px; height: 56px; border-radius: var(--g-radius-lg); background: var(--g-surface); display: flex; align-items: center; justify-content: center;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2" stroke="currentColor" stroke-width="1.6"></circle><path d="M3 19.5 C3 16 5.7 14 9 14 C12.3 14 15 16 15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="17" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.6"></circle><path d="M17.5 14.2 C19.8 14.6 21 16.3 21 18.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+</span>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 class="display" style="font-size: 26px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;">Per team member</h3>
+<p style="font-size: 16.5px; line-height: 1.55; color: var(--g-text-2);">Each member of a project team explains their own part of the work.</p>
+</div>
+</div>
+<div class="lift drift" data-reveal data-delay="3" style="--dy: 34px; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-xl); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
+<span style="width: 56px; height: 56px; border-radius: var(--g-radius-lg); background: var(--g-surface); color: var(--g-accent); display: flex; align-items: center; justify-content: center;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3" stroke="currentColor" stroke-width="1.6"></rect><path d="M3.5 10 H20.5 M8 3 V7 M16 3 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><path d="M9 15 L11.2 17 L15.2 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</span>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 class="display" style="font-size: 26px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;">Mid-term</h3>
+<p style="font-size: 16.5px; line-height: 1.55; color: var(--g-on-accent-2);">A low-stakes check of where each student stands, while there is still time to act on it.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="lms" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px);">
+<div data-reveal style="position: relative; overflow: hidden; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: clamp(40px, 5vw, 72px) clamp(18px, 3vw, 48px) clamp(16px, 2vw, 28px); display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;">
+<input type="checkbox" id="pause-lms" class="pause-box">
+<span style="width: 60px; height: 60px; border-radius: var(--g-radius-lg); background: var(--g-surface); color: var(--g-accent); border: 1px solid rgba(var(--g-ink-rgb), 0.08); box-shadow: 0 10px 24px -12px rgba(var(--g-ink-rgb), 0.3); display: flex; align-items: center; justify-content: center;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3 V7 M15 3 V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M6 7 H18 V11 C18 14.3 15.3 17 12 17 C8.7 17 6 14.3 6 11 Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M12 17 V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+</span>
+<h2 style="max-width: 760px; font-size: clamp(32px, 3.9vw, 54px); line-height: 1.05; letter-spacing: -0.025em; text-wrap: balance;">Works with the LMS you already use</h2>
+<p style="max-width: 620px; font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.55; color: var(--g-text-2);">[One sentence on what the integration does today. For example: students start a check from the course page, and the evidence report links back to the assignment.]</p>
+
+<div class="orbit">
+<div class="orbit-tiles" aria-hidden="true">
+<div class="orbit-tile">Mo</div>
+<div class="orbit-tile">Ca</div>
+<div class="orbit-tile">Br</div>
+<div class="orbit-tile">Bb</div>
+<div class="orbit-tile">Il</div>
+<div class="orbit-tile">its</div>
+</div>
+<div class="orbit-labels">
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Moodle</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Canvas</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Brightspace</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Blackboard</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">ILIAS</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+<div class="orbit-label">
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">itslearning</span>
+<span style="font-size: 15.5px; color: var(--g-text-3);">[Available, in pilot or planned]</span>
+</div>
+</div>
+</div>
+
+<div class="plate-bar" style="width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; text-align: left;">
+<p style="font-size: 15px; font-weight: 500; color: var(--g-text-3); padding-left: 8px;">Using a different LMS? Tell us when you apply.</p>
+<label for="pause-lms" class="pause-label">
+<span class="p-on"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1" width="3" height="10" rx="1" fill="currentColor"></rect><rect x="7.5" y="1" width="3" height="10" rx="1" fill="currentColor"></rect></svg>Pause</span>
+<span class="p-off"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2 L10.5 6 L2.5 10.8 Z" fill="currentColor"></path></svg>Play</span>
+</label>
+</div>
+</div>
+</section>
+
+<section id="trust" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px);">
+<div class="on-dark" data-reveal style="background: var(--g-ink); color: var(--g-on-accent); border-radius: var(--g-radius-xl); padding: clamp(32px, 5vw, 80px); display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px);">
+<div style="display: flex; flex-wrap: wrap; gap: 48px 72px;">
+<div style="flex: 1.15 1 420px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;">
+<span style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); font-size: 14px; font-weight: 500; color: var(--g-on-accent);">What every student hears first</span>
+<blockquote class="display" style="font-size: clamp(24px, 2.6vw, 36px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: pretty;">“Hi, I’m [Persona name], an AI examiner working with [University]; this conversation is recorded and your instructor will review it.”</blockquote>
+<p style="max-width: 520px; font-size: 16.5px; line-height: 1.6; color: var(--g-on-accent-2);">Every session opens with this sentence. The student view carries the university’s logo; the examiner’s name appears only in the voice and the transcript header.</p>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;">
+<span style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); font-size: 14px; font-weight: 500; color: var(--g-on-accent);">What grask does not do</span>
+<ul style="align-self: stretch; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+<li data-reveal data-delay="1" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-lg); background: rgba(255, 255, 255, 0.06);">
+<span class="display" style="flex: 0 0 auto; font-size: 24px; font-weight: 800; line-height: 1; color: var(--g-accent-soft-2);">No</span>
+<span style="font-size: 18px; font-weight: 500; line-height: 1.3;">surveillance or proctoring</span>
+</li>
+<li data-reveal data-delay="2" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-lg); background: rgba(255, 255, 255, 0.06);">
+<span class="display" style="flex: 0 0 auto; font-size: 24px; font-weight: 800; line-height: 1; color: var(--g-accent-soft-2);">No</span>
+<span style="font-size: 18px; font-weight: 500; line-height: 1.3;">emotion or stress inference</span>
+</li>
+<li data-reveal data-delay="3" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-lg); background: rgba(255, 255, 255, 0.06);">
+<span class="display" style="flex: 0 0 auto; font-size: 24px; font-weight: 800; line-height: 1; color: var(--g-accent-soft-2);">No</span>
+<span style="font-size: 18px; font-weight: 500; line-height: 1.3;">voice biometrics</span>
+</li>
+<li data-reveal data-delay="4" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-lg); background: rgba(255, 255, 255, 0.06);">
+<span class="display" style="flex: 0 0 auto; font-size: 24px; font-weight: 800; line-height: 1; color: var(--g-accent-soft-2);">No</span>
+<span style="font-size: 18px; font-weight: 500; line-height: 1.3;">scores, grades or verdicts from the AI</span>
+</li>
+</ul>
+<p style="font-size: 16.5px; line-height: 1.6; color: var(--g-on-accent-2);">A human grades. The AI produces evidence, not verdicts.</p>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid rgba(255, 255, 255, 0.14);">
+<p style="flex: 1 1 380px; min-width: 0; max-width: 560px; font-size: 17px; line-height: 1.55; color: var(--g-on-accent);">Built EU-first, with GDPR and the EU AI Act in view from the start. The facts your data-protection officer and IT office will ask for:</p>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px; font-size: 14.5px; font-weight: 500;">
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Hosting region]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Sub-processors]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Retention period]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Data-processing agreement]</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="pilot" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px); display: flex; flex-wrap: wrap; align-items: center; gap: 40px 72px;">
+<div data-reveal style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; padding: 0 8px;">
+<h2 style="font-size: clamp(34px, 4.2vw, 58px); line-height: 1.04; letter-spacing: -0.025em; text-wrap: balance;">Apply for a free formative pilot</h2>
+<p style="max-width: 520px; font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.55; color: var(--g-text-2);">Pilots are planned for December 2026. They suit instructors who already run oral exams and teach in English.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 14.5px; font-weight: 500; color: var(--g-text-2);">
+<span style="border: 1px dashed var(--g-text-3); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Pilot scope: courses, students, weeks]</span>
+<span style="border: 1px dashed var(--g-text-3); border-radius: var(--g-radius-pill); padding: 9px 16px;">[What we ask in return]</span>
+</div>
+<p style="max-width: 520px; font-size: 16px; line-height: 1.55; color: var(--g-text-3);">Department head, teaching-and-learning centre or learning platform? Write to [email address].</p>
+</div>
+
+<div data-reveal data-delay="2" style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), 0.04), 0 32px 64px -40px rgba(var(--g-ink-rgb), 0.35); padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="f-name" style="font-size: 14.5px; font-weight: 600;">Name</label>
+<input id="f-name" type="text" style="width: 100%; height: 52px; box-sizing: border-box; border: 1px solid var(--g-border-input); border-radius: var(--g-radius-md); padding: 0 16px; font-size: 16px; color: var(--g-text); background: var(--g-surface);">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="f-email" style="font-size: 14.5px; font-weight: 600;">University email</label>
+<input id="f-email" type="email" placeholder="name&#64;university.eu" style="width: 100%; height: 52px; box-sizing: border-box; border: 1px solid var(--g-border-input); border-radius: var(--g-radius-md); padding: 0 16px; font-size: 16px; color: var(--g-text); background: var(--g-surface);">
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px;">
+<div style="flex: 2 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<label for="f-course" style="font-size: 14.5px; font-weight: 600;">Course</label>
+<input id="f-course" type="text" style="width: 100%; height: 52px; box-sizing: border-box; border: 1px solid var(--g-border-input); border-radius: var(--g-radius-md); padding: 0 16px; font-size: 16px; color: var(--g-text); background: var(--g-surface);">
+</div>
+<div style="flex: 1 1 140px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<label for="f-students" style="font-size: 14.5px; font-weight: 600;">Students, roughly</label>
+<input id="f-students" type="text" style="width: 100%; height: 52px; box-sizing: border-box; border: 1px solid var(--g-border-input); border-radius: var(--g-radius-md); padding: 0 16px; font-size: 16px; color: var(--g-text); background: var(--g-surface);">
+</div>
+</div>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 4px;">
+<legend style="padding: 0; font-size: 14.5px; font-weight: 600;">Do you run oral exams today?</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 28px;">
+<label for="orals-yes" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; font-weight: 500;"><input type="radio" name="orals" id="orals-yes" style="width: 20px; height: 20px; margin: 0; accent-color: var(--g-accent);">Yes</label>
+<label for="orals-no" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; font-weight: 500;"><input type="radio" name="orals" id="orals-no" style="width: 20px; height: 20px; margin: 0; accent-color: var(--g-accent);">No, because of the hours</label>
+<label for="orals-never" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; font-weight: 500;"><input type="radio" name="orals" id="orals-never" style="width: 20px; height: 20px; margin: 0; accent-color: var(--g-accent);">No</label>
+</div>
+</fieldset>
+<button type="button" class="btn-dark" style="height: 56px; border: none; border-radius: var(--g-radius-pill); background: var(--g-accent); color: var(--g-on-accent); font-size: 16.5px; font-weight: 600; cursor: pointer;">Apply for a pilot</button>
+</div>
+</section>
+
+<section id="about" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px);">
+<div class="lift" data-reveal style="max-width: 920px; margin: 0 auto; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: clamp(24px, 3.4vw, 48px); display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 36px;">
+<div style="flex: 0 0 112px; height: 112px; box-sizing: border-box; border-radius: 50%; border: 1px dashed var(--g-text-3); background: var(--g-bg); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500; color: var(--g-text-3);">[Photo]</div>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 14.5px; font-weight: 500; color: var(--g-text-3);">Who is behind grask</span>
+<h3 class="display" style="font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;">[Founder name]</h3>
+<p style="font-size: 17px; line-height: 1.6; color: var(--g-text-2);">[Two lines: computer science background, based in the EU, why you are building grask.]</p>
+<p style="font-size: 17px; line-height: 1.6; color: var(--g-text-2);">grask is an early-stage company. The prototype works, and the first pilots are planned for December 2026. The name reads grasp + ask.</p>
+<p style="font-size: 15px; font-weight: 500; color: var(--g-text-3);">[Direct email], [LinkedIn]</p>
+</div>
+</div>
+</section>
+
+<section id="faq" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px); display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 3.4vw, 44px);">
+<h2 data-reveal style="font-size: clamp(32px, 3.9vw, 54px); line-height: 1.05; letter-spacing: -0.025em; text-align: center;">Questions</h2>
+<div style="width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 10px;">
+<details data-reveal data-delay="1" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>Does the AI grade?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">No. grask conducts the conversation and organises what was said by rubric criterion. You review the evidence and you grade. The AI produces evidence, not verdicts.</p>
+</details>
+<details data-reveal data-delay="2" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>How much of my time does it take?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">Conducting the conversations takes none of your time. Reviewing the evidence and grading does, and that part stays with you.</p>
+</details>
+<details data-reveal data-delay="3" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>Is this a proctoring tool?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">No. grask does not monitor students, infer emotion or stress, or use voice biometrics. It holds a conversation with a student about their own work.</p>
+</details>
+<details data-reveal data-delay="4" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>Which languages does it work in?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">English today. German, Dutch, French, Italian, Spanish and Polish are planned.</p>
+</details>
+<details data-reveal data-delay="5" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>Do I need approval from my study board?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">Formative checks carry no grade, so they usually sit within the instructor’s own remit. Your institution’s rules decide.</p>
+</details>
+<details data-reveal data-delay="6" style="background: var(--g-surface); border-radius: var(--g-radius-lg); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0; font-size: clamp(17.5px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;"><span>What does a pilot cost?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p style="max-width: 720px; padding-bottom: 26px; font-size: 16.5px; line-height: 1.65; color: var(--g-text-2);">The formative pilots planned for December 2026 are free.</p>
+</details>
+</div>
+</section>
+
+<section id="sandbox" style="scroll-margin-top: 96px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(56px, 7vw, 96px);">
+<div data-reveal style="background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-xl); padding: clamp(48px, 7vw, 104px) clamp(20px, 4vw, 56px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px;">
+<h2 style="max-width: 880px; font-size: clamp(36px, 4.8vw, 68px); line-height: 1.02; letter-spacing: -0.025em; text-wrap: balance;">Run a check yourself in the sandbox.</h2>
+<p style="max-width: 560px; font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.55; color: var(--g-on-accent-2);">It opens after you sign in with your university email address.</p>
+<a href="https://grask.eu" target="_blank" rel="noopener" class="btn-on-accent" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 60px; padding: 0 34px; margin-top: 6px; background: var(--g-surface); color: var(--g-accent); border-radius: var(--g-radius-pill); font-size: 17px; font-weight: 600; text-decoration: none; white-space: nowrap;">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="2" stroke="currentColor" stroke-width="1.6"></rect><path d="M5 7 V4.8 C5 3.1 6.3 1.8 8 1.8 C9.7 1.8 11 3.1 11 4.8 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+<span>Open the sandbox</span>
+</a>
+</div>
+</section>
+
+<footer class="footer-wrap" style="box-sizing: border-box;">
+<div data-reveal style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(20px, 4vw, 48px) clamp(28px, 3vw, 40px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 36px 64px;">
+<div style="flex: 1 1 280px; max-width: 380px; display: flex; flex-direction: column; gap: 12px;">
+<img src="/landings/grask/logo/grask-lockup.svg" alt="grask" width="100" height="28" style="display: block; height: 28px; width: auto;">
+<p style="font-size: 16px; line-height: 1.55; color: var(--g-text-2);">An AI examiner for oral checks and defences. A human grades.</p>
+</div>
+<nav aria-label="Product" style="display: flex; flex-direction: column; font-size: 15px; font-weight: 500;">
+<span style="font-size: 13.5px; font-weight: 600; color: var(--g-text-3); padding-bottom: 6px;">Product</span>
+<a class="plain" href="#how" (click)="go($event)" style="padding: 10px 0;">How it works</a>
+<a class="plain" href="#lms" (click)="go($event)" style="padding: 10px 0;">Integrations</a>
+<a class="plain" href="#pilot" (click)="go($event)" style="padding: 10px 0;">Pilot</a>
+<a class="plain" href="#sandbox" (click)="go($event)" style="padding: 10px 0;">Sandbox</a>
+</nav>
+<nav aria-label="Company" style="display: flex; flex-direction: column; font-size: 15px; font-weight: 500;">
+<span style="font-size: 13.5px; font-weight: 600; color: var(--g-text-3); padding-bottom: 6px;">Company</span>
+<a class="plain" href="#about" (click)="go($event)" style="padding: 10px 0;">Who is behind grask</a>
+<a class="plain" href="#faq" (click)="go($event)" style="padding: 10px 0;">Questions</a>
+<span style="padding: 10px 0; color: var(--g-text-3);">[Contact email]</span>
+</nav>
+<nav aria-label="Legal" style="display: flex; flex-direction: column; font-size: 15px; font-weight: 500;">
+<span style="font-size: 13.5px; font-weight: 600; color: var(--g-text-3); padding-bottom: 6px;">Legal</span>
+<a class="plain" href="#top" (click)="go($event)" style="padding: 10px 0;">Privacy policy</a>
+<a class="plain" href="#top" (click)="go($event)" style="padding: 10px 0;">Imprint</a>
+<span style="padding: 10px 0; color: var(--g-text-3);">[Legal entity and address]</span>
+</nav>
+</div>
+<div style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 18px clamp(20px, 4vw, 48px) 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; border-top: 1px solid rgba(var(--g-ink-rgb), 0.1); font-size: 14px; font-weight: 500; color: var(--g-text-3);">
+<span>© 2026 [Legal entity]</span>
+<span>grasp + ask</span>
+<span>grask.eu</span>
+</div>
+<div aria-hidden="true" style="overflow: hidden; text-align: center; padding-top: clamp(8px, 2vw, 24px);">
+<img class="giant" data-reveal="mask" src="/landings/grask/logo/grask-wordmark.svg" alt="" style="display: block; width: 86%; max-width: 1100px; height: auto; margin: 0 auto;">
+</div>
+</footer>
+
+</div>

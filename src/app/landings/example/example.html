@@ -1,0 +1,38 @@
+<header class="nav">
+  <span class="logo">acme<span class="dot">.</span></span>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a class="btn btn-ghost" href="#cta">Sign in</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">Now in public beta</p>
+  <h1>Ship landing pages<br />before the coffee cools.</h1>
+  <p class="lede">
+    A playground scaffold: one folder per landing, scoped styles, lazy routes, and a switcher to
+    flip between variants. Replace every word on this page.
+  </p>
+  <div class="actions">
+    <a class="btn btn-primary" href="#cta">Get started</a>
+    <a class="btn btn-ghost" href="#features">See how it works →</a>
+  </div>
+</section>
+
+<section class="features" id="features">
+  @for (f of features; track f.title) {
+    <article>
+      <span class="icon">{{ f.icon }}</span>
+      <h3>{{ f.title }}</h3>
+      <p>{{ f.body }}</p>
+    </article>
+  }
+</section>
+
+<section class="cta" id="cta">
+  <h2>Start with a blank one.</h2>
+  <p><code>npm run new -- my-idea "My Idea"</code></p>
+</section>
+
+<footer class="foot">© {{ year }} Acme · This is a test landing</footer>
