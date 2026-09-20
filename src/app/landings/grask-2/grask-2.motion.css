@@ -1,0 +1,84 @@
+/* Grask landing page: page motion (added 2026-09-20, modelled on a scroll-through reference).
+   - Scroll reveals: elements marked data-reveal fade/rise in once they enter the viewport.
+     The component adds .glp2-js to the root and .is-in per element; without JS nothing is hidden.
+     Stagger with data-delay="1".."6". data-reveal="mask" rises out of an overflow:hidden parent.
+   - Hero float: icon tiles that pop in, then drift; thin connector lines behind them.
+   - Parallax: .drift cards move at their own --dy while their section scrolls through (scroll-driven, progressive).
+   - Hover lift: .lift cards scale up slightly with a deeper shadow.
+   - Nav pill picks up a shadow after the first 140px of scroll (scroll-driven, progressive).
+   Property ownership so nothing fights: reveal -> transform, drift -> translate, lift -> scale.
+   Every keyframe is prefixed glp2-, every selector is scoped under .grask-2-lp. All motion is off under prefers-reduced-motion. */
+
+/* ---- Scroll reveals ----
+   Hidden state has no transition, so dropping .is-in (element scrolled back out below the viewport) snaps it
+   back instantly and the next entrance plays in full. The entrance transition lives on .is-in only. */
+@media (prefers-reduced-motion: no-preference) {
+  .grask-2-lp.glp2-js [data-reveal] { opacity: 0; transform: translateY(28px); filter: blur(5px); transition: none; }
+  .grask-2-lp.glp2-js [data-reveal="mask"] { opacity: 1; filter: none; transform: translateY(55%); }
+  .grask-2-lp.glp2-js [data-reveal].is-in { opacity: 1; transform: none; filter: none; transition-property: opacity, transform, filter, scale, box-shadow; transition-duration: .9s, .9s, .9s, .35s, .35s; transition-timing-function: cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), ease; transition-delay: var(--d, 0s), var(--d, 0s), var(--d, 0s), 0s, 0s; }
+  .grask-2-lp.glp2-js [data-reveal="mask"].is-in { transition-duration: 1.3s, 1.3s, 1.3s, .35s, .35s; }
+  .grask-2-lp.glp2-js [data-delay="1"] { --d: .08s; }
+  .grask-2-lp.glp2-js [data-delay="2"] { --d: .16s; }
+  .grask-2-lp.glp2-js [data-delay="3"] { --d: .24s; }
+  .grask-2-lp.glp2-js [data-delay="4"] { --d: .32s; }
+  .grask-2-lp.glp2-js [data-delay="5"] { --d: .40s; }
+  .grask-2-lp.glp2-js [data-delay="6"] { --d: .48s; }
+}
+
+/* ---- Hero float: tiles + connector lines ---- */
+.grask-2-lp .hero-float { position: relative; width: min(1040px, 100%); aspect-ratio: 1040 / 160; margin-bottom: -6px; }
+.grask-2-lp .hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.grask-2-lp .hero-lines path { stroke: rgba(var(--g-ink-rgb), .16); }
+.grask-2-lp .hero-lines circle { fill: var(--g-accent); }
+.grask-2-lp .ft { position: absolute; width: 56px; height: 56px; translate: -50% -50%; }
+.grask-2-lp .ft-c { width: 72px; height: 72px; }
+.grask-2-lp .ft-i { width: 100%; height: 100%; box-sizing: border-box; border-radius: var(--g-radius-lg); border: 1px solid rgba(var(--g-ink-rgb), .06); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), .04), 0 14px 28px -14px rgba(var(--g-ink-rgb), .35); display: flex; align-items: center; justify-content: center; }
+.grask-2-lp .ft-c .ft-i { border: 0; border-radius: 0; background: none; box-shadow: none; } /* the brand mark tile: no shadow, no extra shape */
+@media (max-width: 719px) {
+  .grask-2-lp .hero-float { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .grask-2-lp .hero-lines { animation: glp2-fade 1.2s ease .5s both; }
+  .grask-2-lp .hero-lines circle { animation: glp2-pulse 2.8s ease-in-out infinite; }
+  .grask-2-lp .hero-lines circle:nth-child(2n) { animation-delay: -.9s; }
+  .grask-2-lp .hero-lines circle:nth-child(3n) { animation-delay: -1.8s; }
+  .grask-2-lp .ft { animation: glp2-pop .8s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(.3s + var(--i, 0) * .07s); }
+  .grask-2-lp .ft-i { animation: glp2-float var(--t, 5s) ease-in-out calc(var(--i, 0) * -1.3s) infinite alternate; }
+}
+@keyframes glp2-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes glp2-pulse {
+  0%, 100% { opacity: .55; r: 3; }
+  50% { opacity: 1; r: 4.5; }
+}
+@keyframes glp2-pop {
+  0% { opacity: 0; transform: scale(.55); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes glp2-float {
+  0% { transform: translateY(-5px) rotate(-1.2deg); }
+  100% { transform: translateY(5px) rotate(1.2deg); }
+}
+
+/* ---- Hover lift ---- */
+.grask-2-lp .lift { transition: scale .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .grask-2-lp .lift:hover { scale: 1.02; box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), .04), 0 28px 48px -28px rgba(var(--g-ink-rgb), .4); }
+}
+
+/* ---- Scroll-driven extras (browsers without animation-timeline simply skip them) ---- */
+@supports (animation-timeline: scroll()) {
+  .grask-2-lp header .glass { animation: glp2-nav linear both; animation-timeline: scroll(root); animation-range: 0 140px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .grask-2-lp .drift { animation: glp2-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes glp2-nav {
+  100% { background: rgba(255, 255, 255, .94); border-color: rgba(var(--g-ink-rgb), .12); box-shadow: 0 14px 34px -18px rgba(var(--g-ink-rgb), .32); }
+}
+@keyframes glp2-drift {
+  0% { translate: 0 var(--dy, 0px); }
+  100% { translate: 0 calc(var(--dy, 0px) * -1); }
+}

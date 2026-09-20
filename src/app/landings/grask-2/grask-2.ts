@@ -9,32 +9,32 @@ import {
 } from '@angular/core';
 
 /**
- * Grask landing page — imported from a design-canvas export (2026-09-20). See README.md here.
+ * Grask 2: a copy of the grask landing with the brand name capitalised. See README.md here.
  *
  * Static markup and CSS: the demo timeline, LMS orbit and hero float are pure CSS. The runtime
  * pieces are an IntersectionObserver that marks [data-reveal] elements as they scroll in (see
  * grask.motion.css) and the SVG lens filter behind the header pill (see grask.glass.css). Styles
- * are global on purpose (ViewEncapsulation.None) but every selector is scoped under .grask-lp and
- * every keyframe is prefixed glp-, so nothing leaks.
+ * are global on purpose (ViewEncapsulation.None) but every selector is scoped under .grask-2-lp and
+ * every keyframe is prefixed glp2-, so nothing leaks.
  */
 @Component({
-  selector: 'landing-grask',
-  templateUrl: './grask.html',
+  selector: 'landing-grask-2',
+  templateUrl: './grask-2.html',
   styleUrls: [
-    './grask.tokens.css',
-    './grask.fonts.css',
-    './grask.css',
-    './grask.demo.css',
-    './grask.demo-timeline.css',
-    './grask.orbit.css',
-    './grask.motion.css',
-    './grask.glass.css',
+    './grask-2.tokens.css',
+    './grask-2.fonts.css',
+    './grask-2.css',
+    './grask-2.demo.css',
+    './grask-2.demo-timeline.css',
+    './grask-2.orbit.css',
+    './grask-2.motion.css',
+    './grask-2.glass.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
 })
-export class Grask {
+export class Grask2 {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -59,7 +59,7 @@ export class Grask {
   }
 
   /**
-   * Scroll reveals. Adds .glp-js to the root (which is what lets the CSS hide [data-reveal]
+   * Scroll reveals. Adds .glp2-js to the root (which is what lets the CSS hide [data-reveal]
    * elements at all) and toggles .is-in per element:
    *   - in view (≥12% or ≥120px of it)          → .is-in, entrance plays
    *   - scrolled back out below the viewport     → .is-in removed (snaps hidden), so scrolling
@@ -71,7 +71,7 @@ export class Grask {
    */
   private setupReveals(): void {
     const mirror = false;
-    const root = this.host.nativeElement.querySelector<HTMLElement>('.grask-lp');
+    const root = this.host.nativeElement.querySelector<HTMLElement>('.grask-2-lp');
     if (
       !root ||
       typeof IntersectionObserver === 'undefined' ||
@@ -113,7 +113,7 @@ export class Grask {
       { rootMargin: '0px 0px -8% 0px', threshold: [0, 0.12] },
     );
     const targets = root.querySelectorAll('[data-reveal]');
-    root.classList.add('glp-js');
+    root.classList.add('glp2-js');
     targets.forEach((el) => io.observe(el));
     this.destroyRef.onDestroy(() => io.disconnect());
   }
@@ -128,17 +128,17 @@ export class Grask {
    * them, so there (and without JS) the pill keeps the plain blur in grask.glass.css.
    */
   private setupLiquidGlass(): void {
-    const root = this.host.nativeElement.querySelector<HTMLElement>('.grask-lp');
+    const root = this.host.nativeElement.querySelector<HTMLElement>('.grask-2-lp');
     if (!root || !supportsSvgBackdropFilter()) {
       return;
     }
     for (const el of root.querySelectorAll<HTMLElement>('[data-liquid-glass]')) {
-      const id = `glp-glass-${++glassSeq}`;
+      const id = `glp2-glass-${++glassSeq}`;
       el.insertAdjacentHTML('afterbegin', glassFilter(id));
       const map = el.querySelector<SVGElement>(`#${id} feImage`)!;
       const update = () => map.setAttribute('href', displacementMap(el));
       update();
-      el.style.setProperty('--glp-glass-filter', `url(#${id})`);
+      el.style.setProperty('--glp2-glass-filter', `url(#${id})`);
       el.classList.add('is-liquid');
       const ro = new ResizeObserver(() => requestAnimationFrame(update));
       ro.observe(el);
@@ -177,7 +177,7 @@ function supportsSvgBackdropFilter(): boolean {
   if ((/Safari/.test(ua) && !/Chrome/.test(ua)) || /Firefox/.test(ua)) {
     return false;
   }
-  return typeof CSS !== 'undefined' && CSS.supports('backdrop-filter', 'url(#glp-glass)');
+  return typeof CSS !== 'undefined' && CSS.supports('backdrop-filter', 'url(#glp2-glass)');
 }
 
 /** The filter: one feDisplacementMap per colour channel, at slightly different scales, screened back together. */
@@ -188,7 +188,7 @@ function glassFilter(id: string): string {
     `xChannelSelector="${g.xChannel}" yChannelSelector="${g.yChannel}" result="disp-${name}"/>` +
     `<feColorMatrix in="disp-${name}" type="matrix" values="${keep}" result="${name}"/>`;
   return (
-    `<svg class="glp-glass-filter" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>` +
+    `<svg class="glp2-glass-filter" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>` +
     `<filter id="${id}" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%">` +
     `<feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map"/>` +
     channel('red', g.redOffset, '1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0') +

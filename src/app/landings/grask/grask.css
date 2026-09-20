@@ -2,7 +2,7 @@
    Every rule is scoped under .grask-lp and every keyframe is prefixed glp-,
    so this stylesheet cannot leak into the rest of an app.
    All motion is CSS only; it stops under prefers-reduced-motion and each loop has a Pause control. */
-/* Split by job (tokens, fonts, base, demo, timeline, orbit, motion). Colours and radii come from grask.tokens.css (the brand kit). */
+/* Split by job (tokens, fonts, base, demo, timeline, orbit, motion, glass). Colours and radii come from grask.tokens.css (the brand kit). */
 
 .grask-lp { background: var(--g-bg); color: var(--g-text); font-family: var(--g-font-ui); -webkit-font-smoothing: antialiased; min-height: 100vh; }
 .grask-lp h1, .grask-lp h2, .grask-lp h3, .grask-lp p, .grask-lp blockquote { margin: 0; }
@@ -15,7 +15,6 @@
 .grask-lp .on-dark a:hover { color: var(--g-accent-soft-2); }
 .grask-lp .plain { text-decoration: none; }
 .grask-lp .plain:hover { text-decoration: underline; }
-.grask-lp .glass { -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .grask-lp .btn-dark, .grask-lp .btn-light { transition: transform .2s ease, background-color .2s ease, border-color .2s ease; }
 .grask-lp .btn-dark:hover { background: var(--g-accent-hover) !important; color: var(--g-on-accent) !important; transform: translateY(-1px); }
 .grask-lp .btn-light:hover { border-color: var(--g-accent) !important; color: var(--g-accent) !important; transform: translateY(-1px); }

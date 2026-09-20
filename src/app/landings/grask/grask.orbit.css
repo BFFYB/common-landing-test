@@ -1,15 +1,17 @@
-/* Grask landing page: the LMS arc. One keyframe path, six tiles offset by a sixth of the loop each. */
+/* Grask landing page: the LMS arc. One keyframe path, six tiles offset by a sixth of the loop each.
+   Tiles are 1.6u square (centre one is scaled 1.1); the path points and the plate width are what limit that. */
 
 .grask-lp .orbit { --u: 100px; --glp-p0: translate(calc(var(--u) * 5.6), calc(var(--u) * 2.3)) rotate(40deg) scale(.9); --glp-p1: translate(calc(var(--u) * 3.9), calc(var(--u) * 1.25)) rotate(27deg) scale(1); --glp-p2: translate(calc(var(--u) * 2), calc(var(--u) * 0.35)) rotate(13deg) scale(1); --glp-p3: translate(0px, 0px) rotate(0deg) scale(1.1); --glp-p4: translate(calc(var(--u) * -2), calc(var(--u) * 0.35)) rotate(-13deg) scale(1); --glp-p5: translate(calc(var(--u) * -3.9), calc(var(--u) * 1.25)) rotate(-27deg) scale(1); --glp-p6: translate(calc(var(--u) * -5.6), calc(var(--u) * 2.3)) rotate(-40deg) scale(.9); --glp-flat: 0 0 0 1px rgba(var(--g-ink-rgb), 0), 0 24px 48px -24px rgba(var(--g-ink-rgb), 0); --glp-lift: 0 0 0 1px rgba(var(--g-ink-rgb), .06), 0 24px 48px -24px rgba(var(--g-ink-rgb), .35); position: relative; width: 100%; height: calc(var(--u) * 3.35); margin-top: 18px; }
 .grask-lp .orbit-tiles { position: absolute; left: 50%; top: calc(var(--u) * 0.14); width: 0; height: 0; }
-.grask-lp .orbit-tile { position: absolute; left: calc(var(--u) * -0.65); top: 0; width: calc(var(--u) * 1.3); height: calc(var(--u) * 1.3); box-sizing: border-box; border-radius: var(--g-radius-xl); background-color: var(--g-accent-soft); box-shadow: var(--glp-flat); display: flex; align-items: center; justify-content: center; font-family: var(--g-font-display); font-weight: 800; font-size: calc(var(--u) * 0.44); letter-spacing: -0.03em; color: var(--g-accent); opacity: 0; }
+.grask-lp .orbit-tile { position: absolute; left: calc(var(--u) * -0.8); top: 0; width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6); box-sizing: border-box; border-radius: var(--g-radius-xl); background-color: var(--g-accent-soft); box-shadow: var(--glp-flat); display: flex; align-items: center; justify-content: center; font-family: var(--g-font-display); font-weight: 800; font-size: calc(var(--u) * 0.54); letter-spacing: -0.03em; color: var(--g-accent); opacity: 0; }
+.grask-lp .orbit-tile img { width: calc(var(--u) * 0.9); height: calc(var(--u) * 0.75); display: block; object-fit: contain; }
 .grask-lp .orbit-tile:nth-child(1) { background-color: var(--g-accent-soft); transform: var(--glp-p1); opacity: .55; }
 .grask-lp .orbit-tile:nth-child(2) { background-color: var(--g-accent-soft-2); transform: var(--glp-p2); opacity: 1; }
 .grask-lp .orbit-tile:nth-child(3) { background-color: var(--g-accent-soft); transform: var(--glp-p3); opacity: 1; box-shadow: var(--glp-lift); }
 .grask-lp .orbit-tile:nth-child(4) { background-color: var(--g-accent-soft-2); transform: var(--glp-p4); opacity: 1; }
 .grask-lp .orbit-tile:nth-child(5) { background-color: var(--g-accent-soft); transform: var(--glp-p5); opacity: .55; }
 .grask-lp .orbit-tile:nth-child(6) { background-color: var(--g-accent-soft-2); }
-.grask-lp .orbit-labels { position: absolute; left: 0; right: 0; top: calc(var(--u) * 1.86 + 6px); display: grid; justify-items: center; }
+.grask-lp .orbit-labels { position: absolute; left: 0; right: 0; top: calc(var(--u) * 2.16 + 6px); display: grid; justify-items: center; }
 .grask-lp .orbit-label { grid-area: 1 / 1; display: flex; flex-direction: column; align-items: center; gap: 4px; opacity: 0; }
 .grask-lp .orbit-label:nth-child(3) { opacity: 1; }
 @media (max-width: 1100px) {

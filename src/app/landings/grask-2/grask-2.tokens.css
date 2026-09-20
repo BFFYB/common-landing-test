@@ -1,0 +1,49 @@
+/* grask design tokens — copied from bffyb/common/styling/tokens.css (generated 2026-09-19).
+   Source of truth is styling/tokens.json; if the palette changes, regenerate there and re-copy the values here.
+   Scoped to .grask-2-lp instead of :root so nothing leaks out of this landing. */
+.grask-2-lp {
+  --g-paper: #FAFAF7;
+  --g-ink: #111827;
+  --g-petrol: #0E5A66;
+  --g-petrol-dark: #0B4A54;
+  --g-tint: #DCEFF1;
+  --g-tint-strong: #9AD1D9;
+  --g-line: #E5E7EB;
+  --g-muted: #6B7280;
+  --g-text-secondary: #4B5563;
+  --g-surface: #FFFFFF;
+
+  /* status — evidence report only; always paired with a word or icon */
+  --g-status-demonstrated: #15803D;
+  --g-status-partial: #B45309;
+  --g-status-missing: #BE123C;
+
+  --g-font-ui: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --g-font-display: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+
+  --g-radius-sm: 6px;
+  --g-radius-md: 8px;
+  --g-radius-lg: 12px;
+  --g-radius-xl: 16px;
+  --g-radius-pill: 999px;
+
+  /* semantic aliases the product should use instead of the raw palette */
+  --g-bg: var(--g-paper);
+  --g-card: var(--g-surface);
+  --g-border: var(--g-line);
+  --g-text: var(--g-ink);
+  --g-text-2: var(--g-text-secondary);
+  --g-text-3: var(--g-muted);
+  --g-accent: var(--g-petrol);
+  --g-accent-hover: var(--g-petrol-dark);
+  --g-accent-soft: var(--g-tint);
+  --g-accent-soft-2: var(--g-tint-strong);
+  --g-on-accent: #FAFAF7;
+
+  /* landing-only derived aliases (not in the brand kit): things the kit has no token for yet */
+  --g-border-input: color-mix(in srgb, var(--g-muted) 45%, var(--g-surface));   /* form fields need more than a hairline */
+  --g-ink-rgb: 17, 24, 39;                                                          /* for rgba() shadows and hairlines on paper */
+  --g-on-accent-2: rgba(250, 250, 247, 0.72);                                       /* secondary copy on petrol / ink */
+  --g-text-faint: color-mix(in srgb, var(--g-muted) 50%, var(--g-surface));        /* not-yet-spoken words in the demo captions */
+  --g-tint-strong-rgb: 154, 209, 217;                                               /* for the grade-box focus ring in the demo */
+}

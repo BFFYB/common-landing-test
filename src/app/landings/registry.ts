@@ -19,6 +19,22 @@ export interface LandingMeta {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-2',
+    title: 'Grask (capital G)',
+    description:
+      'Copy of the grask landing with the brand name written Grask: text wordmark next to the mark tile instead of the SVG lockup, everything else identical. Runs side by side with /grask.',
+    created: '2026-09-20',
+    load: () => import('./grask-2/grask-2').then((m) => m.Grask2),
+  },
+  {
+    slug: 'hello-world',
+    title: 'Voice sphere',
+    description:
+      'Pulsing voice-sphere component for the student session: speaking / listening / thinking states, one brand token, optional live mic level. Built to be copied into the product.',
+    created: '2026-09-20',
+    load: () => import('./hello-world/hello-world').then((m) => m.HelloWorld),
+  },
+  {
     slug: 'grask',
     title: 'Grask',
     description:
