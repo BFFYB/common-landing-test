@@ -23,7 +23,7 @@ import { setupButtonWave } from './grask-3.wave';
  * which moves the demo and the strip to a rubric criterion, and the SVG
  * lens filter for [data-liquid-glass] elements (grask.glass.css; the header no longer uses it).
  * The pilot form is its own page, pilot/pilot.ts at /grask-3/pilot; the "Book a demo" buttons and the
- * Pilot links are router links to it.
+ * Pilot links are router links to it. The hero's "Watch a check run" is the strip's title, an in-page link to #how.
  * Styles are global on purpose (ViewEncapsulation.None) but every selector is scoped under .grask-3-lp and
  * every keyframe is prefixed glp3-, so nothing leaks.
  */
@@ -86,12 +86,12 @@ export class Grask3 {
 
   /**
    * Jumps the example to the start of a rubric criterion: every animation in the demo stage and in
-   * the strip is moved to that moment of their shared 34 s loop (the strip's clock is described in
-   * grask-3.strip.css). Under reduced motion nothing animates, so there is nothing to move.
+   * the strip (wave, labels, clock) is moved to that moment of their shared 34 s loop (the strip's clock
+   * is described in grask-3.strip.css). Under reduced motion nothing animates, so there is nothing to move.
    */
   seek(index: number): void {
     const at = (this.segments[index].from / STRIP_TOTAL_S) * STRIP_SWEEP_MS;
-    for (const animation of clockAnimations('.stage, .wave, .segs')) {
+    for (const animation of clockAnimations('.stage, .wave, .segs, .strip-time')) {
       animation.currentTime = at;
     }
   }
@@ -107,7 +107,7 @@ export class Grask3 {
     if (!reference || reference.currentTime === null) {
       return;
     }
-    for (const animation of clockAnimations('.wave, .segs')) {
+    for (const animation of clockAnimations('.wave, .segs, .strip-time')) {
       animation.currentTime = reference.currentTime;
     }
   }

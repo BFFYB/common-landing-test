@@ -81,6 +81,6 @@
      them, minimum 8px: on this page every such gap is 20px or more, so the inner radius is always the control value. Circles (the
      recording dot, the FAQ plus) and the hero marker keep their own shape. */
   --g-radius-control: 8px;
-  --g-radius-button: 16px;                                                         /* the six CTA buttons only, two steps up from control (2026-09-21, "more rounded"); the other controls stay at 8px */
+  --g-radius-button: 16px;                                                         /* the three CTA buttons only ("Book a demo" ×2, "Open the sandbox"; since 2026-09-23), two steps up from control (2026-09-21, "more rounded"); the other controls stay at 8px */
   --g-radius-card: 16px;                                                           /* the spec's light surface for tiles: the LMS logo tiles */
 }

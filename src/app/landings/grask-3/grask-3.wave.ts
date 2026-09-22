@@ -1,6 +1,7 @@
 /**
  * The wisprflow.ai button hover, shared by the landing and its pilot page (grask-3.ts, pilot/pilot.ts):
- * on every .btn-dark / .btn-light / .btn-on-accent and on the header nav links under `root` (the press
+ * on every .btn-dark / .btn-light / .btn-on-accent, on the header nav links, the header's "Try it out"
+ * text link (.bar-link) and the strip's "Watch a check run" title (.strip-cta) under `root` (the press
  * to .98 on the buttons is CSS, see "Buttons" in grask-3.css). The label, the <span> inside the button
  * or link, is split into one .char per letter (splitChars below) and on mouseenter each letter runs the
  * same 1s linear ripple, 60ms after the one before it: up 20% of its height and tilted -5°, down 20%
@@ -22,7 +23,7 @@ export function setupButtonWave(root: HTMLElement): void {
     { transform: 'translateY(0) rotate(0deg)' },
   ];
   for (const button of root.querySelectorAll<HTMLElement>(
-    '.btn-dark, .btn-light, .btn-on-accent, .nav-links a',
+    '.btn-dark, .btn-light, .btn-on-accent, .nav-links a, .bar-link, .strip-cta',
   )) {
     const label = button.querySelector<HTMLElement>(':scope > span');
     if (!label) {
@@ -40,7 +41,10 @@ export function setupButtonWave(root: HTMLElement): void {
       chars.forEach((char, i) => {
         const from = getComputedStyle(char).transform;
         running[i]?.cancel();
-        char.animate([{ transform: from }, { transform: 'none' }], { duration: 200, easing: 'linear' });
+        char.animate([{ transform: from }, { transform: 'none' }], {
+          duration: 200,
+          easing: 'linear',
+        });
       });
       running = [];
     });

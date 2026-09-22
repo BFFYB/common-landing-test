@@ -45,18 +45,19 @@ html.glp3-page::-webkit-scrollbar-corner { background: var(--g-bg); }
 @media (prefers-reduced-motion: reduce) {
   .grask-3-lp .bar { transition: none; }
 }
-.grask-3-lp .hero { position: relative; min-height: calc(100dvh - var(--glp3-header-h)); } /* the opening: one full screen (minus the header in flow) before the demo */
+.grask-3-lp .hero { position: relative; min-height: calc(100dvh - var(--glp3-header-h)); } /* the opening: one full screen (minus the header in flow) before the statement; the content is anchored to the top of it (fixed top padding, inline), not centred */
 .grask-3-lp .title .w { display: inline-block; }
 /* Buttons and header nav links: the wisprflow.ai hover. A button presses in (scale .98 over 200ms) and its label ripples: setupButtonWave()
    in grask-3.ts splits each label (the <span> inside every button and every .nav-links link) into one .char per letter and bobs them one
    after the other on mouseenter, 60ms apart (timing there). The nav links get the ripple and the petrol colour but not the press, as on
    the original; their underline is off because a decoration never reaches into inline-block letters and would only show under the
-   spaces. Pointer devices only, nothing under prefers-reduced-motion; without JS only the press remains. Words are inline-block so a
+   spaces. The header's "Try it out" text link (.bar-link) and the strip's "Watch a check run" title (.strip-cta, grask-3.strip.css) are treated
+   like the nav links. Pointer devices only, nothing under prefers-reduced-motion; without JS only the press remains. Words are inline-block so a
    label never breaks inside a word. The .btn-light rule keeps the generic link hover from turning the outlined button's label petrol. */
 .grask-3-lp .btn-dark, .grask-3-lp .btn-light, .grask-3-lp .btn-on-accent { transition: transform .2s ease; }
 .grask-3-lp .btn-dark:hover, .grask-3-lp .btn-light:hover, .grask-3-lp .btn-on-accent:hover { transform: scale(.98); }
 .grask-3-lp .btn-light:hover { color: var(--g-text); }
-.grask-3-lp .nav-links .plain:hover { text-decoration: none; }
+.grask-3-lp .nav-links .plain:hover, .grask-3-lp .bar-link:hover { text-decoration: none; }
 .grask-3-lp .word { display: inline-block; white-space: nowrap; }
 .grask-3-lp .char { display: inline-block; }
 @media (prefers-reduced-motion: reduce) {
@@ -73,20 +74,20 @@ html.glp3-page::-webkit-scrollbar-corner { background: var(--g-bg); }
 @media (max-width: 920px) {
   .grask-3-lp .nav-links { display: none !important; }
 }
-.grask-3-lp .mark { background-image: linear-gradient(var(--g-accent-soft-2), var(--g-accent-soft-2)); background-repeat: no-repeat; background-position: 0 86%; background-size: 100% 56%; padding: 0 .08em; margin: 0 -.08em; }
+.grask-3-lp .mark { background-image: linear-gradient(var(--g-accent-soft-2), var(--g-accent-soft-2)); background-repeat: no-repeat; background-position: 0 86%; background-size: 100% 56%; padding: 0 .08em; margin: 0 -.08em; } /* the highlighter under "the hours." in the headline: two words, not the line */
 .grask-3-lp .footer-wrap { container-type: inline-size; }
 /* Giant footer wordmark: edge to edge like Instructure's. 39.6cqw = footer width / the word's ink width (2.586em in Uncut Sans 600 at -0.05em, from the
    glyph bounds), with the same bleed as grask-2's; the ink sits 0.042em right of the box centre, which the right margin corrects; the negative bottom margin
    lets the overflow:hidden parent crop the bottom 12% of the caps (baseline 0.05em above the 0.8 line box, cap height 0.70em). Re-derive all three if the face changes. */
 .grask-3-lp .giant { flex: none; white-space: nowrap; }
 @media (prefers-reduced-motion: no-preference) {
-  .grask-3-lp .title .w { animation: glp3-word .6s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--i) * 80ms) both; } /* the last word lands at ~1.5s */
-  .grask-3-lp .mark-in { animation: glp3-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) 1.25s both; }
+  .grask-3-lp .title .w { animation: glp3-word .6s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--i) * 80ms) both; } /* the last (sixth) word lands at 1.2s */
+  .grask-3-lp .mark-in { animation: glp3-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) 1.1s both; } /* the highlighter sweeps in under the last two words as they land */
   .grask-3-lp .rise { animation: glp3-rise .9s cubic-bezier(.2, .7, .2, 1) both; }
-  .grask-3-lp .rise-3 { animation-delay: 1s; }
-  .grask-3-lp .rise-4 { animation-delay: 1.15s; }
+  .grask-3-lp .rise-3 { animation-delay: .9s; }
+  .grask-3-lp .rise-4 { animation-delay: 1.05s; }
   .grask-3-lp .rise-5 { animation-delay: .36s; }
-  .grask-3-lp .rise-6 { animation-delay: 1.5s; }
+  .grask-3-lp .rise-6 { animation-delay: 1.3s; }
 }
 @keyframes glp3-mark-in {
   0% { background-size: 0% 56%; }
