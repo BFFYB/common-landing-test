@@ -1,0 +1,105 @@
+/* Grask landing page: the demo timeline. One 34 s loop; every percentage below is a moment in it (1 s = 2.94%). Retime the demo here. */
+
+@keyframes glp3-bar {
+  0%, 100% { transform: scaleY(.16); }
+  50% { transform: scaleY(1); }
+}
+@keyframes glp3-voice {
+  0%, 1.7% { color: var(--g-text); opacity: .18; }
+  2.4%, 18.4% { color: var(--g-text); opacity: 1; }
+  19%, 25.4% { color: var(--g-text); opacity: .18; }
+  26%, 36.6% { color: var(--g-text); opacity: 1; }
+  37.2%, 41.7% { color: var(--g-text); opacity: .18; }
+  41.8% { color: var(--g-accent); opacity: .18; }
+  42.6%, 57.2% { color: var(--g-accent); opacity: 1; }
+  57.8%, 64.4% { color: var(--g-accent); opacity: .18; }
+  64.5% { color: var(--g-text); opacity: .18; }
+  65.6%, 72.6% { color: var(--g-text); opacity: 1; }
+  73.2%, 76.9% { color: var(--g-text); opacity: .18; }
+  77% { color: var(--g-accent); opacity: .18; }
+  78%, 84.8% { color: var(--g-accent); opacity: 1; }
+  85.4%, 99% { color: var(--g-accent); opacity: .18; }
+  100% { color: var(--g-text); opacity: .18; }
+}
+@keyframes glp3-cap0 {
+  0%, 1.76% { opacity: 0; transform: translateY(10px); }
+  3.53%, 21.76% { opacity: 1; transform: translateY(0px); }
+  23.53%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-cap1 {
+  0%, 24.71% { opacity: 0; transform: translateY(10px); }
+  26.47%, 38.82% { opacity: 1; transform: translateY(0px); }
+  40.59%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-cap2 {
+  0%, 41.76% { opacity: 0; transform: translateY(10px); }
+  43.53%, 62.4% { opacity: 1; transform: translateY(0px); }
+  63.9%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-cap3 {
+  0%, 64.71% { opacity: 0; transform: translateY(10px); }
+  66.47%, 74.12% { opacity: 1; transform: translateY(0px); }
+  75.88%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-cap4 {
+  0%, 77.06% { opacity: 0; transform: translateY(10px); }
+  78.82%, 89.2% { opacity: 1; transform: translateY(0px); }
+  90.6%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-cap5 {
+  0%, 91.4% { opacity: 0; transform: translateY(10px); }
+  92.7%, 97.65% { opacity: 1; transform: translateY(0px); }
+  99.12%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes glp3-say0 {
+  0%, 3% { background-position: 100% 0; }
+  18%, 100% { background-position: 0% 0; }
+}
+@keyframes glp3-say1 {
+  0%, 26% { background-position: 100% 0; }
+  36.5%, 100% { background-position: 0% 0; }
+}
+@keyframes glp3-say2 {
+  0%, 43% { background-position: 100% 0; }
+  57%, 100% { background-position: 0% 0; }
+}
+@keyframes glp3-say3 {
+  0%, 66% { background-position: 100% 0; }
+  72.5%, 100% { background-position: 0% 0; }
+}
+@keyframes glp3-say4 {
+  0%, 78.4% { background-position: 100% 0; }
+  84.5%, 100% { background-position: 0% 0; }
+}
+@keyframes glp3-ev1 {
+  0%, 53.4% { opacity: 0; }
+  54.2%, 97.65% { opacity: 1; }
+  99.41%, 100% { opacity: 0; }
+}
+@keyframes glp3-hl1 {
+  0%, 54.2% { background-size: 0% 100%; }
+  57%, 100% { background-size: 100% 100%; }
+}
+@keyframes glp3-ev2 {
+  0%, 57.2% { opacity: 0; }
+  57.9%, 97.65% { opacity: 1; }
+  99.41%, 100% { opacity: 0; }
+}
+@keyframes glp3-hl2 {
+  0%, 57.9% { background-size: 0% 100%; }
+  60.2%, 100% { background-size: 100% 100%; }
+}
+@keyframes glp3-ev3 {
+  0%, 84.7% { opacity: 0; }
+  85.5%, 97.65% { opacity: 1; }
+  99.41%, 100% { opacity: 0; }
+}
+@keyframes glp3-hl3 {
+  0%, 85.5% { background-size: 0% 100%; }
+  88.3%, 100% { background-size: 100% 100%; }
+}
+@keyframes glp3-grade {
+  0%, 92% { border-color: var(--g-border-input); box-shadow: 0 0 0 0px rgba(var(--g-tint-strong-rgb), 0); }
+  93.8%, 97.65% { border-color: var(--g-text); box-shadow: 0 0 0 5px rgba(var(--g-tint-strong-rgb), 1); }
+  99.41%, 100% { border-color: var(--g-border-input); box-shadow: 0 0 0 0px rgba(var(--g-tint-strong-rgb), 0); }
+}

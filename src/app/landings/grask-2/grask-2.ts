@@ -11,9 +11,10 @@ import {
 /**
  * Grask 2: a copy of the grask landing with the brand name capitalised. See README.md here.
  *
- * Static markup and CSS: the demo timeline, LMS orbit and hero float are pure CSS. The runtime
- * pieces are an IntersectionObserver that marks [data-reveal] elements as they scroll in (see
- * grask.motion.css) and the SVG lens filter behind the header pill (see grask.glass.css). Styles
+ * Static markup and CSS: the demo timeline, LMS orbit, hero float, section snapping and the pinned
+ * scroll sections (grask-2.scroll.css) are pure CSS. The runtime pieces are an IntersectionObserver
+ * that marks [data-reveal] elements as they scroll in (see grask.motion.css) and the SVG lens filter
+ * behind the header pill (see grask.glass.css). Styles
  * are global on purpose (ViewEncapsulation.None) but every selector is scoped under .grask-2-lp and
  * every keyframe is prefixed glp2-, so nothing leaks.
  */
@@ -28,6 +29,7 @@ import {
     './grask-2.demo-timeline.css',
     './grask-2.orbit.css',
     './grask-2.motion.css',
+    './grask-2.scroll.css',
     './grask-2.glass.css',
   ],
   encapsulation: ViewEncapsulation.None,
@@ -43,6 +45,7 @@ export class Grask2 {
       this.setupReveals();
       this.setupLiquidGlass();
       this.stylePageScrollbar();
+      this.setupHeroJump();
     });
   }
 
@@ -120,8 +123,83 @@ export class Grask2 {
   }
 
   /**
-   * The page scrollbar lives on <html>, outside this component, so grask-2.css styles it through
-   * a class that is only there while this landing is on screen (see "Page scrollbar" there).
+   * Makes the hero-to-demo jump start on the first wheel tick. The jump itself is native scroll
+   * snapping (see "Snap" in grask-2.scroll.css), but a browser only snaps once the wheel gesture
+   * ends, so on its own the page first creeps by the wheel delta and then jumps. Here, while the
+   * page rests on the hero and the wheel turns down (or rests on the demo and the wheel turns up),
+   * the tick is swallowed and the page is scrolled straight to the other side; further ticks are
+   * swallowed until that scroll settles, so trackpad momentum cannot interrupt it. The arrow, page
+   * and space keys get the same treatment. Everything else, including scrolling inside the roll, is
+   * left to the browser, as is everything under 720px (proximity snap) and under reduced motion.
+   */
+  private setupHeroJump(): void {
+    const demo = document.getElementById('how');
+    if (!demo || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    const wide = window.matchMedia('(min-width: 720px)');
+    const demoTop = () => demo.getBoundingClientRect().top + window.scrollY - 96; // its scroll-margin-top
+    let busy = false;
+    let release: ReturnType<typeof setTimeout> | undefined;
+    const settle = () => {
+      busy = false;
+      clearTimeout(release);
+    };
+    /** Jumps if the page rests on one side of the gap and `down` points across it; true if it did. */
+    const jump = (down: boolean): boolean => {
+      if (!wide.matches) {
+        return false;
+      }
+      const y = window.scrollY;
+      const target = down && y < 2 ? demoTop() : !down && Math.abs(y - demoTop()) < 2 ? 0 : null;
+      if (target === null) {
+        return false;
+      }
+      busy = true;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+      release = setTimeout(settle, 1200); // in case scrollend never comes
+      return true;
+    };
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.deltaY === 0) {
+        return; // pinch-zoom, horizontal
+      }
+      if (busy || jump(event.deltaY > 0)) {
+        event.preventDefault();
+      }
+    };
+    const onKey = (event: KeyboardEvent) => {
+      const el = event.target as HTMLElement | null;
+      if (
+        event.altKey ||
+        event.metaKey ||
+        event.ctrlKey ||
+        el?.closest('input, textarea, select, [contenteditable]')
+      ) {
+        return;
+      }
+      const down =
+        ['ArrowDown', 'PageDown'].includes(event.key) || (event.key === ' ' && !event.shiftKey);
+      const up = ['ArrowUp', 'PageUp'].includes(event.key) || (event.key === ' ' && event.shiftKey);
+      if ((down || up) && (busy || jump(down))) {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('scrollend', settle);
+    this.destroyRef.onDestroy(() => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('scrollend', settle);
+      clearTimeout(release);
+    });
+  }
+
+  /**
+   * The page scrollbar and scroll snapping live on <html>, outside this component, so grask-2.css
+   * and grask-2.scroll.css reach them through a class that is only there while this landing is on
+   * screen (see "Page scrollbar" and "Snap" there).
    */
   private stylePageScrollbar(): void {
     const html = document.documentElement;

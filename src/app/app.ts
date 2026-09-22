@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Stage } from './devices/stage';
 import { Switcher } from './switcher/switcher';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Switcher],
+  imports: [Stage, Switcher],
   template: `
-    <router-outlet />
+    <app-stage />
     <app-switcher />
   `,
 })

@@ -1,0 +1,28 @@
+@if (active() && layout(); as l) {
+  <div class="stage">
+    <div class="caption">
+      <strong>{{ devices.current()?.name }}</strong>
+      <span>{{ l.width }} × {{ l.height }}</span>
+      @if (l.scale < 1) {
+        <span class="scale">{{ (l.scale * 100).toFixed(0) }}%</span>
+      }
+      <button class="btn" type="button" (click)="devices.rotate()" title="Rotate  r">⟳</button>
+      <button class="btn" type="button" (click)="devices.select(null)" title="Native size">
+        ×
+      </button>
+    </div>
+    <div class="fit" [style.width.px]="l.fitW" [style.height.px]="l.fitH">
+      <div
+        class="device"
+        [attr.data-kind]="devices.current()?.kind"
+        [style.width.px]="l.w"
+        [style.height.px]="l.h"
+        [style.transform]="'scale(' + l.scale + ')'"
+      >
+        <iframe #frame title="Landing preview"></iframe>
+      </div>
+    </div>
+  </div>
+} @else {
+  <router-outlet />
+}

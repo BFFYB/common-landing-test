@@ -97,3 +97,69 @@
 .s {
   opacity: 0.5;
 }
+
+.device.on {
+  background: rgb(124 141 255 / 0.35);
+}
+
+/* device panel */
+.devices .group {
+  padding: 10px 10px 4px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+.devices .row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.devices .row:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.devices .row.active {
+  background: rgb(124 141 255 / 0.25);
+}
+.devices .custom {
+  cursor: default;
+}
+.devices .custom .t {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.devices .custom .s {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 1;
+}
+.devices input {
+  width: 52px;
+  padding: 3px 4px;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.06);
+  color: inherit;
+  font: inherit;
+  text-align: right;
+}
+.devices input:focus {
+  outline: 1px solid rgb(124 141 255 / 0.8);
+}

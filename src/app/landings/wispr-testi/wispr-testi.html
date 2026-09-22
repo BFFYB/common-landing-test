@@ -1,0 +1,112 @@
+<header class="lead">
+  <p class="eyebrow">wisprflow.ai · “From the first people to use it”</p>
+  <h1>Testimonial orbit</h1>
+  <p class="sub">
+    Six case-study cards on a sticky stage. Scroll: the deck slides right while every card swings on an arc around a
+    pivot behind it, upright at the centre, tipped and receding at the edges.
+  </p>
+  <p class="cue" aria-hidden="true">↓</p>
+</header>
+
+<section class="testi" #section>
+  <div class="head">
+    <div class="tag">Early access, real results</div>
+    <h2>From the first<br /><em>people to use it.</em></h2>
+  </div>
+
+  <div class="runway" #runway>
+    <div class="stage" #stage>
+      @for (c of cards; track c.quote + c.tone) {
+        @if (c.href) {
+          <a [class]="'card ' + c.layout" [attr.data-tone]="c.tone" [href]="c.href" target="_blank" rel="noopener" #card>
+            <ng-container *ngTemplateOutlet="body; context: { $implicit: c }" />
+          </a>
+        } @else {
+          <article [class]="'card ' + c.layout" [attr.data-tone]="c.tone" #card>
+            <ng-container *ngTemplateOutlet="body; context: { $implicit: c }" />
+          </article>
+        }
+      }
+    </div>
+  </div>
+</section>
+
+<footer class="after">
+  <h3>How it moves</h3>
+  <ul>
+    <li>The section is a tall <b>runway</b>; a full-height <b>stage</b> inside it is <code>position: sticky</code>.</li>
+    <li>Cards are absolute at the stage centre and spaced along a track: card <i>j</i> sits at offset <i>x<sub>j</sub></i>, gap = 14% of the median card width.</li>
+    <li>Scroll progress moves a single <b>head</b> from 0 to the last offset. Each card's screen x is <i>head − x<sub>j</sub></i>.</li>
+    <li>That x also sets <code>rotateX</code>, −50° to +50° across ±2.1 card widths, eased <i>power1.inOut</i>, with <code>transform-origin: 50% 50% −orbit</code> (orbit = 65% of a card width) so the card swings on an arc instead of spinning in place.</li>
+    <li>The stage has <code>perspective</code> = 2.6 card widths; x is divided by the resulting shrink so spacing reads even on screen. z-index follows distance from centre.</li>
+    <li>The head follows the scroll through an expo-out of 1.5 s (GSAP's <code>scrub: 1.5</code>); on phones it is direct. The section's corners are a second scroll-scrubbed value.</li>
+  </ul>
+  <p class="src">Constants are at the top of <code>wispr-testi.ts</code>. Photos, logos and copy are Wispr Flow's, used here as placeholder content.</p>
+</footer>
+
+<ng-template #body let-c>
+  @if (c.bleed) {
+    <img class="bleed" [src]="c.photo" alt="" />
+    <div class="bottom">
+      <div class="bottom-card">
+        <p class="quote">{{ c.quote }}</p>
+        <div class="who">
+          <div class="name">{{ c.name }}</div>
+          <div class="role dim">{{ c.role }}</div>
+        </div>
+        <div class="bottom-bg"></div>
+      </div>
+    </div>
+  } @else {
+    <div class="body">
+      <div>
+        @if (c.logo) {
+          <div class="brand">
+            <img class="logo" [src]="c.logo" [alt]="c.logoAlt" />
+            @if (c.role) {
+              <div class="name faint">{{ c.role }}</div>
+            }
+          </div>
+        }
+        <p class="quote">{{ c.quote }}</p>
+      </div>
+      @if (c.href) {
+        <div class="link">
+          <span>Read case study</span>
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42" /></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42" /></svg>
+          </span>
+        </div>
+      } @else if (c.avatar) {
+        <div class="author">
+          <img class="avatar" [src]="c.avatar" alt="" />
+          <div class="name">{{ c.name }}</div>
+        </div>
+      } @else {
+        <div>
+          <div class="name">{{ c.name }}</div>
+          <div class="role">{{ c.role }}</div>
+        </div>
+      }
+    </div>
+    @if (c.photo) {
+      <div class="media">
+        <img class="photo" [src]="c.photo" alt="" />
+        @if (c.stats) {
+          <div class="stats">
+            <div class="stats-grid">
+              @for (s of c.stats; track s.label) {
+                <div class="stat">
+                  <div class="stat-value">{{ s.value }}</div>
+                  <div class="stat-label">{{ s.label }}</div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+    <div class="bg"></div>
+  }
+</ng-template>

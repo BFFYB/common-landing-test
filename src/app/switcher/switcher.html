@@ -1,13 +1,13 @@
-@if (onLanding() && !hidden()) {
+@if (!embedded && onLanding() && !hidden()) {
   <div class="hud">
-    @if (open()) {
+    @if (panel() === 'landings') {
       <ul class="list">
         @for (l of landings; track l.slug; let i = $index) {
           <li>
             <a
               [routerLink]="['/', l.slug]"
               [class.active]="l.slug === slug()"
-              (click)="open.set(false)"
+              (click)="panel.set(null)"
             >
               <span class="n">{{ i + 1 }}</span>
               <span class="t">{{ l.title }}</span>
@@ -17,14 +17,74 @@
         }
       </ul>
     }
+    @if (panel() === 'devices') {
+      <div class="list devices">
+        <button class="row" type="button" [class.active]="!devices.id()" (click)="pick(null)">
+          <span class="t">Native</span>
+          <span class="s">window size</span>
+        </button>
+        @for (g of groups; track g.kind) {
+          <div class="group">{{ g.label }}</div>
+          @for (d of g.items; track d.id) {
+            <button
+              class="row"
+              type="button"
+              [class.active]="d.id === devices.id()"
+              (click)="pick(d.id)"
+            >
+              <span class="t">{{ d.name }}</span>
+              <span class="s">{{ d.width }}×{{ d.height }}</span>
+            </button>
+          }
+        }
+        <div class="group">Custom</div>
+        <div class="row custom" [class.active]="devices.id() === 'custom'">
+          <button class="t" type="button" (click)="pick('custom')">Custom</button>
+          <span class="s">
+            <input
+              type="number"
+              min="100"
+              [value]="devices.custom().width"
+              (input)="setCustom('width', $event)"
+            />
+            ×
+            <input
+              type="number"
+              min="100"
+              [value]="devices.custom().height"
+              (input)="setCustom('height', $event)"
+            />
+          </span>
+        </div>
+      </div>
+    }
     <div class="bar">
       <a class="btn" routerLink="/" title="All landings">⌂</a>
       <button class="btn" type="button" (click)="go(-1)" title="Previous  [">‹</button>
-      <button class="name" type="button" (click)="open.set(!open())">
+      <button class="name" type="button" (click)="toggle('landings')">
         {{ current()?.title }}
         <small>{{ index() + 1 }}/{{ landings.length }}</small>
       </button>
       <button class="btn" type="button" (click)="go(1)" title="Next  ]">›</button>
+      <button
+        class="btn device"
+        type="button"
+        [class.on]="devices.current()"
+        (click)="toggle('devices')"
+        title="Form factor  { }"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="6" y="2" width="12" height="20" rx="2.5" />
+          <path d="M10.5 18.5h3" />
+        </svg>
+      </button>
     </div>
   </div>
 }

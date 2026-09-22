@@ -1,0 +1,97 @@
+/* Grask landing page (capital-G copy): section scrolling (added 2026-09-21).
+   The hero jumps to the demo, the rest rolls freely, and in two places a vertical scroll turns into horizontal movement.
+   - Snap: while this landing is on screen (grask-2.ts puts .glp2-page on <html>) there is exactly one jump, from the hero to the demo:
+     the hero snaps at scroll 0 (its scroll-margin-top of 78px is the header in flow above it) and the rest of the page is one tall snap
+     area that scrolls freely (see "Snap" below). Mandatory from 720px, a gentle proximity snap below.
+   - Stop (#why): one full screen for the statement; its two sentences fill from faint to ink as the section scrolls into place
+     (a view timeline on the paragraph; cover 50% is the paragraph centred in the viewport, i.e. the snapped position).
+   - Rail (#steps): pinned for 160vh of scroll while the four step cards travel horizontally by exactly the track's overflow
+     (translate: 100cqw - 100%); a progress bar fills underneath and the scroll hint fades out over the first 18%.
+   - Spread (#where): pinned for 80vh; the three cards start as a fanned stack in the middle slot and fan out into their row
+     (--fx is the slot each card starts from, --rot its tilt; both are inline on the cards).
+   The pins need scroll-driven animations (animation-timeline) and a wide enough viewport; elsewhere, and under prefers-reduced-motion,
+   the sections lay out as before: the rail is a wrapped grid, and a native horizontal scroller with x-snap under 720px.
+   Property ownership as in grask-2.motion.css: reveal -> transform, rail and spread -> translate + rotate, lift -> scale. */
+
+/* ---- Snap: one jump, hero to demo ----
+   The hero is a snap point and everything after it (.roll, from #how to the footer) is a single snap area far taller than
+   the viewport, so every position inside it is a valid resting place: the only place the page cannot rest is between the
+   hero and the demo, and that is the one jump. .roll's scroll-margin-top matches #how's, so the jump lands where the
+   "How it works" link does. To bring back a stop at another section, give it scroll-snap-align: start. */
+html.glp2-page { scroll-snap-type: y proximity; }
+@media (min-width: 720px) {
+  html.glp2-page { scroll-snap-type: y mandatory; }
+}
+.grask-2-lp .hero { scroll-snap-align: start; scroll-snap-stop: always; }
+.grask-2-lp .roll { scroll-snap-align: start; scroll-margin-top: 96px; }
+
+/* ---- Stop: the statement ---- */
+.grask-2-lp .stop { min-height: 100dvh; }
+.grask-2-lp .fill-2 { color: var(--g-text-3); }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grask-2-lp .statement { view-timeline: --glp2-why block; }
+    .grask-2-lp .fill { --ink: var(--g-text); background-image: linear-gradient(90deg, var(--ink) 0 50%, var(--g-text-faint) 50% 100%); background-size: 200% 100%; background-position: 100% 0; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: glp2-fill linear both; animation-timeline: --glp2-why; }
+    .grask-2-lp .fill-1 { animation-range: cover 6% cover 38%; }
+    .grask-2-lp .fill-2 { --ink: var(--g-text-3); animation-range: cover 20% cover 48%; }
+  }
+}
+@keyframes glp2-fill {
+  100% { background-position: 0 0; }
+}
+
+/* ---- Rail: the four steps ---- */
+.grask-2-lp .rail { --gutter: clamp(12px, 3vw, 40px); padding-bottom: clamp(64px, 8vw, 112px); scroll-margin-top: 96px; }
+.grask-2-lp .rail-pin { display: flex; flex-direction: column; gap: clamp(20px, 2.6vw, 32px); }
+.grask-2-lp .rail-head { width: min(1200px, 100%); margin: 0 auto; box-sizing: border-box; padding: 0 var(--gutter); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+.grask-2-lp .rail-hint { display: none; align-items: center; gap: 8px; height: 38px; box-sizing: border-box; padding: 0 14px; border: 1px solid rgba(var(--g-ink-rgb), .14); border-radius: var(--g-radius-pill); background: var(--g-surface); font-size: 14px; font-weight: 600; color: var(--g-text-2); white-space: nowrap; }
+.grask-2-lp .rail-hint svg { display: block; }
+.grask-2-lp .rail-track { list-style: none; width: min(1200px, 100%); margin: 0 auto; box-sizing: border-box; padding: 0 var(--gutter); display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px); }
+.grask-2-lp .slide { flex: 1 1 230px; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-xl); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 36px; }
+.grask-2-lp .rail-bar { display: none; width: min(1200px, 100%); margin: 0 auto; box-sizing: border-box; padding: 0 var(--gutter); }
+.grask-2-lp .rail-bar span { position: relative; display: block; height: 3px; border-radius: var(--g-radius-pill); background: rgba(var(--g-ink-rgb), .1); overflow: hidden; }
+.grask-2-lp .rail-bar span::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--g-accent); transform-origin: 0 50%; scale: 0 1; }
+@media (max-width: 719px) {
+  /* a real horizontal scroller on phones: swipe through the steps, one card per stop */
+  .grask-2-lp .rail-track { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding-bottom: 20px; scrollbar-width: none; }
+  .grask-2-lp .rail-track::-webkit-scrollbar { display: none; }
+  .grask-2-lp .slide { flex: 0 0 min(420px, 82vw); min-height: 300px; scroll-snap-align: start; }
+}
+@supports (animation-timeline: scroll()) {
+  @media (min-width: 720px) and (prefers-reduced-motion: no-preference) {
+    .grask-2-lp .rail { height: 260dvh; padding-bottom: 0; scroll-margin-top: 0; view-timeline: --glp2-rail block; }
+    .grask-2-lp .rail-pin { position: sticky; top: 0; height: 100dvh; box-sizing: border-box; padding-top: 92px; justify-content: center; overflow: hidden; container-type: inline-size; }
+    .grask-2-lp .rail-hint { display: inline-flex; animation: glp2-rail-hint linear both; animation-timeline: --glp2-rail; animation-range: contain 0% contain 18%; }
+    /* the track is as wide as its cards; its side padding is the distance from the viewport edge to the page column's content, so the first card starts and the last card ends where the other sections' content does */
+    .grask-2-lp .rail-track { --gutter: calc(max(0px, (100cqw - 1200px) / 2) + clamp(12px, 3vw, 40px)); width: max-content; margin: 0; flex-wrap: nowrap; padding: 20px var(--gutter); animation: glp2-rail linear both; animation-timeline: --glp2-rail; animation-range: contain 0% contain 100%; }
+    .grask-2-lp .slide { flex: 0 0 min(560px, 76cqw); min-height: min(380px, 42dvh); }
+    .grask-2-lp .rail-bar { display: block; }
+    .grask-2-lp .rail-bar span::after { animation: glp2-rail-bar linear both; animation-timeline: --glp2-rail; animation-range: contain 0% contain 100%; }
+  }
+}
+@keyframes glp2-rail {
+  100% { translate: calc(100cqw - 100%) 0; }
+}
+@keyframes glp2-rail-bar {
+  100% { scale: 1 1; }
+}
+@keyframes glp2-rail-hint {
+  100% { opacity: 0; translate: 12px 0; }
+}
+
+/* ---- Spread: the three "where it fits" cards ---- */
+.grask-2-lp .spread { padding-bottom: clamp(64px, 8vw, 112px); scroll-margin-top: 96px; }
+.grask-2-lp .spread-pin { padding: 0 clamp(12px, 3vw, 40px); }
+.grask-2-lp .spread-row { --gap: clamp(14px, 2vw, 24px); }
+@supports (animation-timeline: scroll()) {
+  @media (min-width: 960px) and (prefers-reduced-motion: no-preference) {
+    .grask-2-lp .spread { height: 180dvh; padding-bottom: 0; scroll-margin-top: 0; view-timeline: --glp2-spread block; }
+    .grask-2-lp .spread-pin { position: sticky; top: 0; height: 100dvh; padding-top: 92px; justify-content: center; }
+    .grask-2-lp .spread-row { flex-wrap: nowrap; }
+    .grask-2-lp .card { animation: glp2-spread linear both; animation-timeline: --glp2-spread; animation-range: contain 0% contain 70%; }
+  }
+}
+@keyframes glp2-spread {
+  0% { translate: calc(var(--fx, 0) * (100% + var(--gap, 24px))) 0; rotate: var(--rot, 0deg); }
+  100% { translate: 0 0; rotate: 0deg; }
+}

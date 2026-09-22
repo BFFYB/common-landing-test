@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Figtree:wght@400;500;600&display=swap');
+
+/* Wispr testimonial orbit. Tokens are wisprflow.ai's (their names in comments); the card CSS is the site's
+   .testi_card* rules with the effective values written out, since several were overridden by an embed. */
+:host {
+  --vast: #1a1a1a; /* base-color--vast: section bg, text */
+  --lumen: #ffffeb; /* base-color--lumen: page bg, cream card */
+  --lumen-dark: #e4e4d0;
+  --dawn: #f0d7ff; /* purple card */
+  --glow: #ffa946; /* orange bottom card */
+  --flare: #ff6c4c; /* red card */
+  --green: #34d399;
+  --ink-50: #1a1a1a80;
+
+  --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: Figtree, system-ui, -apple-system, sans-serif;
+  --h2: 4.6875rem;
+  --h3: 3rem;
+  --h4: 2rem;
+  --body-s: 0.875rem;
+  --body-xs: 0.8125rem;
+
+  --r-section: 5rem;
+  --r-card: 3rem;
+  --r-inner: 2rem;
+  --center: 50vh; /* where the deck sits in the sticky stage (data-center) */
+
+  display: block;
+  min-height: 100dvh;
+  background: var(--lumen);
+  color: var(--vast);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+:host h1, :host h2, :host h3, :host p, :host ul { margin: 0; }
+
+/* ---- page around the section ------------------------------------------------------------- */
+.lead { min-height: 100dvh; display: flex; flex-flow: column; justify-content: center; align-items: center; text-align: center; padding: 4rem 1.5rem 5rem; gap: 1.25rem; position: relative; }
+.eyebrow { font-size: var(--body-s); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; }
+.lead h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; letter-spacing: -0.03em; }
+.sub { max-width: 40rem; text-wrap: balance; opacity: 0.75; font-size: 1.125rem; }
+.cue { position: absolute; bottom: 2rem; font-size: 1.5rem; opacity: 0.5; animation: bob 1.6s ease-in-out infinite; }
+@keyframes bob { 50% { translate: 0 6px; } }
+
+.after { max-width: 44rem; margin: 0 auto; padding: 6rem 1.5rem 8rem; }
+.after h3 { font-family: var(--font-display); font-weight: 400; font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1; margin-bottom: 1.5rem; }
+.after ul { padding-left: 1.25rem; display: grid; gap: 0.75rem; }
+.after li { text-wrap: pretty; }
+.after code { font-size: 0.9em; background: var(--lumen-dark); padding: 0.1em 0.35em; border-radius: 0.35em; }
+.src { margin-top: 2rem; font-size: var(--body-s); opacity: 0.6; }
+
+/* ---- the section (.section_new-testi) ---------------------------------------------------- */
+.testi { position: relative; overflow: clip; background: var(--vast); color: var(--lumen); border-radius: var(--r-section); }
+.head { max-width: 77.5rem; margin: 0 auto; padding: 8rem 2.5rem 0; text-align: center; }
+.tag { font-size: var(--body-s); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; margin-bottom: 2.5rem; }
+.head h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--h2); line-height: 1; letter-spacing: -0.03em; text-wrap: balance; }
+.head em { font-style: italic; }
+
+/* .testiv2_height: the scroll runway (height is set by the script) / .testiv2_wrap: the sticky stage */
+.runway { position: relative; min-height: 350vh; }
+.stage { position: sticky; top: 0; min-height: 100vh; display: flex; flex-flow: column; justify-content: center; align-items: center; gap: 2rem; }
+
+/* ---- cards (.testi_card) ------------------------------------------------------------------ */
+.card {
+  position: absolute; left: 50%; top: var(--center); margin: 0;
+  width: 34rem; max-width: 86vw; height: 28.75rem; min-height: 28.75rem;
+  border-radius: var(--r-card); padding: 1rem; color: var(--vast); text-decoration: none;
+  overflow: clip; transform-style: preserve-3d; backface-visibility: hidden; will-change: transform;
+}
+.card.landscape { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; width: 46.25rem; max-width: none; }
+.card.square { width: 26rem; max-width: 26rem; }
+.card[data-tone='purple'] { --tone: var(--dawn); }
+.card[data-tone='lumen'] { --tone: var(--lumen); }
+.card[data-tone='dark-lumen'] { --tone: var(--lumen-dark); }
+.card[data-tone='green'] { --tone: var(--green); }
+.card[data-tone='red'] { --tone: var(--flare); }
+.bg { position: absolute; inset: 0; z-index: 0; background: var(--tone); }
+
+.body { position: relative; z-index: 2; display: flex; flex-flow: column; justify-content: space-between; gap: 2rem; height: 100%; padding: 1rem; }
+.quote { font-family: var(--font-display); font-size: var(--h4); font-weight: 400; line-height: 0.95; letter-spacing: -0.03em; text-wrap: balance; }
+.brand { display: flex; flex-flow: column; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+.logo { height: 1.875rem; width: auto; object-fit: contain; }
+.name { font-size: 1rem; font-weight: 500; }
+.faint { opacity: 0.74; }
+.role { font-size: var(--body-s); font-weight: 500; color: var(--ink-50); }
+.dim { color: inherit; opacity: 0.5; }
+.author { display: flex; align-items: center; gap: 0.75rem; }
+.avatar { width: 4.375rem; height: 4.375rem; border-radius: 50%; object-fit: cover; flex: none; }
+
+/* "Read case study" (.text-link): a second chevron parked at -100% slides in on hover */
+.link { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; font-weight: 500; }
+.arrow { position: relative; width: 1.25rem; height: 1.25rem; overflow: clip; flex: none; }
+.arrow svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: translate 0.25s ease; }
+.arrow svg:first-child { left: -100%; }
+.card:hover .arrow svg { translate: 100% 0; }
+
+/* right column (.testi_card-img-wrap) with the stats overlay */
+.media { position: relative; z-index: 2; width: 100%; height: 100%; border-radius: var(--r-inner); overflow: clip; }
+.photo { width: 100%; height: 100%; max-height: 26.75rem; object-fit: cover; }
+.stats { position: absolute; inset: 0; display: flex; flex-flow: column; justify-content: flex-end; padding: 0 2rem 1.3rem; background: linear-gradient(#fff0, #000000b3); color: var(--lumen); }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.stat { display: flex; flex-flow: column; align-items: flex-start; gap: 0.5rem; }
+.stat-value { font-family: var(--font-display); font-size: var(--h3); line-height: 0.95; letter-spacing: -0.03em; }
+.stat-label { font-size: var(--body-xs); font-weight: 500; }
+
+/* full-bleed photo card with a bottom card (Alex) */
+.bleed { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+.bottom { position: relative; display: flex; flex-flow: column; justify-content: flex-end; width: 100%; height: 100%; }
+.bottom-card { position: relative; display: flex; flex-flow: column; justify-content: space-between; gap: 2rem; padding: 1.5rem; border-radius: var(--r-inner); overflow: clip; }
+.bottom-card .quote, .bottom-card .who { position: relative; z-index: 2; }
+.bottom-bg { position: absolute; inset: 0; z-index: 0; background: var(--glow); }
+
+/* ---- breakpoints (the site's 991 / 767 / 479) -------------------------------------------- */
+@media (max-width: 991px) {
+  :host { --h2: 4rem; --r-section: 3rem; }
+  .head { padding-top: 6rem; }
+  .stage { padding-top: 3rem; }
+}
+@media (max-width: 767px) {
+  :host { --h2: 3rem; --h4: 1.5rem; --r-card: 1.5rem; }
+  .head { padding: 4rem 1.25rem 0; }
+  .tag { margin-bottom: 1.5rem; }
+  .runway { min-height: 250vh; margin-top: 2rem; }
+  .stage { padding-top: 4rem; }
+  .card { width: min(34rem, 86vw); min-width: 20rem; height: auto; min-height: auto; }
+  .card.landscape { display: flex; flex-flow: column-reverse; gap: 0.5rem; width: min(34rem, 86vw); }
+  .card.square { width: 26rem; max-width: 26rem; min-height: 20rem; }
+  .body { padding-left: 0; padding-right: 0; }
+  .square .body, .bottom { min-height: 20rem; }
+  .media { border-radius: 0; order: 9999; }
+  .photo { aspect-ratio: 1; object-position: 50% 25%; border-radius: 1rem; max-height: none; }
+  .stats { border-radius: 1rem; padding-left: 1rem; padding-right: 1rem; }
+  .stat-value { font-size: 2.5rem; }
+  .avatar { width: 3rem; height: 3rem; }
+}
+@media (max-width: 479px) {
+  .stage { padding-top: 6rem; }
+  .card.square { width: min(34rem, 86vw); max-width: 86vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cue { animation: none; }
+}

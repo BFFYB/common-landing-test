@@ -13,9 +13,11 @@ Playground for landing pages. Each landing is a self-contained, lazy-loaded Angu
 ## Layout
 
 - `src/app/landings/registry.ts` — single source of truth (`LANDINGS`, newest first). Routes, gallery and switcher all derive from it. New entries go under the `// @new-landing` marker — the script does this.
+  A landing can list extra `pages` (a form, a detail page): routed at `/<slug>/<path>`, component in `<slug>/<path>/`, not in the gallery or switcher.
 - `src/app/landings/<slug>/<slug>.{ts,html,css}` — one landing. The html + css is where the work happens.
 - `src/app/gallery/` — index page at `/`.
-- `src/app/switcher/` — floating HUD. Keys: `[` `]` prev/next, `` ` `` hide, `Esc` close list.
+- `src/app/switcher/` — floating HUD. Keys: `[` `]` prev/next landing, `{` `}` prev/next form factor, `r` rotate, `` ` `` hide, `Esc` close list.
+- `src/app/devices/` — form-factor preview. `devices.ts` is the device list (CSS px) + selection state; `stage` wraps the router outlet and, with a device picked, loads the same route in an iframe of that size (real media queries / dvh), scaled to fit. Inside the iframe the app renders without HUD and forwards keys to the parent.
 - `src/styles.css` — tiny global reset only. Never put landing styles here.
 - `public/landings/<slug>/` — images/assets for a landing, referenced as `/landings/<slug>/x.png`.
 

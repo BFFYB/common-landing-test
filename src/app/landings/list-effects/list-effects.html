@@ -1,0 +1,183 @@
+<div class="lab">
+  <header class="top">
+    <div class="brand"><span class="mark"></span>List effects <span class="sub">· training ground</span></div>
+    <p class="intro">
+      One list, twenty ways in. Pick an effect, tune the stagger, try it in five layouts, then scroll down and watch it fire on view like it would on a real landing. Copy the CSS when it feels right.
+    </p>
+    <ul class="keys">
+      <li><kbd>Space</kbd> replay</li>
+      <li><kbd>↑</kbd><kbd>↓</kbd> effect</li>
+      <li><kbd>L</kbd> loop</li>
+    </ul>
+  </header>
+
+  <div class="bench">
+    <aside class="panel">
+      <section class="ctl">
+        <h2>Effect</h2>
+        @for (g of groups; track g.name) {
+          <h3>{{ g.name }}</h3>
+          <div class="chips">
+            @for (f of g.fx; track f.id) {
+              <button type="button" class="chip" [class.on]="f === fx()" (click)="pick(f)">{{ f.label }}</button>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="ctl">
+        <h2>Layout</h2>
+        <div class="seg five">
+          @for (l of layouts; track l.id) {
+            <button type="button" [class.on]="l.id === layout()" (click)="setLayout(l.id)">{{ l.label }}</button>
+          }
+        </div>
+      </section>
+
+      <section class="ctl">
+        <h2>Order</h2>
+        <div class="seg">
+          @for (o of orders; track o.id) {
+            <button type="button" [class.on]="o.id === order()" (click)="setOrder(o.id)">{{ o.label }}</button>
+          }
+        </div>
+      </section>
+
+      <section class="ctl">
+        <h2>Timing</h2>
+        <label class="range">
+          <span>Duration <b>{{ dur() }} ms</b></span>
+          <input type="range" min="100" max="1600" step="20" [value]="dur()" (input)="dur.set(n($event))" (change)="replay()" />
+        </label>
+        <label class="range">
+          <span>Stagger <b>{{ stagger() }} ms</b></span>
+          <input type="range" min="0" max="240" step="5" [value]="stagger()" (input)="stagger.set(n($event))" (change)="replay()" />
+        </label>
+        <label class="range">
+          <span>Amplitude <b>×{{ amp() }}</b></span>
+          <input type="range" min="0.25" max="2.5" step="0.25" [value]="amp()" (input)="amp.set(n($event))" (change)="replay()" />
+        </label>
+        <label class="range">
+          <span>Items <b>{{ count() }}</b></span>
+          <input type="range" min="2" max="12" step="1" [value]="count()" (input)="count.set(n($event))" (change)="replay()" />
+        </label>
+        <label class="select">
+          <span>Easing</span>
+          <select (change)="setEase($any($event.target).value)">
+            @for (e of eases; track e.id) {
+              <option [value]="e.id" [selected]="e === ease()">{{ e.label }}</option>
+            }
+          </select>
+        </label>
+      </section>
+
+      <section class="ctl">
+        <label class="check">
+          <input type="checkbox" [checked]="repeat()" (change)="repeat.set($any($event.target).checked)" />
+          <span>Re-arm the on-scroll sections each time they leave the viewport</span>
+        </label>
+        <button type="button" class="link" (click)="reset()">Reset to defaults</button>
+      </section>
+    </aside>
+
+    <main class="work">
+      <div class="bar">
+        <p class="now">
+          <strong>{{ fx().label }}</strong>&ngsp;
+          <span>· {{ layoutLabel() }} · {{ orderLabel() }} · {{ ease().label }} · {{ total() }} ms total</span>
+        </p>
+        <div class="actions">
+          <button type="button" class="btn primary" (click)="replay()">Replay</button>
+          <button type="button" class="btn" (click)="playOut()">Play out</button>
+          <button type="button" class="btn" [class.on]="loop()" (click)="toggleLoop()">{{ loop() ? 'Looping' : 'Loop' }}</button>
+        </div>
+      </div>
+
+      @if (reducedMotion()) {
+        <p class="warn">Your OS asks for reduced motion, so every animation on this page is off. A real landing should do the same.</p>
+      }
+
+      <div class="stage" [attr.data-layout]="layout()">
+        <ng-container *ngTemplateOutlet="list; context: { $implicit: items(), layout: layout(), on: true, out: phase() === 'out' }" />
+      </div>
+
+      <section class="code">
+        <div class="code-head">
+          <h2>CSS for a real page</h2>
+          <button type="button" class="btn small" (click)="copy()">{{ copied() ? 'Copied' : 'Copy' }}</button>
+        </div>
+        <pre><code>{{ code() }}</code></pre>
+      </section>
+    </main>
+  </div>
+
+  <section class="wilds">
+    <header class="wilds-head">
+      <h2>On scroll</h2>
+      <p>The same list, further down the page, in the layouts a landing actually uses. Each one plays when it enters the viewport — the current effect, order and timing.</p>
+    </header>
+    @for (w of wild; track w.layout; let i = $index) {
+      <article class="wild" [attr.data-wild]="i" [attr.data-layout]="w.layout" [class.in]="wildIn()[i]">
+        <div class="wild-cap">
+          <span class="num">0{{ i + 1 }}</span>
+          <h3>{{ w.title }}</h3>
+          <p>{{ w.body }}</p>
+        </div>
+        <div class="wild-list">
+          <ng-container *ngTemplateOutlet="list; context: { $implicit: wildItems()[i], layout: w.layout, on: wildIn()[i], out: false }" />
+        </div>
+      </article>
+    }
+  </section>
+
+  <footer class="foot">
+    <p>Every effect is one <code>&#64;keyframes</code> on the item, staggered with <code>animation-delay: calc(var(--i) * var(--stagger))</code>. Play out is the same animation with <code>animation-direction: reverse</code>; the on-scroll sections start <code>paused</code> and switch to <code>running</code> when an IntersectionObserver sees them.</p>
+  </footer>
+</div>
+
+<!-- One list, rendered on the stage and in every on-scroll section.
+     items: the listings with their --i slot · layout: which item markup · on: play (false = paused at the start state)
+     out: reverse the animation. Keys carry the run counters, so a new run re-creates the items and the animation restarts. -->
+<ng-template #list let-items let-layout="layout" let-on="on" let-out="out">
+  @if (layout === 'table') {
+    <div class="thead"><span>City</span><span>Where</span><span>Tag</span><span class="val">From</span></div>
+  }
+  <ul class="list" [style]="vars()" [class.out]="out" [class.paused]="!on">
+    @for (it of items; track it.key) {
+      <li class="item" [style.--i]="it.order">
+        @switch (layout) {
+          @case ('rows') {
+            <div class="in row">
+              <span class="thumb" [style.--hue]="it.hue"></span>
+              <span class="txt"><strong>{{ it.title }}</strong><small>{{ it.meta }}</small></span>
+              <span class="tag">{{ it.tag }}</span>
+              <span class="val">{{ it.value }}</span>
+            </div>
+          }
+          @case ('cards') {
+            <div class="in card">
+              <span class="thumb" [style.--hue]="it.hue"></span>
+              <strong>{{ it.title }}</strong>
+              <small>{{ it.meta }}</small>
+              <span class="val">{{ it.value }}</span>
+            </div>
+          }
+          @case ('lines') {
+            <div class="in line">{{ it.title }}</div>
+          }
+          @case ('table') {
+            <div class="in trow">
+              <span>{{ it.title }}</span>
+              <span class="meta">{{ it.meta }}</span>
+              <span><span class="tag">{{ it.tag }}</span></span>
+              <span class="val">{{ it.value }}</span>
+            </div>
+          }
+          @case ('chips') {
+            <div class="in chipx"><span class="dot" [style.--hue]="it.hue"></span>{{ it.title }}</div>
+          }
+        }
+      </li>
+    }
+  </ul>
+</ng-template>

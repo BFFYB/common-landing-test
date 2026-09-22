@@ -8,6 +8,15 @@ export interface LandingMeta {
   /** YYYY-MM-DD */
   created: string;
   load: () => Promise<Type<unknown>>;
+  /** Extra pages of this landing (a form, a detail page), routed at /<slug>/<path>. Not in the gallery or the switcher. */
+  pages?: LandingPage[];
+}
+
+export interface LandingPage {
+  /** URL segment under the landing: http://localhost:4200/<slug>/<path> */
+  path: string;
+  title: string;
+  load: () => Promise<Type<unknown>>;
 }
 
 /**
@@ -18,6 +27,37 @@ export interface LandingMeta {
  */
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
+  {
+    slug: 'wispr-testi',
+    title: 'Wispr testimonial orbit',
+    description:
+      'Port of the case-study deck on wisprflow.ai: six cards on a sticky stage, scrubbed across the screen by scroll while each swings on a rotateX arc around a pivot behind it (upright at the centre, tipped and receding at the edges). Plain TS + CSS, no GSAP; the original script\'s knobs are at the top of the .ts. See README.md.',
+    created: '2026-09-22',
+    load: () => import('./wispr-testi/wispr-testi').then((m) => m.WisprTesti),
+  },
+  {
+    slug: 'list-effects',
+    title: 'List effects',
+    description:
+      'Training ground for list entrance effects: 20 keyframe effects, stagger order, duration / stagger / easing / amplitude, five layouts, replay, play-out and loop, on-scroll sections, and the CSS to copy.',
+    created: '2026-09-21',
+    load: () => import('./list-effects/list-effects').then((m) => m.ListEffects),
+  },
+  {
+    slug: 'grask-3',
+    title: 'Grask (Uncut Sans)',
+    description:
+      'grask-2 with one change, the type: Uncut Sans for headings, UI and body, Urbanist for descriptions, weights capped at 600, two text colours. Same layout, copy and motion, for a side-by-side with /grask-2.',
+    created: '2026-09-21',
+    load: () => import('./grask-3/grask-3').then((m) => m.Grask3),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask (Uncut Sans) · Pilot',
+        load: () => import('./grask-3/pilot/pilot').then((m) => m.Grask3Pilot),
+      },
+    ],
+  },
   {
     slug: 'grask-2',
     title: 'Grask (capital G)',
@@ -41,12 +81,5 @@ export const LANDINGS: LandingMeta[] = [
       'Design-canvas export on the grask brand kit (petrol / paper / Schibsted Grotesk, real logos). Pure-CSS demo + LMS orbit, scroll reveals, placeholders in [brackets].',
     created: '2026-09-20',
     load: () => import('./grask/grask').then((m) => m.Grask),
-  },
-  {
-    slug: 'example',
-    title: 'Example',
-    description: 'Starter landing — hero, three features, CTA. Copy the pattern, not the code.',
-    created: '2026-09-20',
-    load: () => import('./example/example').then((m) => m.Example),
   },
 ];
