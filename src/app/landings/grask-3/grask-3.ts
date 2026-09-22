@@ -177,8 +177,10 @@ export class Grask3 {
    * .is-hidden on .bar, see grask-3.css):
    *   - within 80px of the top it is shown, transparent and borderless (.is-top); scrollY <= 0 counts
    *     as the top, so iOS overscroll bounce never hides it
-   *   - it hides only once the hero is completely above the viewport, and only after 10px of downward
-   *     travel since the scroll last changed direction; 10px upward brings it back
+   *   - it hides only once the hero's content is completely above the viewport (its last element, the
+   *     recording strip; the section itself is a full screen tall and its lower part is empty paper, so
+   *     measuring the section kept the bar on an empty screen), and only after 10px of downward travel
+   *     since the scroll last changed direction; 10px upward brings it back
    *   - never while something in it has keyboard focus (:focus-visible; focusin also forces it shown),
    *     or while a menu in it is open (a toggle with aria-expanded="true"; there is no mobile menu
    *     yet, so this is for when one is added)
@@ -192,6 +194,7 @@ export class Grask3 {
     if (!header || !hero) {
       return;
     }
+    const heroContent = hero.lastElementChild ?? hero;
     const TOP = 80;
     const STEP = 10;
     let lastY = Math.max(0, window.scrollY);
@@ -212,7 +215,7 @@ export class Grask3 {
         lastY = y;
       }
       header.classList.toggle('is-top', y < TOP);
-      const heroGone = hero.getBoundingClientRect().bottom <= 0;
+      const heroGone = heroContent.getBoundingClientRect().bottom <= 0;
       if (y < TOP || !heroGone || locked()) {
         header.classList.remove('is-hidden');
       } else if (Math.abs(y - turnY) > STEP) {

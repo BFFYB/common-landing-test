@@ -45,7 +45,7 @@ html.glp3-page::-webkit-scrollbar-corner { background: var(--g-bg); }
 @media (prefers-reduced-motion: reduce) {
   .grask-3-lp .bar { transition: none; }
 }
-.grask-3-lp .hero { position: relative; min-height: calc(100dvh - var(--glp3-header-h)); } /* the opening: one full screen (minus the header in flow) before the statement; the content is anchored to the top of it (fixed top padding, inline), not centred */
+.grask-3-lp .hero { position: relative; } /* the opening: content anchored to the top (fixed top padding, inline) and no minimum height, so the statement track starts right after the recording strip (until 2026-09-23 the hero was a full screen tall, which left an empty screen between the strip and the statement) */
 .grask-3-lp .title .w { display: inline-block; }
 /* Buttons and header nav links: the wisprflow.ai hover. A button presses in (scale .98 over 200ms) and its label ripples: setupButtonWave()
    in grask-3.ts splits each label (the <span> inside every button and every .nav-links link) into one .char per letter and bobs them one
