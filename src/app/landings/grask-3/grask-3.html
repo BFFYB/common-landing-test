@@ -8,7 +8,10 @@
 <a class="plain" href="#lms" (click)="go($event)" style="padding: 12px 0;"><span>Integrations</span></a>
 <a class="plain" href="#faq" (click)="go($event)" style="padding: 12px 0;"><span>Questions</span></a>
 </nav>
-<a routerLink="/grask-3/pilot" class="btn-dark" style="grid-column: 3; justify-self: end; display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-button); font-size: 15px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none; white-space: nowrap;"><span>Book a demo</span></a>
+<div class="bar-cta" style="grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 8px;">
+<a href="https://grask.eu" target="_blank" rel="noopener" class="btn-light" style="display: inline-flex; align-items: center; justify-content: center; height: 44px; box-sizing: border-box; padding: 0 20px; background: var(--g-surface); color: var(--g-text); border: 1.5px solid var(--g-text); border-radius: var(--g-radius-button); font-size: 15px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none; white-space: nowrap;"><span>Try it out</span></a>
+<a routerLink="/grask-3/pilot" class="btn-dark" style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-button); font-size: 15px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none; white-space: nowrap;"><span>Book a demo</span></a>
+</div>
 </div>
 </header>
 
@@ -17,7 +20,7 @@
 <p class="sub rise rise-3" style="max-width: 680px; font-size: clamp(18px, 1.5vw, 21px); font-weight: var(--g-weight-body); color: var(--g-text-lead); text-wrap: balance;">Grask is a voice agent that conducts oral checks, following your rubric. You receive an evidence report, the recording, a transcript organised by criterion and a grade recommendation. Bundled with a dashboard that helps you find and fix weak spots in the study programme.</p>
 <div class="rise rise-4" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding-top: 4px;">
 <a routerLink="/grask-3/pilot" class="btn-dark" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 30px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-button); font-size: 16.5px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none;"><span>Book a demo</span></a>
-<a href="#how" (click)="go($event)" class="btn-light" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; box-sizing: border-box; padding: 0 28px; background: var(--g-surface); border: 1px solid rgba(var(--g-ink-rgb), 0.14); border-radius: var(--g-radius-button); font-size: 16.5px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none;">
+<a href="#how" (click)="go($event)" class="btn-light" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; box-sizing: border-box; padding: 0 28px; background: var(--g-surface); border: 1.5px solid var(--g-text); border-radius: var(--g-radius-button); font-size: 16.5px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); text-decoration: none;">
 <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.6 L12 7 L3 12.4 Z" fill="currentColor"></path></svg>
 <span>Watch a check run</span>
 </a>
