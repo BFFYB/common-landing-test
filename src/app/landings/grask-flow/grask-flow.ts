@@ -1,0 +1,347 @@
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  afterNextRender,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+/**
+ * Grask flow demo: the whole product flow as one 48-second film, on a single clock, for testing
+ * the animations a "how it works" demo needs. See README.md here.
+ *
+ * Two devices sit on the stage, the instructor's screen and the student's phone, and every
+ * element on them is a CSS animation on the same 48 s loop (grask-flow.timeline.css, generated
+ * from the spec in its header). The four rubric criteria are the through-line: they are typed in
+ * as a rubric, ticked off during the call, quoted in the evidence report, weighed in the grade and
+ * charted on the dashboard. The only JavaScript is the transport: play/pause, speed, scrub, chapter
+ * jumps and the playhead, all done by moving every animation's currentTime together (Web
+ * Animations API), the way grask-3's seek() does. Under prefers-reduced-motion the film is paused
+ * at the end of a chapter and the chapter chips step through the finished states.
+ */
+
+export interface Chapter {
+  id: string;
+  /** Chip label. */
+  name: string;
+  /** Caption title. */
+  title: string;
+  /** Caption sentence: what happens in the product. */
+  note: string;
+  /** What to watch on the instructor's screen. */
+  screen: string;
+  /** What to watch on the phone. */
+  phone: string;
+  /** Start, in seconds of the loop. */
+  start: number;
+}
+
+export interface Criterion {
+  name: string;
+  weight: number;
+}
+
+export interface Line {
+  who: 'agent' | 'student';
+  words: string[];
+}
+
+export interface Evidence {
+  criterion: string;
+  words: string[];
+  status: 'demonstrated' | 'partial' | 'missing';
+}
+
+export interface Student {
+  name: string;
+  state: 'live' | 'done' | 'waiting';
+  time: string;
+}
+
+export interface Bar {
+  name: string;
+  pct: number;
+}
+
+/** Length of the loop in milliseconds; every timeline animation runs this long. */
+export const LOOP_MS = 48_000;
+/** Length of one chapter in milliseconds; six chapters make the loop. */
+export const CHAPTER_MS = 8_000;
+
+const words = (s: string) => s.split(' ');
+
+@Component({
+  selector: 'landing-grask-flow',
+  imports: [RouterLink],
+  templateUrl: './grask-flow.html',
+  styleUrls: ['./grask-flow.fonts.css', './grask-flow.css', './grask-flow.timeline.css'],
+  host: {
+    '(keydown)': 'onKey($event)',
+  },
+})
+export class GraskFlow {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly chapters: readonly Chapter[] = [
+    {
+      id: 'rubric',
+      name: 'Rubric',
+      title: 'You set the rubric',
+      note: 'Four criteria, weighted the way you grade. Grask asks about nothing else.',
+      screen: 'The criteria type in one by one, each weight settles, Save presses and confirms.',
+      phone: 'Idle. Nothing has reached the student yet.',
+      start: 0,
+    },
+    {
+      id: 'lms',
+      name: 'LMS',
+      title: 'It attaches to the assignment',
+      note: 'One switch on the Moodle assignment. Students get the check where they hand in the report.',
+      screen: 'The switch flips on and the details unfold beneath it.',
+      phone: 'The link travels the wire; a notification drops in.',
+      start: 8,
+    },
+    {
+      id: 'call',
+      name: 'Call',
+      title: 'The student takes a six-minute voice call',
+      note: 'The agent asks about their own report, follows up, and listens. You watch the cohort fill in.',
+      screen: 'A row turns from in progress to done; the counter ticks up.',
+      phone: 'Words arrive as they are spoken; criteria tick off as they are covered.',
+      start: 16,
+    },
+    {
+      id: 'evidence',
+      name: 'Evidence',
+      title: 'You receive the evidence, by criterion',
+      note: 'A quote per criterion, lifted from the transcript, each with a status: demonstrated, partial or missing.',
+      screen: 'Quotes arrive word by word, then a status lands on each.',
+      phone: 'A tick draws itself; the student is thanked.',
+      start: 24,
+    },
+    {
+      id: 'grade',
+      name: 'Grade',
+      title: 'You grade',
+      note: 'A recommendation with its reasons. You adjust it, confirm, and it lands in the gradebook.',
+      screen: 'The recommendation appears with its reasons, the slider moves a notch, Confirm presses, a toast confirms.',
+      phone: 'The result travels back; a card with the grade and feedback slides in.',
+      start: 32,
+    },
+    {
+      id: 'dashboard',
+      name: 'Dashboard',
+      title: 'The course learns too',
+      note: 'Across the cohort one criterion stands out. That is the next lecture.',
+      screen: 'Four bars grow; the low one is flagged with a suggestion.',
+      phone: 'Quiet. The next check is announced.',
+      start: 40,
+    },
+  ];
+
+  readonly criteria: readonly Criterion[] = [
+    { name: 'Hash function choice', weight: 20 },
+    { name: 'Collision handling', weight: 30 },
+    { name: 'Load factor and resizing', weight: 25 },
+    { name: 'Complexity', weight: 25 },
+  ];
+
+  readonly transcript: readonly Line[] = [
+    {
+      who: 'agent',
+      words: words(
+        'Your report shows lookups slowing once the table is about 70% full. Why does that happen with linear probing?',
+      ),
+    },
+    {
+      who: 'student',
+      words: words(
+        'Clustering. Occupied slots form long runs, so a new key has to walk to the end of a run, and then it makes that run longer.',
+      ),
+    },
+    { who: 'agent', words: words('What would you change to keep lookups fast at that load?') },
+  ];
+
+  readonly evidence: readonly Evidence[] = [
+    {
+      criterion: 'Hash function choice',
+      words: words('“I hash the key’s bytes with FNV-1a and mask to the table size.”'),
+      status: 'demonstrated',
+    },
+    {
+      criterion: 'Collision handling',
+      words: words('“Occupied slots form long runs, so a new key walks to the end of a run.”'),
+      status: 'demonstrated',
+    },
+    {
+      criterion: 'Load factor and resizing',
+      words: words('“I resize when it’s… I think when it’s full?”'),
+      status: 'partial',
+    },
+    {
+      criterion: 'Complexity',
+      words: words('“Average O(1), but the long runs make the worst case O(n).”'),
+      status: 'demonstrated',
+    },
+  ];
+
+  readonly statusLabel: Record<Evidence['status'], string> = {
+    demonstrated: 'Demonstrated',
+    partial: 'Partial',
+    missing: 'Missing',
+  };
+
+  readonly students: readonly Student[] = [
+    { name: 'Ana K.', state: 'live', time: '04:51' },
+    { name: 'Ben O.', state: 'done', time: '05:48' },
+    { name: 'Chloé D.', state: 'done', time: '06:02' },
+    { name: 'Dev P.', state: 'waiting', time: '' },
+  ];
+
+  readonly bars: readonly Bar[] = [
+    { name: 'Hash function', pct: 86 },
+    { name: 'Collisions', pct: 41 },
+    { name: 'Load factor', pct: 74 },
+    { name: 'Complexity', pct: 79 },
+  ];
+
+  readonly speeds: readonly number[] = [0.5, 1, 2];
+
+  /** Playhead position in the loop, in milliseconds. */
+  readonly time = signal(0);
+  readonly playing = signal(false);
+  readonly rate = signal(1);
+  readonly reduced = signal(false);
+  readonly chapter = computed(() => Math.min(5, Math.floor(this.time() / CHAPTER_MS)));
+
+  readonly loopMs = LOOP_MS;
+
+  /** Every animation on the film, all on the same clock. */
+  private anims: Animation[] = [];
+  private frame = 0;
+
+  constructor() {
+    afterNextRender(() => this.setupTransport());
+  }
+
+  /** "00:12" for 12.4 seconds. */
+  tc(seconds: number): string {
+    const s = Math.max(0, Math.floor(seconds));
+    return `00:${String(s).padStart(2, '0')}`;
+  }
+
+  toggle(): void {
+    this.playing() ? this.pause() : this.play();
+  }
+
+  play(): void {
+    if (this.reduced()) {
+      return; // reduced motion: the film is stepped with the chapter chips, never played
+    }
+    for (const a of this.anims) {
+      a.play();
+    }
+    this.playing.set(true);
+    this.tick();
+  }
+
+  pause(): void {
+    for (const a of this.anims) {
+      a.pause();
+    }
+    this.playing.set(false);
+    cancelAnimationFrame(this.frame);
+    this.readClock();
+  }
+
+  setRate(rate: number): void {
+    this.rate.set(rate);
+    for (const a of this.anims) {
+      a.playbackRate = rate;
+    }
+  }
+
+  /** Jumps to the start of a chapter (to the end of it under reduced motion, where the finished state is the point). */
+  seek(index: number): void {
+    const at = this.chapters[index].start * 1000 + (this.reduced() ? CHAPTER_MS - 600 : 0);
+    this.seekTo(at);
+  }
+
+  seekTo(ms: number): void {
+    const at = ((ms % LOOP_MS) + LOOP_MS) % LOOP_MS;
+    for (const a of this.anims) {
+      a.currentTime = at;
+    }
+    this.time.set(at);
+  }
+
+  onScrub(event: Event): void {
+    this.seekTo(Number((event.target as HTMLInputElement).value));
+  }
+
+  onKey(event: KeyboardEvent): void {
+    const el = event.target as HTMLElement | null;
+    if (el?.closest('input[type="range"]') && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      return; // the scrubber's own keys
+    }
+    if (event.key === ' ' || event.key === 'k') {
+      event.preventDefault();
+      this.toggle();
+    } else if (event.key === 'ArrowRight' || event.key === 'l') {
+      this.seek((this.chapter() + 1) % 6);
+    } else if (event.key === 'ArrowLeft' || event.key === 'j') {
+      this.seek((this.chapter() + 5) % 6);
+    } else if (/^[1-6]$/.test(event.key)) {
+      this.seek(Number(event.key) - 1);
+    }
+  }
+
+  private setupTransport(): void {
+    const film = this.host.nativeElement.querySelector<HTMLElement>('.film');
+    if (!film) {
+      return;
+    }
+    this.anims = film.getAnimations({ subtree: true });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.reduced.set(reduce.matches);
+    if (reduce.matches) {
+      // no motion: rest at the end of the first chapter, with everything on it finished
+      for (const a of this.anims) {
+        a.pause();
+      }
+      this.seek(0);
+    } else {
+      this.seekTo(0);
+      this.play();
+    }
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(this.frame);
+      } else if (this.playing()) {
+        this.tick();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    this.destroyRef.onDestroy(() => {
+      cancelAnimationFrame(this.frame);
+      document.removeEventListener('visibilitychange', onVisibility);
+    });
+  }
+
+  private readClock(): void {
+    const ref = this.anims[0];
+    const t = typeof ref?.currentTime === 'number' ? ref.currentTime : 0;
+    this.time.set(((t % LOOP_MS) + LOOP_MS) % LOOP_MS);
+  }
+
+  private tick = (): void => {
+    this.readClock();
+    if (this.playing()) {
+      this.frame = requestAnimationFrame(this.tick);
+    }
+  };
+}

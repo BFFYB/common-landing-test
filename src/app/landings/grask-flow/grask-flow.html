@@ -1,0 +1,195 @@
+<div class="page">
+<header class="top">
+<a class="brand" routerLink="/grask-3"><img src="/landings/grask-flow/logo/grask-mark-tile.svg" alt="" width="28" height="28"><span>Grask</span><span class="brand-sub">the flow, in 48 seconds</span></a>
+<nav class="chips" aria-label="Chapters">
+@for (c of chapters; track c.id; let i = $index) {
+<button type="button" class="chip" [class.is-on]="chapter() === i" [attr.aria-current]="chapter() === i ? 'step' : null" (click)="seek(i)"><span class="chip-t">{{ tc(c.start) }}</span>{{ c.name }}</button>
+}
+</nav>
+<div class="speed" role="group" aria-label="Speed">
+@for (s of speeds; track s) {
+<button type="button" class="speed-b" [class.is-on]="rate() === s" [attr.aria-pressed]="rate() === s" (click)="setRate(s)">{{ s }}×</button>
+}
+</div>
+</header>
+
+<section class="film" aria-label="The Grask flow, animated">
+<div class="caption" aria-live="polite">
+@for (c of chapters; track c.id; let i = $index) {
+<div [class]="'cap cap-' + i" [attr.aria-hidden]="chapter() !== i">
+<h2 class="cap-title">{{ c.title }}</h2>
+<p class="cap-note">{{ c.note }}</p>
+</div>
+}
+</div>
+
+<div class="devices">
+<div class="laptop" role="img" aria-label="The instructor's screen, changing with each chapter">
+<div class="lap-bar"><span class="lap-lights"><i></i><i></i><i></i></span><span class="lap-title">Grask · Instructor</span></div>
+<div class="lap-screen">
+
+<div class="scr scr-0">
+<div class="lap-h"><span>New oral check</span><span class="crumb">Lab 3 · hash tables</span></div>
+<ul class="rub">
+@for (c of criteria; track c.name; let i = $index) {
+<li [class]="'rub-row rub-' + i"><span class="rub-n">{{ i + 1 }}</span><span class="rub-txt">{{ c.name }}</span><span class="rub-w">{{ c.weight }}%</span></li>
+}
+</ul>
+<div class="rub-foot"><span class="rub-len">6 minutes · opens after the report is in</span><span class="ui-btn save"><span class="save-a">Save rubric</span><span class="save-b"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved</span></span></div>
+</div>
+
+<div class="scr scr-1">
+<div class="lap-h lms"><span class="lms-mark">m</span><span>Lab 3 · hash tables</span><span class="crumb">Assignment settings</span></div>
+<ul class="lms-rows">
+<li><span>Submission type</span><span class="lms-val">File · PDF</span></li>
+<li><span>Due</span><span class="lms-val">Fri 3 Oct, 23:59</span></li>
+<li class="lms-grask"><span class="lms-lbl"><img src="/landings/grask-flow/logo/grask-mark-tile.svg" alt="" width="16" height="16">Grask oral check</span><span class="tog"><span class="knob"></span></span></li>
+</ul>
+<div class="lms-det"><span>Opens after the report is submitted</span><span>6 minutes · 4 criteria</span><span>28 students enrolled</span></div>
+</div>
+
+<div class="scr scr-2">
+<div class="lap-h"><span>Checks in progress</span><span class="crumb">Lab 3 · <span class="cnt"><span class="c-a">12</span><span class="c-b">13</span></span> of 28 done</span></div>
+<ul class="stu">
+@for (s of students; track s.name; let i = $index) {
+<li [class]="'stu-row stu-' + i + ' is-' + s.state">
+<span class="stu-name">{{ s.name }}</span>
+@if (s.state === 'live') {
+<span class="st st-live"><i class="rec-dot"></i>In the call · 04:51</span><span class="st st-done"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Done · 06:12</span>
+} @else if (s.state === 'done') {
+<span class="st st-done is-static"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Done · {{ s.time }}</span>
+} @else {
+<span class="st st-wait">Not started</span>
+}
+</li>
+}
+</ul>
+</div>
+
+<div class="scr scr-3">
+<div class="lap-h"><span>Evidence report</span><span class="crumb">Ana K. · Lab 3 · 06:12</span></div>
+<ul class="ev">
+@for (e of evidence; track e.criterion; let i = $index) {
+<li [class]="'ev-row ev-' + i">
+<span class="ev-c">{{ e.criterion }}</span>
+<span class="ev-q">@for (w of e.words; track $index; let wi = $index) {<span class="w" [style.--i]="wi">{{ w }}</span> }</span>
+<span [class]="'ev-s ev-s-' + e.status">{{ statusLabel[e.status] }}</span>
+</li>
+}
+</ul>
+</div>
+
+<div class="scr scr-4">
+<div class="lap-h"><span>Grade</span><span class="crumb">Ana K. · Lab 3</span></div>
+<div class="gr">
+<div class="gr-rec">
+<span class="gr-lbl">Recommendation</span>
+<span class="gr-num"><span class="g-a">17</span><span class="g-b">16</span></span><span class="gr-of">/ 20</span>
+</div>
+<ul class="gr-why">
+<li class="why" style="--i: 0">Three criteria demonstrated with specific evidence</li>
+<li class="why" style="--i: 1">Load factor only partial: no resizing threshold named</li>
+<li class="why" style="--i: 2">Own words throughout, no reading from the report</li>
+</ul>
+<div class="gr-slider" aria-hidden="true"><span class="gr-track"><span class="gr-fill"></span><span class="gr-knob"></span></span><span class="gr-scale"><span>0</span><span>20</span></span></div>
+<span class="ui-btn confirm">Confirm grade</span>
+<div class="toast"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.2 4.6 8.8 10 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Sent to the Moodle gradebook</div>
+</div>
+</div>
+
+<div class="scr scr-5">
+<div class="lap-h"><span>Course dashboard</span><span class="crumb">Lab 3 · 28 checks</span></div>
+<div class="dash">
+<ul class="bars">
+@for (b of bars; track b.name; let i = $index) {
+<li class="bar" [style.--i]="i" [style.--h]="b.pct / 100" [class.is-low]="b.pct < 50"><span class="bar-col"><span class="bar-fill"></span></span><span class="bar-pct">{{ b.pct }}%</span><span class="bar-name">{{ b.name }}</span></li>
+}
+</ul>
+<div class="flag"><p><strong>Weak spot: collision handling.</strong> 41% of the cohort partial or missing.</p><p class="flag-sug">Suggested: revisit probing and clustering in the Week 5 lecture.</p></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="wire" aria-hidden="true"><span class="pk pk-1"></span><span class="pk pk-2"></span><span class="pk pk-3"></span></div>
+
+<div class="phone" role="img" aria-label="The student's phone, changing with each chapter">
+<div class="ph-screen">
+
+<div class="ps ps-0"><div class="ph-status"><span>Tue 09:41</span></div><div class="ph-idle"><span class="ph-clock">09:41</span><span class="ph-date">Tuesday 30 September</span></div><p class="ph-quiet">No checks open</p></div>
+
+<div class="ps ps-1"><div class="ph-status"><span>Tue 09:52</span></div><div class="ph-idle"><span class="ph-clock">09:52</span><span class="ph-date">Tuesday 30 September</span></div>
+<div class="notif"><span class="notif-app"><span class="lms-mark sm">m</span>Moodle · now</span><strong>Lab 3: your oral check is open</strong><span>About 6 minutes, whenever you are ready.</span></div></div>
+
+<div class="ps ps-2"><div class="ph-status"><span>Fri 16:04</span></div>
+<div class="call-h"><span>Grask · Lab 3</span><span class="rec"><i class="rec-dot"></i>Recording</span></div>
+<div class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="tr">
+@for (l of transcript; track $index; let li = $index) {
+<p [class]="'tr-line tr-' + li + ' is-' + l.who"><span class="tr-who">{{ l.who === 'agent' ? 'Examiner' : 'Ana' }}</span>@for (w of l.words; track $index; let wi = $index) {<span class="w" [style.--i]="wi">{{ w }}</span> }</p>
+}
+</div>
+<ul class="cd" aria-hidden="true">
+@for (c of criteria; track c.name; let i = $index) {
+<li [class]="'cd-' + i"><i></i>{{ c.name }}</li>
+}
+</ul>
+</div>
+
+<div class="ps ps-3"><div class="ph-status"><span>Fri 16:11</span></div>
+<div class="done">
+<svg class="done-tick" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="2"/><path class="done-path" d="M17 29 25 37 40 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<strong>Thanks, Ana. That was the check.</strong>
+<span>Your instructor reviews the evidence and grades.</span>
+</div></div>
+
+<div class="ps ps-4"><div class="ph-status"><span>Mon 08:30</span></div><div class="ph-idle"><span class="ph-clock">08:30</span><span class="ph-date">Monday 6 October</span></div>
+<div class="result"><span class="notif-app"><img src="/landings/grask-flow/logo/grask-mark-tile.svg" alt="" width="14" height="14">Grask · now</span><strong>Lab 3 · 16 / 20</strong><span>Your feedback is ready, by criterion.</span></div></div>
+
+<div class="ps ps-5"><div class="ph-status"><span>Mon 08:31</span></div><div class="ph-idle"><span class="ph-clock">08:31</span><span class="ph-date">Monday 6 October</span></div>
+<div class="next"><span class="next-l">Next check</span><strong>Lab 4 · hash maps in practice</strong><span>Opens Tuesday 14 October</span></div></div>
+
+</div>
+</div>
+</div>
+</section>
+
+<div class="transport">
+<button type="button" class="play" (click)="toggle()" [attr.aria-label]="playing() ? 'Pause' : 'Play'" [disabled]="reduced()">
+@if (playing()) {
+<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+} @else {
+<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5 13.5 8 4 13.5Z" fill="currentColor"/></svg>
+}
+</button>
+<div class="scrub">
+<div class="rail" aria-hidden="true"></div>
+<div class="fill" aria-hidden="true" [style.width.%]="(time() / loopMs) * 100"></div>
+<div class="ticks" aria-hidden="true">@for (c of chapters; track c.id) {<span [style.left.%]="(c.start / 48) * 100"></span>}</div>
+<input type="range" min="0" [max]="loopMs" step="10" [value]="time()" (input)="onScrub($event)" aria-label="Position in the loop">
+</div>
+<span class="clock">{{ tc(time() / 1000) }} <span class="clock-of">/ 00:48</span></span>
+</div>
+
+<section class="notes">
+<h2>What runs when</h2>
+<p class="notes-lead">One 48-second loop, six chapters of eight seconds. Every element on both devices is a CSS animation on that clock, so pausing, scrubbing and changing speed move them all together. Space plays and pauses, the arrow keys step chapters, 1 to 6 jump.</p>
+<table class="sched">
+<thead><tr><th scope="col">Time</th><th scope="col">Chapter</th><th scope="col">Instructor's screen</th><th scope="col">Student's phone</th></tr></thead>
+<tbody>
+@for (c of chapters; track c.id; let i = $index) {
+<tr [class.is-on]="chapter() === i">
+<td><button type="button" class="jump" (click)="seek(i)">{{ tc(c.start) }}–{{ tc(c.start + 8) }}</button></td>
+<td class="sched-name">{{ c.title }}</td>
+<td>{{ c.screen }}</td>
+<td>{{ c.phone }}</td>
+</tr>
+}
+</tbody>
+</table>
+@if (reduced()) {
+<p class="notes-rm">Your system asks for reduced motion, so the film is paused at the end of a chapter. Step through the finished states with the chapter chips, the table or the arrow keys.</p>
+}
+</section>
+</div>

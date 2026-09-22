@@ -28,6 +28,14 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-flow',
+    title: 'Grask flow demo',
+    description:
+      'The whole Grask flow as one 48-second film on a single clock: the instructor\'s screen and the student\'s phone side by side through six chapters (rubric, LMS, call, evidence, grade, dashboard), every element a CSS animation on the loop. Play, pause, scrub, speed and chapter jumps move them all together. A playground for the animations a "how it works" demo needs. See README.md.',
+    created: '2026-09-23',
+    load: () => import('./grask-flow/grask-flow').then((m) => m.GraskFlow),
+  },
+  {
     slug: 'wispr-testi',
     title: 'Wispr testimonial orbit',
     description:
