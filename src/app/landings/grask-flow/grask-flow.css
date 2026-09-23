@@ -229,6 +229,57 @@ button { font: inherit; letter-spacing: inherit; }
 .clock { font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 500; letter-spacing: 0; }
 .clock-of { color: var(--text-2); font-weight: 400; }
 
+/* ---- Threadline: a page effect, separate from the film and its clock. Six stations down a tall stage, alternating left
+   and right of the centre; one thread stitched through them a hop at a time (each hop a path with pathLength 1, drawn by
+   stroke-dashoffset), a bead riding the head (a zero-length round-capped dash at the same offset), a knot popping and a
+   label sliding in where it lands. The keyframes below are sequenced with --i and --hop as if it played on its own; the
+   component pauses them and scrubs currentTime from the scroll position instead (Web Animations API, so it works where
+   animation-timeline does not). Geometry is in px, laid out by the component from the stage's width. ---- */
+.tl { --hop: 1s; --lead: .3s; --ease: cubic-bezier(.45, 0, .2, 1); --pop: cubic-bezier(.16, 1, .3, 1); margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+.tl h2 { margin: 0 0 8px; font-size: 24px; font-weight: 500; letter-spacing: -0.04em; }
+.tl-lead { margin: 0 0 24px; max-width: 64ch; font-family: var(--font-2); font-size: 16px; line-height: 1.5; color: var(--text-lead); letter-spacing: -0.01em; }
+.tl-stage { position: relative; width: min(100%, 760px); margin: 0 auto; }
+.tl-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.tl-guide { fill: none; stroke: var(--tint-strong); stroke-width: 1.5; stroke-dasharray: 2 8; stroke-linecap: round; }
+.tl-hop { fill: none; stroke: var(--petrol); stroke-width: 2; stroke-linecap: butt; stroke-dasharray: 1 2; stroke-dashoffset: 1; } /* butt caps: nothing pokes out at offset 1 */
+.tl-halo, .tl-bead { fill: none; stroke-linecap: round; stroke-dasharray: 0 1; stroke-dashoffset: 1; opacity: 0; } /* the dash's round cap is the bead */
+.tl-halo { stroke: var(--tint-strong); stroke-width: 26; }
+.tl-bead { stroke: var(--petrol); stroke-width: 10; }
+.tl-knot { fill: var(--paper); stroke: var(--petrol); stroke-width: 2; transform-box: fill-box; transform-origin: center; transform: scale(0); opacity: 0; }
+.tl-lab { position: absolute; transform: translateY(-50%); }
+.tl-card { display: flex; flex-direction: column; gap: 3px; opacity: 0; }
+.tl-lab.is-left { text-align: right; }
+.tl-lab.is-left .tl-card { align-items: flex-end; transform: translateX(10px); } /* slides in from the knot's side */
+.tl-lab.is-right .tl-card { align-items: flex-start; transform: translateX(-10px); }
+.tl-n { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.tl-card strong { font-weight: 500; font-size: 15px; letter-spacing: -0.02em; }
+.tl-note { font-family: var(--font-2); font-size: 13px; line-height: 1.35; color: var(--text-2); letter-spacing: -0.01em; }
+.tl-hop, .tl-halo, .tl-bead, .tl-knot, .tl-card { --at: calc(var(--lead) + var(--i, 0) * var(--hop)); } /* on the element itself, so it sees that element's --i */
+.tl-hop { animation: tl-draw var(--hop) var(--ease) both; animation-delay: var(--at); }
+.tl-bead { animation: tl-draw var(--hop) var(--ease) both, tl-show var(--hop) linear none; animation-delay: var(--at); }
+.tl-halo { animation: tl-draw var(--hop) var(--ease) both, tl-show-soft var(--hop) linear none; animation-delay: var(--at); }
+.tl-knot { animation: tl-pop .4s var(--pop) both; animation-delay: var(--at); }
+.tl-card { animation: tl-rise .5s var(--pop) both; animation-delay: calc(var(--at) + .12s); }
+@keyframes tl-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes tl-show {
+  from, to { opacity: 1; }
+}
+@keyframes tl-show-soft {
+  from, to { opacity: .55; }
+}
+@keyframes tl-pop {
+  from { transform: scale(0); opacity: 0; }
+  60% { opacity: 1; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes tl-rise {
+  from { opacity: 0; }
+  to { opacity: 1; transform: none; }
+}
+
 /* ---- Notes: what runs when ---- */
 .notes { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
 .notes h2 { margin: 0 0 12px; font-size: 24px; font-weight: 500; letter-spacing: -0.04em; }

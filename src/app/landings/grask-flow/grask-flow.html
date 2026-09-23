@@ -172,6 +172,31 @@
 <span class="clock">{{ tc(time() / 1000) }} <span class="clock-of">/ 00:48</span></span>
 </div>
 
+<section class="tl" aria-label="Threadline, a page effect">
+<h2>Threadline</h2>
+<p class="tl-lead">A page effect, separate from the film: one thread stitched down through the six steps of the flow, a knot and a label where it lands. It is driven by scroll: the head follows your reading line, back and forth.</p>
+<div class="tl-stage" [style.height.px]="threadGeo().height">
+<svg class="tl-svg" aria-hidden="true">
+<path class="tl-guide" [attr.d]="threadGeo().guide"/>
+@for (d of threadGeo().hops; track $index; let i = $index) {
+<path class="tl-hop" [attr.d]="d" [style.--i]="i" pathLength="1"/>
+}
+@for (p of threadGeo().pts; track $index; let i = $index) {
+<circle class="tl-knot" [attr.cx]="p.x" [attr.cy]="p.y" r="5" [style.--i]="i"/>
+}
+@for (d of threadGeo().hops; track $index; let i = $index) {
+<path class="tl-halo" [attr.d]="d" [style.--i]="i" pathLength="1"/>
+<path class="tl-bead" [attr.d]="d" [style.--i]="i" pathLength="1"/>
+}
+</svg>
+@for (s of stations; track s.name; let i = $index) {
+<div [class]="'tl-lab is-' + threadGeo().labels[i].side" [style.top.px]="threadGeo().labels[i].top" [style.left.px]="threadGeo().labels[i].left" [style.right.px]="threadGeo().labels[i].right" [style.width.px]="threadGeo().labels[i].width">
+<div class="tl-card" [style.--i]="i"><span class="tl-n">{{ i + 1 }}</span><strong>{{ s.name }}</strong><span class="tl-note">{{ s.note }}</span></div>
+</div>
+}
+</div>
+</section>
+
 <section class="notes">
 <h2>What runs when</h2>
 <p class="notes-lead">One 48-second loop, six chapters of eight seconds. Every element on both devices is a CSS animation on that clock, so pausing, scrubbing and changing speed move them all together. Space plays and pauses, the arrow keys step chapters, 1 to 6 jump.</p>

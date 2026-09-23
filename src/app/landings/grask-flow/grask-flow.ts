@@ -21,6 +21,12 @@ import { RouterLink } from '@angular/router';
  * jumps and the playhead, all done by moving every animation's currentTime together (Web
  * Animations API), the way grask-3's seek() does. Under prefers-reduced-motion the film is paused
  * at the end of a chapter and the chapter chips step through the finished states.
+ *
+ * Below the film, separate from it and its clock, sits Threadline: a page effect that stitches one
+ * thread down through the six steps of the flow as the reader scrolls. Its motion is plain CSS
+ * keyframes, sequenced as if it played on its own; setupThread() pauses them and scrubs their
+ * currentTime from the scroll position (the Web Animations API, since Firefox has no
+ * animation-timeline), and lays the stations out in px from the stage's width.
  */
 
 export interface Chapter {
@@ -64,6 +70,53 @@ export interface Student {
 export interface Bar {
   name: string;
   pct: number;
+}
+
+/** A stop of the Threadline effect. */
+export interface Station {
+  name: string;
+  note: string;
+}
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+/** Threadline's geometry for one stage width, in px. */
+interface ThreadGeo {
+  height: number;
+  /** The stations. */
+  pts: Point[];
+  /** One cubic per hop, vertical at both ends so the thread runs smoothly through every knot. */
+  hops: string[];
+  /** The whole route as one path, for the dashed guide. */
+  guide: string;
+  /** A label per station, beside its knot, on the outer side (all on the right when narrow). */
+  labels: { side: 'left' | 'right'; top: number; left: number | null; right: number | null; width: number }[];
+}
+
+/** Lays the stations down the stage, alternating left and right of the centre, and the labels beside them. */
+function layoutThread(width: number, n: number): ThreadGeo {
+  const narrow = width < 560;
+  const step = 200;
+  const top = 60;
+  const gap = 22;
+  const amp = narrow ? 22 : Math.min(120, width * 0.16);
+  const cx = narrow ? 44 : width / 2;
+  const pts = Array.from({ length: n }, (_, i) => ({ x: cx + (i % 2 ? amp : -amp), y: top + i * step }));
+  const hops = pts.slice(1).map((b, i) => {
+    const a = pts[i];
+    const dy = (b.y - a.y) / 2;
+    return `M${a.x} ${a.y} C${a.x} ${a.y + dy} ${b.x} ${b.y - dy} ${b.x} ${b.y}`;
+  });
+  const guide = hops.map((d, i) => (i ? d.slice(d.indexOf('C')) : d)).join(' ');
+  const labels = pts.map((p, i) =>
+    narrow || i % 2
+      ? { side: 'right' as const, top: p.y, left: p.x + gap, right: null, width: Math.min(300, width - p.x - gap - 8) }
+      : { side: 'left' as const, top: p.y, left: null, right: width - p.x + gap, width: Math.min(300, p.x - gap - 8) },
+  );
+  return { height: top * 2 + (n - 1) * step, pts, hops, guide, labels };
 }
 
 /** Length of the loop in milliseconds; every timeline animation runs this long. */
@@ -211,6 +264,18 @@ export class GraskFlow {
 
   readonly speeds: readonly number[] = [0.5, 1, 2];
 
+  /** Threadline: the six stations, top to bottom. */
+  readonly stations: readonly Station[] = [
+    { name: 'Rubric', note: 'Four criteria, weighted the way you grade.' },
+    { name: 'LMS', note: 'One switch on the Moodle assignment.' },
+    { name: 'Call', note: 'Six minutes, in the student’s own words.' },
+    { name: 'Evidence', note: 'A quote per criterion, with a status.' },
+    { name: 'Grade', note: 'A recommendation, adjusted and confirmed.' },
+    { name: 'Dashboard', note: 'The weak spot, for the next lecture.' },
+  ];
+  /** Threadline's geometry, relaid on resize. Starts at the stage's widest so the first render has paths. */
+  readonly threadGeo = signal<ThreadGeo>(layoutThread(760, this.stations.length));
+
   /** Playhead position in the loop, in milliseconds. */
   readonly time = signal(0);
   readonly playing = signal(false);
@@ -223,9 +288,15 @@ export class GraskFlow {
   /** Every animation on the film, all on the same clock. */
   private anims: Animation[] = [];
   private frame = 0;
+  /** Threadline's animations, paused and scrubbed from scroll. */
+  private threadAnims: Animation[] = [];
+  private threadFrame = 0;
 
   constructor() {
-    afterNextRender(() => this.setupTransport());
+    afterNextRender(() => {
+      this.setupTransport();
+      this.setupThread();
+    });
   }
 
   /** "00:12" for 12.4 seconds. */
@@ -298,6 +369,48 @@ export class GraskFlow {
     } else if (/^[1-6]$/.test(event.key)) {
       this.seek(Number(event.key) - 1);
     }
+  }
+
+  /**
+   * Threadline: pauses its keyframes and scrubs them from scroll. Progress is where the reading line
+   * (60% down the viewport) sits within the stage, 0 at its top and 1 at its bottom, mapped onto the
+   * whole sequence; so the head of the thread runs with the reader, forwards and back.
+   */
+  private setupThread(): void {
+    const stage = this.host.nativeElement.querySelector<HTMLElement>('.tl-stage');
+    if (!stage) {
+      return;
+    }
+    this.threadAnims = stage.getAnimations({ subtree: true });
+    for (const a of this.threadAnims) {
+      a.pause();
+    }
+    const end = Math.max(0, ...this.threadAnims.map((a) => Number(a.effect?.getComputedTiming().endTime ?? 0)));
+    const layout = () => this.threadGeo.set(layoutThread(stage.clientWidth, this.stations.length));
+    const scrub = () => {
+      const r = stage.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.6 - r.top) / r.height));
+      for (const a of this.threadAnims) {
+        a.currentTime = p * end;
+      }
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(this.threadFrame);
+      this.threadFrame = requestAnimationFrame(scrub);
+    };
+    const onResize = () => {
+      layout();
+      onScroll();
+    };
+    layout();
+    scrub();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    this.destroyRef.onDestroy(() => {
+      cancelAnimationFrame(this.threadFrame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    });
   }
 
   private setupTransport(): void {
