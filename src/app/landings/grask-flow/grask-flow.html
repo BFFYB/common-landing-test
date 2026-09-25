@@ -174,7 +174,7 @@
 
 <section class="tl" aria-label="Threadline, a page effect">
 <h2>Threadline</h2>
-<p class="tl-lead">A page effect, separate from the film: one thread stitched down through the six steps of the flow, a knot and a label where it lands. It is driven by scroll: the head follows your reading line, back and forth.</p>
+<p class="tl-lead">A page effect, separate from the film: one thread stitched down through the six steps of the flow, a knot and a bubble where it lands. It is driven by scroll: the head follows your reading line, back and forth.</p>
 <div class="tl-stage" [style.height.px]="threadGeo().height">
 <svg class="tl-svg" aria-hidden="true">
 <path class="tl-guide" [attr.d]="threadGeo().guide"/>
@@ -191,7 +191,12 @@
 </svg>
 @for (s of stations; track s.name; let i = $index) {
 <div [class]="'tl-lab is-' + threadGeo().labels[i].side" [style.top.px]="threadGeo().labels[i].top" [style.left.px]="threadGeo().labels[i].left" [style.right.px]="threadGeo().labels[i].right" [style.width.px]="threadGeo().labels[i].width">
-<div class="tl-card" [style.--i]="i"><span class="tl-n">{{ i + 1 }}</span><strong>{{ s.name }}</strong><span class="tl-note">{{ s.note }}</span></div>
+<div class="tl-card" [style.--i]="i">
+<span class="tl-n">Step {{ i + 1 }} · {{ s.name }}</span>
+<strong>{{ s.title }}</strong>
+<p class="tl-note">{{ s.note }}</p>
+<ul class="tl-pts">@for (p of s.points; track p) {<li>{{ p }}</li>}</ul>
+</div>
 </div>
 }
 </div>

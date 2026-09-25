@@ -232,13 +232,13 @@ button { font: inherit; letter-spacing: inherit; }
 /* ---- Threadline: a page effect, separate from the film and its clock. Six stations down a tall stage, alternating left
    and right of the centre; one thread stitched through them a hop at a time (each hop a path with pathLength 1, drawn by
    stroke-dashoffset), a bead riding the head (a zero-length round-capped dash at the same offset), a knot popping and a
-   label sliding in where it lands. The keyframes below are sequenced with --i and --hop as if it played on its own; the
+   bubble (a card with a tail towards the knot) sliding in where it lands. The keyframes below are sequenced with --i and --hop as if it played on its own; the
    component pauses them and scrubs currentTime from the scroll position instead (Web Animations API, so it works where
    animation-timeline does not). Geometry is in px, laid out by the component from the stage's width. ---- */
 .tl { --hop: 1s; --lead: .3s; --ease: cubic-bezier(.45, 0, .2, 1); --pop: cubic-bezier(.16, 1, .3, 1); margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
 .tl h2 { margin: 0 0 8px; font-size: 24px; font-weight: 500; letter-spacing: -0.04em; }
 .tl-lead { margin: 0 0 24px; max-width: 64ch; font-family: var(--font-2); font-size: 16px; line-height: 1.5; color: var(--text-lead); letter-spacing: -0.01em; }
-.tl-stage { position: relative; width: min(100%, 760px); margin: 0 auto; }
+.tl-stage { position: relative; width: min(100%, 920px); margin: 0 auto; }
 .tl-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .tl-guide { fill: none; stroke: var(--tint-strong); stroke-width: 1.5; stroke-dasharray: 2 8; stroke-linecap: round; }
 .tl-hop { fill: none; stroke: var(--petrol); stroke-width: 2; stroke-linecap: butt; stroke-dasharray: 1 2; stroke-dashoffset: 1; } /* butt caps: nothing pokes out at offset 1 */
@@ -247,13 +247,18 @@ button { font: inherit; letter-spacing: inherit; }
 .tl-bead { stroke: var(--petrol); stroke-width: 10; }
 .tl-knot { fill: var(--paper); stroke: var(--petrol); stroke-width: 2; transform-box: fill-box; transform-origin: center; transform: scale(0); opacity: 0; }
 .tl-lab { position: absolute; transform: translateY(-50%); }
-.tl-card { display: flex; flex-direction: column; gap: 3px; opacity: 0; }
-.tl-lab.is-left { text-align: right; }
-.tl-lab.is-left .tl-card { align-items: flex-end; transform: translateX(10px); } /* slides in from the knot's side */
-.tl-lab.is-right .tl-card { align-items: flex-start; transform: translateX(-10px); }
-.tl-n { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0; }
-.tl-card strong { font-weight: 500; font-size: 15px; letter-spacing: -0.02em; }
-.tl-note { font-family: var(--font-2); font-size: 13px; line-height: 1.35; color: var(--text-2); letter-spacing: -0.01em; }
+.tl-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 18px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 14px 30px -20px rgba(var(--ink-rgb), .4); opacity: 0; }
+.tl-card::before { content: ''; position: absolute; top: 50%; width: 12px; height: 12px; background: var(--surface); border: 1px solid var(--line); transform: translateY(-50%) rotate(45deg); } /* the tail, a rotated square showing two of its sides */
+.tl-lab.is-left .tl-card::before { right: -7px; border-color: var(--line) var(--line) transparent transparent; }
+.tl-lab.is-right .tl-card::before { left: -7px; border-color: transparent transparent var(--line) var(--line); }
+.tl-lab.is-left .tl-card { transform: translateX(10px); } /* slides in from the knot's side */
+.tl-lab.is-right .tl-card { transform: translateX(-10px); }
+.tl-n { padding: 2px 8px; border-radius: var(--r-pill); background: var(--tint); color: var(--petrol-dark); font-size: 11px; font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.tl-card strong { font-weight: 500; font-size: 16px; line-height: 1.25; letter-spacing: -0.02em; text-wrap: balance; }
+.tl-note { margin: 0; font-family: var(--font-2); font-size: 13.5px; line-height: 1.45; color: var(--text-lead); letter-spacing: -0.01em; }
+.tl-pts { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-family: var(--font-2); font-size: 12.5px; line-height: 1.4; color: var(--text-2); letter-spacing: -0.01em; }
+.tl-pts li { position: relative; padding-left: 13px; }
+.tl-pts li::before { content: ''; position: absolute; left: 0; top: .5em; width: 5px; height: 5px; border-radius: 50%; background: var(--tint-strong); }
 .tl-hop, .tl-halo, .tl-bead, .tl-knot, .tl-card { --at: calc(var(--lead) + var(--i, 0) * var(--hop)); } /* on the element itself, so it sees that element's --i */
 .tl-hop { animation: tl-draw var(--hop) var(--ease) both; animation-delay: var(--at); }
 .tl-bead { animation: tl-draw var(--hop) var(--ease) both, tl-show var(--hop) linear none; animation-delay: var(--at); }

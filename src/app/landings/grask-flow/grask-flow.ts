@@ -72,10 +72,13 @@ export interface Bar {
   pct: number;
 }
 
-/** A stop of the Threadline effect. */
+/** A stop of the Threadline effect: what its bubble says. */
 export interface Station {
+  /** Short label, after the step number. */
   name: string;
+  title: string;
   note: string;
+  points: string[];
 }
 
 interface Point {
@@ -92,17 +95,20 @@ interface ThreadGeo {
   hops: string[];
   /** The whole route as one path, for the dashed guide. */
   guide: string;
-  /** A label per station, beside its knot, on the outer side (all on the right when narrow). */
+  /** A bubble per station, beside its knot, on the outer side (all on the right when narrow). */
   labels: { side: 'left' | 'right'; top: number; left: number | null; right: number | null; width: number }[];
 }
 
-/** Lays the stations down the stage, alternating left and right of the centre, and the labels beside them. */
+/**
+ * Lays the stations down the stage, alternating left and right of the centre, and the bubbles beside them.
+ * The swing of the thread gives way to the bubbles: it narrows until each side keeps about 250 px for its bubble.
+ */
 function layoutThread(width: number, n: number): ThreadGeo {
   const narrow = width < 560;
-  const step = 200;
-  const top = 60;
-  const gap = 22;
-  const amp = narrow ? 22 : Math.min(120, width * 0.16);
+  const step = 320;
+  const top = 120;
+  const gap = 26;
+  const amp = narrow ? 22 : Math.max(24, Math.min(130, width / 2 - 250));
   const cx = narrow ? 44 : width / 2;
   const pts = Array.from({ length: n }, (_, i) => ({ x: cx + (i % 2 ? amp : -amp), y: top + i * step }));
   const hops = pts.slice(1).map((b, i) => {
@@ -113,8 +119,8 @@ function layoutThread(width: number, n: number): ThreadGeo {
   const guide = hops.map((d, i) => (i ? d.slice(d.indexOf('C')) : d)).join(' ');
   const labels = pts.map((p, i) =>
     narrow || i % 2
-      ? { side: 'right' as const, top: p.y, left: p.x + gap, right: null, width: Math.min(300, width - p.x - gap - 8) }
-      : { side: 'left' as const, top: p.y, left: null, right: width - p.x + gap, width: Math.min(300, p.x - gap - 8) },
+      ? { side: 'right' as const, top: p.y, left: p.x + gap, right: null, width: Math.min(320, width - p.x - gap - 8) }
+      : { side: 'left' as const, top: p.y, left: null, right: width - p.x + gap, width: Math.min(320, p.x - gap - 8) },
   );
   return { height: top * 2 + (n - 1) * step, pts, hops, guide, labels };
 }
@@ -264,17 +270,47 @@ export class GraskFlow {
 
   readonly speeds: readonly number[] = [0.5, 1, 2];
 
-  /** Threadline: the six stations, top to bottom. */
+  /** Threadline: the six stations, top to bottom. The bubble copy is a starting point; replace it with the product's. */
   readonly stations: readonly Station[] = [
-    { name: 'Rubric', note: 'Four criteria, weighted the way you grade.' },
-    { name: 'LMS', note: 'One switch on the Moodle assignment.' },
-    { name: 'Call', note: 'Six minutes, in the student’s own words.' },
-    { name: 'Evidence', note: 'A quote per criterion, with a status.' },
-    { name: 'Grade', note: 'A recommendation, adjusted and confirmed.' },
-    { name: 'Dashboard', note: 'The weak spot, for the next lecture.' },
+    {
+      name: 'Rubric',
+      title: 'You set the rubric',
+      note: 'Four criteria, weighted the way you grade. Grask asks about nothing else.',
+      points: ['A weight per criterion', 'Length of the check', 'Opens once the report is in'],
+    },
+    {
+      name: 'LMS',
+      title: 'It attaches to the assignment',
+      note: 'One switch on the Moodle assignment. Students get the check where they hand in the report.',
+      points: ['Moodle, Canvas, Brightspace', 'No new logins for students', 'Roster and due dates follow'],
+    },
+    {
+      name: 'Call',
+      title: 'The student takes a six-minute voice call',
+      note: 'The agent asks about their own report, follows up, and listens.',
+      points: ['Questions drawn from the report itself', 'Follow-ups when an answer is thin', 'Recorded and transcribed'],
+    },
+    {
+      name: 'Evidence',
+      title: 'You receive the evidence, by criterion',
+      note: 'A quote per criterion, lifted from the transcript, each with a status.',
+      points: ['Demonstrated, partial or missing', 'Each quote links to its moment in the recording', 'Own words, not the report’s'],
+    },
+    {
+      name: 'Grade',
+      title: 'You grade',
+      note: 'A recommendation with its reasons. You adjust it, confirm, and it lands in the gradebook.',
+      points: ['Reasons, not a black box', 'A notch up or down', 'Written back to the LMS'],
+    },
+    {
+      name: 'Dashboard',
+      title: 'The course learns too',
+      note: 'Across the cohort one criterion stands out. That is the next lecture.',
+      points: ['Cohort view per criterion', 'The weak spot flagged', 'A suggestion for the next lecture'],
+    },
   ];
   /** Threadline's geometry, relaid on resize. Starts at the stage's widest so the first render has paths. */
-  readonly threadGeo = signal<ThreadGeo>(layoutThread(760, this.stations.length));
+  readonly threadGeo = signal<ThreadGeo>(layoutThread(920, this.stations.length));
 
   /** Playhead position in the loop, in milliseconds. */
   readonly time = signal(0);
