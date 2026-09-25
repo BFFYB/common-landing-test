@@ -1,0 +1,91 @@
+<main class="page">
+<section class="lead">
+<p class="kicker">Scroll effect · playground</p>
+<h1>Outcome rail</h1>
+<p class="sub">A dark stage pins to the screen and its cards slide sideways while you scroll down, the track easing after the wheel on a spring. Each card's widget springs up the moment its card comes into view.</p>
+<p class="hint" aria-hidden="true"><span>Scroll</span><i></i></p>
+</section>
+
+<section class="rail" aria-labelledby="rail-title">
+<div class="stage">
+<header class="head">
+<p class="eyebrow">After the first oral check</p>
+<h2 id="rail-title">What your course<br>gets back</h2>
+</header>
+<div class="column" #column>
+<ul class="track" #track [style.--n]="cards.length">
+@for (card of loop; track $index) {
+<li class="card" [class.dup]="$index >= cards.length" [attr.aria-hidden]="$index >= cards.length ? 'true' : null" [style.--c1]="card.tone[0]" [style.--c2]="card.tone[1]" [style.--c3]="card.tone[2]" [attr.data-kind]="card.kind">
+<h3>{{ card.title }}</h3>
+<div class="appear" [style.--delay]="card.delay + 's'">
+@switch (card.kind) {
+@case ('live') {
+<div class="glass live hov">
+<p class="chip"><span class="rec"></span>Live check<span class="time">04:12</span></p>
+<div class="wave" aria-hidden="true">@for (h of bars; track $index) {<i [style.--h]="h" [style.--i]="$index"></i>}</div>
+<p class="said">“It slows down once the table is about seventy percent full, so it resizes before that.”</p>
+</div>
+}
+@case ('quote') {
+<figure class="glass quote hov">
+<figcaption class="label">In Ben's own words</figcaption>
+<blockquote>“I moved to open addressing after chaining kept missing the cache.”</blockquote>
+<p class="tags"><span><b>✓</b> Collision handling</span><span><b>✓</b> Matches the report</span></p>
+</figure>
+}
+@case ('rubric') {
+<div class="glass rubric hov">
+<ul>
+@for (c of criteria; track c.name) {<li><span class="tick">✓</span><span class="name">{{ c.name }}</span><span class="pts">{{ c.pts }}</span></li>}
+</ul>
+<p class="total"><span>Suggested grade</span><b>16<small>/20</small></b></p>
+</div>
+}
+@case ('bars') {
+<div class="glass chart hov">
+<p class="label">Lab 3 · cohort of 84</p>
+<div class="cols">
+@for (t of topics; track t.name) {<div class="col" [class.weak]="t.pct < 50" [style.--p]="t.pct"><span class="pct">{{ t.pct }}%</span><i></i><span class="name">{{ t.name }}</span></div>}
+</div>
+</div>
+}
+@case ('team') {
+<div class="stack">
+<p class="label">Team 7 · Lab 3 demo</p>
+<div class="glass team hov">
+<div class="avs">@for (m of team; track m.initials) {<span class="av" [attr.data-state]="m.state">{{ m.initials }}</span>}</div>
+<p class="sum"><span class="n"><b>3 of 4</b> checked</span><span class="flag">Chloé: follow up</span></p>
+</div>
+</div>
+}
+@case ('lms') {
+<div class="stack">
+<p class="label">In the course page</p>
+<div class="glass lms hov">
+<div class="txt"><p class="t">Lab 3 · Hash tables</p><p class="s">Due Friday · oral check attached</p></div>
+<span class="toggle" aria-hidden="true"><i></i></span>
+</div>
+</div>
+}
+}
+</div>
+</li>
+}
+</ul>
+</div>
+</div>
+<div class="spacer" #spacer aria-hidden="true"></div>
+</section>
+
+<section class="notes">
+<h2>How it moves</h2>
+<ol>
+<li><b>A pinned stage.</b> The dark section is 235vh tall: a sticky stage one screen high, then a 135vh spacer. The stage stays put while the spacer scrolls past.</li>
+<li><b>Scroll becomes sideways travel.</b> Over that 135vh the card track is scrubbed from its first card flush with the 1200px column's left edge to its last card flush with the right edge. Scroll back and it runs back.</li>
+<li><b>On a spring, not glued to the wheel.</b> The track chases that target on an overdamped spring (stiffness 500, damping 60), so a flick glides and a stop settles without bounce.</li>
+<li><b>Widgets rise once.</b> Each card's widget waits 80px low and transparent. When it comes into view (the stage clips cards still off to the right) it rises on a bouncy spring, a little staggered from its neighbours. Hover one to nudge it.</li>
+<li><b>Phones get a marquee.</b> Under 720px there is no runway: the cards run leftwards at 75px a second, looping over a second copy.</li>
+</ol>
+<p class="sub">Under reduced motion the track follows the scroll directly, the widgets fade in without moving and the phone marquee becomes a swipeable row. The motion follows the outcomes section on getfluently.app; the copy is Grask's, and the names and numbers on the cards are made up.</p>
+</section>
+</main>

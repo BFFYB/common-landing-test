@@ -28,6 +28,14 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-rail',
+    title: 'Grask outcome rail',
+    description:
+      "A dark sticky stage whose outcome cards slide sideways as you scroll down, the track chasing the scroll on a spring, each card's widget (live call, quote, rubric, cohort chart, team, LMS row) springing up as it comes into view; a marquee on phones. Motion after the outcomes section on getfluently.app, copy Grask's, card art in CSS. See README.md.",
+    created: '2026-09-23',
+    load: () => import('./grask-rail/grask-rail').then((m) => m.GraskRail),
+  },
+  {
     slug: 'grask-flow',
     title: 'Grask flow demo',
     description:
@@ -39,7 +47,7 @@ export const LANDINGS: LandingMeta[] = [
     slug: 'wispr-testi',
     title: 'Wispr testimonial orbit',
     description:
-      'Port of the case-study deck on wisprflow.ai: six cards on a sticky stage, scrubbed across the screen by scroll while each swings on a rotateX arc around a pivot behind it (upright at the centre, tipped and receding at the edges). Plain TS + CSS, no GSAP; the original script\'s knobs are at the top of the .ts. See README.md.',
+      "Port of the case-study deck on wisprflow.ai: six cards on a sticky stage, scrubbed across the screen by scroll while each swings on a rotateX arc around a pivot behind it (upright at the centre, tipped and receding at the edges). Plain TS + CSS, no GSAP; the original script's knobs are at the top of the .ts. See README.md.",
     created: '2026-09-22',
     load: () => import('./wispr-testi/wispr-testi').then((m) => m.WisprTesti),
   },
