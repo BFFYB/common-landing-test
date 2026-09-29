@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 
 export interface LandingMeta {
-  /** URL segment: http://localhost:4200/<slug> */
+  /** URL segment: http://localhost:4202/<slug> */
   slug: string;
   title: string;
   description: string;
@@ -13,7 +13,7 @@ export interface LandingMeta {
 }
 
 export interface LandingPage {
-  /** URL segment under the landing: http://localhost:4200/<slug>/<path> */
+  /** URL segment under the landing: http://localhost:4202/<slug>/<path> */
   path: string;
   title: string;
   load: () => Promise<Type<unknown>>;

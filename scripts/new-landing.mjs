@@ -109,7 +109,7 @@ await writeFile(path.join(dir, `${slug}.html`), html);
 await writeFile(path.join(dir, `${slug}.css`), css);
 await writeFile(registryPath, registry.replace(marker, `${marker}\n${entry}`));
 
-console.log(`✔ ${title}  →  http://localhost:4200/${slug}
+console.log(`✔ ${title}  →  http://localhost:4202/${slug}
   src/app/landings/${slug}/${slug}.html
   src/app/landings/${slug}/${slug}.css
   src/app/landings/${slug}/${slug}.ts

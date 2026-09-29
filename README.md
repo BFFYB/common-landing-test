@@ -3,7 +3,7 @@
 A test field for landing pages. Vibe-code a landing, open it, flip to the next one.
 
 ```bash
-npm start                              # http://localhost:4200 — gallery of all landings
+npm start                              # http://localhost:4202 — gallery of all landings
 npm run new -- saas-pricing "SaaS Pricing"   # scaffold + register a new landing
 ```
 

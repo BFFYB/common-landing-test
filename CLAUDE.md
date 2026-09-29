@@ -5,7 +5,7 @@ Playground for landing pages. Each landing is a self-contained, lazy-loaded Angu
 
 ## Commands
 
-- `npm start` — dev server at http://localhost:4200 (opens browser)
+- `npm start` — dev server at http://localhost:4202 (opens browser)
 - `npm run new -- <slug> "<Title>"` — scaffold a landing and register it (the only way to add one)
 - `npm run build` — prod build; run it to check nothing broke
 - `npm run format` — prettier
