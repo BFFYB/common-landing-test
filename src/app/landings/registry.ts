@@ -28,6 +28,201 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-6-space-grotesk-2',
+    title: 'Grask · Space Grotesk II (type pass)',
+    description:
+      'grask-6-space-grotesk duplicated on 2026-09-30 for a full type pass on the Space Grotesk + Golos Text pairing: the display roles step in weight with size (headline 700 at 76px, section titles 600 at 40px, the statement 500 at 32px, tracking -0.03em / -0.02em), the lockups drop to 28px, the two tall calls to action get a 16px label, the lead is 16px on phones. Same two-column hero; Golos Text and the palette unchanged.',
+    created: '2026-09-30',
+    load: () => import('./grask-6-space-grotesk-2/grask-6-space-grotesk-2').then((m) => m.Grask6SpaceGrotesk2),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Space Grotesk II (type pass) · Pilot',
+        load: () => import('./grask-6-space-grotesk-2/pilot/pilot').then((m) => m.Grask6SpaceGrotesk2Pilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-fraunces',
+    title: 'Grask · Fraunces',
+    description:
+      'grask-6 duplicated on 2026-09-29 to try another display face: Fraunces (soft old-style, SOFT 100 / WONK 1, weight 600), warm and editorial; "heard." set in its italic as a deliberate exception to the guide. Centred hero as grask-6, headline up to 88px. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-fraunces/grask-6-fraunces').then((m) => m.Grask6Fraunces),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Fraunces · Pilot',
+        load: () => import('./grask-6-fraunces/pilot/pilot').then((m) => m.Grask6FrauncesPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-instrument-serif',
+    title: 'Grask · Instrument Serif',
+    description:
+      'grask-6 with Instrument Serif as the display face: one light weight, tall and airy, so the headline goes very large (up to 120px, line-height .95) and left-aligned, "heard." in italic; lead and button in a row beneath. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-instrument-serif/grask-6-instrument-serif').then((m) => m.Grask6InstrumentSerif),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Instrument Serif · Pilot',
+        load: () => import('./grask-6-instrument-serif/pilot/pilot').then((m) => m.Grask6InstrumentSerifPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-bodoni-moda',
+    title: 'Grask · Bodoni Moda',
+    description:
+      'grask-6 with Bodoni Moda (a Didone, optical sizes) as the display face: a masthead hero, a hairline and a small uppercase Golos dateline above the centred headline at up to 104px. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-bodoni-moda/grask-6-bodoni-moda').then((m) => m.Grask6BodoniModa),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Bodoni Moda · Pilot',
+        load: () => import('./grask-6-bodoni-moda/pilot/pilot').then((m) => m.Grask6BodoniModaPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-young-serif',
+    title: 'Grask · Young Serif',
+    description:
+      'grask-6 with Young Serif (chunky, low-contrast, one weight) as the display face: centred hero, the headline broken into two set lines, a lower, thinner highlighter under "the hours." Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-young-serif/grask-6-young-serif').then((m) => m.Grask6YoungSerif),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Young Serif · Pilot',
+        load: () => import('./grask-6-young-serif/pilot/pilot').then((m) => m.Grask6YoungSerifPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-besley',
+    title: 'Grask · Besley',
+    description:
+      'grask-6 with Besley (a Clarendon: bracketed slab serifs) at weight 800 as the display face: a left-aligned poster hero, headline up to 92px. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-besley/grask-6-besley').then((m) => m.Grask6Besley),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Besley · Pilot',
+        load: () => import('./grask-6-besley/pilot/pilot').then((m) => m.Grask6BesleyPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-bricolage',
+    title: 'Grask · Bricolage Grotesque',
+    description:
+      'grask-6 with Bricolage Grotesque (a grotesque with personality, optical sizes) at weight 800 as the display face: left-aligned hero, headline on two set lines up to 96px, lead and button in a row beneath. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-bricolage/grask-6-bricolage').then((m) => m.Grask6Bricolage),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Bricolage Grotesque · Pilot',
+        load: () => import('./grask-6-bricolage/pilot/pilot').then((m) => m.Grask6BricolagePilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-syne',
+    title: 'Grask · Syne',
+    description:
+      'grask-6 with Syne (extra-wide geometric) at weight 800 as the display face: centred hero, headline smaller because the face is so wide, "the hours." on a solid tint block instead of the underline. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-syne/grask-6-syne').then((m) => m.Grask6Syne),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Syne · Pilot',
+        load: () => import('./grask-6-syne/pilot/pilot').then((m) => m.Grask6SynePilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-space-grotesk',
+    title: 'Grask · Space Grotesk',
+    description:
+      'grask-6 with Space Grotesk at weight 700 as the display face: a two-column product hero, headline left, lead and button right and bottom-aligned; tight tracking. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-space-grotesk/grask-6-space-grotesk').then((m) => m.Grask6SpaceGrotesk),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Space Grotesk · Pilot',
+        load: () => import('./grask-6-space-grotesk/pilot/pilot').then((m) => m.Grask6SpaceGroteskPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-archivo',
+    title: 'Grask · Archivo Condensed',
+    description:
+      'grask-6 with Archivo at width 75 and weight 900 as the display face: a poster hero, the headline in capitals up to 128px across the whole column, lead and button in a row beneath. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-archivo/grask-6-archivo').then((m) => m.Grask6Archivo),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Archivo Condensed · Pilot',
+        load: () => import('./grask-6-archivo/pilot/pilot').then((m) => m.Grask6ArchivoPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-schibsted',
+    title: 'Grask · Schibsted Grotesk (control)',
+    description:
+      'grask-6 with Schibsted Grotesk, the kit\'s original display face, at weight 700: the control of the series, the hero laid out exactly as grask-6, only the face changes. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-schibsted/grask-6-schibsted').then((m) => m.Grask6Schibsted),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · Schibsted Grotesk (control) · Pilot',
+        load: () => import('./grask-6-schibsted/pilot/pilot').then((m) => m.Grask6SchibstedPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6-mono',
+    title: 'Grask · JetBrains Mono',
+    description:
+      'grask-6 with JetBrains Mono, the guide\'s code face, at weight 700 as the display face: a transcript hero, a timestamp caption above a left-aligned headline, a blinking caret after it, "the hours." on a selection-style tint block. Golos Text for everything below 28px and the palette unchanged.',
+    created: '2026-09-29',
+    load: () => import('./grask-6-mono/grask-6-mono').then((m) => m.Grask6Mono),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · JetBrains Mono · Pilot',
+        load: () => import('./grask-6-mono/pilot/pilot').then((m) => m.Grask6MonoPilot),
+      },
+    ],
+  },
+  {
+    slug: 'grask-6',
+    title: 'Grask (type guide, in full)',
+    description:
+      'grask-5 duplicated on 2026-09-29 with the Grask type guide applied in full: the twelve tokens (display-xl / lg / md in Piazzolla; heading-sm / xs, body-lg / body / body-sm, label / label-sm, caption in Golos Text; code in JetBrains Mono) with the guide\'s sizes, line-heights, tracking and numerals, worn by the markup as .t-* classes and mapped per the guide\'s "Landing page" table, so no element sets a bare font size. grask-5 had only swapped the faces onto grask-4\'s canvas sizes. The questions the page raised for the guide (dark bands, the statement\'s length, button text at 14px) are in its README. The lead tryout panel stays.',
+    created: '2026-09-29',
+    load: () => import('./grask-6/grask-6').then((m) => m.Grask6),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask (type guide, in full) · Pilot',
+        load: () => import('./grask-6/pilot/pilot').then((m) => m.Grask6Pilot),
+      },
+    ],
+  },
+  {
     slug: 'grask-5',
     title: 'Grask (Piazzolla + Golos)',
     description:
