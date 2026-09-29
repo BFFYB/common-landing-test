@@ -1,0 +1,103 @@
+/* Grask landing page: the recording strip, the hero's visual (added 2026-09-21; made the hero visual on 2026-09-23). One white card
+   under the hero button: a six-minute oral check as a waveform of 120 bars split into four rubric criteria, with a playhead that runs
+   on the demo's 34 s clock (grask-6-archivo.demo-timeline.css). It sweeps the strip during 0-92.7% of the loop, i.e. until the moment the
+   demo's "Call ended" caption appears, then holds at the end, fully played with all four checks, until the loop restarts.
+   Bars behind the playhead are dark teal: a second, identical row of bars (.wave-done) clipped by an animated inset. The head row
+   is the card's title, "Watch a check run", a link to the demo (#how) with a petrol play disc, and on the right the check's context
+   and a live clock: elapsed / total, "02:14 / 06:12", the elapsed seconds an animated integer (--glp6-archivo-t, registered below) shown
+   through two CSS counters (minutes = round(down, t / 60), seconds = mod(t, 60)); browsers without math functions in counter-reset,
+   and reduced motion, show the total only. The playhead is a 2px line with a knob. A criterion's label is petrol while the
+   playhead is inside its segment; when the playhead leaves it, the label turns ink and its check pops in (--glp6-archivo-done, a registered
+   number, ramps 0 to 1 over ~0.33 s, driving the check's opacity and scale: glp6-archivo-seg1..4, one keyframe set per boundary, since
+   keyframe percentages cannot come from variables). Clicking a label calls seek() in grask-6-archivo.ts, which moves every animation in
+   the demo stage and in the strip (wave, labels, clock) to that moment. Under reduced motion there is no playhead or clock and the
+   strip is shown fully played. Under 720px only 48 of the bars show (the flex spacing re-spreads them), the labels lose their times
+   and the head loses the context line. Bar heights are the fixed STRIP_BARS array in grask-6-archivo.ts; segment widths and divider
+   positions are inline, from its SEGMENTS. */
+@property --glp6-archivo-done { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --glp6-archivo-t { syntax: '<integer>'; inherits: true; initial-value: 0; }
+.grask-6-archivo-lp .strip { width: 100%; max-width: 1080px; box-sizing: border-box; margin-top: 12px; padding: 22px 28px 26px; background: var(--g-surface); border: 1px solid rgba(var(--g-ink-rgb), .12); border-radius: var(--g-radius-card); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), .04), 0 32px 64px -36px rgba(var(--g-ink-rgb), .3); display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.grask-6-archivo-lp .strip-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; font: 500 0.875rem/1.4 var(--font-text); font-variant-numeric: tabular-nums; color: var(--g-text-2); } /* label: "Watch a check run" and the time readout, whose tabular figures keep the clock from jittering */
+.grask-6-archivo-lp .strip-cta { display: inline-flex; align-items: center; gap: 10px; color: var(--g-text); }
+.grask-6-archivo-lp .strip-cta:hover { text-decoration: none; }
+.grask-6-archivo-lp .strip-play { flex: none; display: block; }
+.grask-6-archivo-lp .strip-meta { display: flex; align-items: center; gap: 18px; }
+.grask-6-archivo-lp .strip-ctx { font: 500 0.8125rem/1.4 var(--font-text); } /* label-sm: the recording meta, secondary colour from .strip-head */
+.grask-6-archivo-lp .strip-time { color: var(--g-text); }
+.grask-6-archivo-lp .strip-clock { display: none; }
+.grask-6-archivo-lp .tnum { font-variant-numeric: tabular-nums; }
+.grask-6-archivo-lp .wave { position: relative; height: 56px; }
+.grask-6-archivo-lp .wave-bars { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; }
+.grask-6-archivo-lp .wave-bars i { flex: none; width: 4px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft-2); }
+.grask-6-archivo-lp .wave-done { clip-path: inset(0 100% 0 0); }
+.grask-6-archivo-lp .wave-done i { background: var(--g-accent-hover); }
+.grask-6-archivo-lp .wave-div { position: absolute; top: -6px; bottom: -6px; width: 1px; background: rgba(var(--g-ink-rgb), .14); }
+.grask-6-archivo-lp .wave-head { position: absolute; inset: -6px 0; pointer-events: none; }
+.grask-6-archivo-lp .wave-head::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: var(--g-radius-pill); background: var(--g-accent); }
+.grask-6-archivo-lp .wave-head::after { content: ""; position: absolute; left: -3px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--g-accent); } /* the knob, centred on the 2px line */
+.grask-6-archivo-lp .segs { display: flex; padding-top: 2px; }
+.grask-6-archivo-lp .seg { --glp6-archivo-done: 0; flex: 0 1 auto; box-sizing: border-box; min-width: 0; margin: 0; padding: 0 18px 0 0; border: 0; border-radius: var(--g-radius-control); background: none; font: inherit; text-align: left; color: var(--g-text-2); display: flex; flex-direction: column; gap: 3px; cursor: pointer; } /* the 18px right padding is where the check hangs, see .seg-check */
+.grask-6-archivo-lp .seg-name { display: block; font: 500 0.8125rem/1.4 var(--font-text); font-variant-numeric: tabular-nums; } /* label-sm: the criterion names on the waveform, at every width (the 11.5px phone size is gone: no token below 12px) */
+.grask-6-archivo-lp .seg-check { display: inline-block; vertical-align: -1px; margin: 0 -18px 0 5px; color: var(--g-accent); opacity: var(--glp6-archivo-done); transform: scale(calc(.4 + .6 * var(--glp6-archivo-done))); transform-origin: 50% 60%; } /* inline, so it follows the last word when a name wraps; the negative right margin cancels its width for line breaking, so it hangs into the label's padding instead of wrapping alone onto an empty line */
+.grask-6-archivo-lp .seg-time { font: 400 0.75rem/1.4 var(--font-text); letter-spacing: 0.01em; font-variant-numeric: tabular-nums; color: var(--g-text-3); } /* caption: the time ranges under the criteria */
+.grask-6-archivo-lp .seg:hover .seg-name { color: var(--g-accent); }
+.grask-6-archivo-lp .seg:focus-visible { outline: 2px solid var(--g-accent); outline-offset: 2px; }
+.grask-6-archivo-lp .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 720px) {
+  .grask-6-archivo-lp .strip { padding: 18px 18px 20px; }
+  .grask-6-archivo-lp .strip-ctx { display: none; }
+  .grask-6-archivo-lp .wave { height: 44px; }
+  .grask-6-archivo-lp .wave-bars i:nth-child(5n + 2), .grask-6-archivo-lp .wave-bars i:nth-child(5n + 4), .grask-6-archivo-lp .wave-bars i:nth-child(5n + 5) { display: none; } /* 48 of the 120 */
+  .grask-6-archivo-lp .seg { padding-right: 12px; }
+  .grask-6-archivo-lp .seg-time { display: none; }
+}
+
+/* ---- Timeline: the demo's 34 s clock. The sweep ends at 92.7%; a boundary is (segment end / 372 s) * 92.7, the check's ramp ends ~1% later ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .grask-6-archivo-lp .wave-done { animation: glp6-archivo-strip-done 34s linear infinite; }
+  .grask-6-archivo-lp .wave-head { animation: glp6-archivo-strip-head 34s linear infinite; }
+  .grask-6-archivo-lp .seg-1 { animation: glp6-archivo-seg1 34s linear infinite; }
+  .grask-6-archivo-lp .seg-2 { animation: glp6-archivo-seg2 34s linear infinite; }
+  .grask-6-archivo-lp .seg-3 { animation: glp6-archivo-seg3 34s linear infinite; }
+  .grask-6-archivo-lp .seg-4 { animation: glp6-archivo-seg4 34s linear infinite; }
+  @supports (counter-reset: glp6-archivo-x mod(3, 2)) {
+    .grask-6-archivo-lp .strip-clock { display: inline; animation: glp6-archivo-strip-time 34s linear infinite; }
+    .grask-6-archivo-lp .strip-clock::before { content: counter(glp6-archivo-min, decimal-leading-zero) ":" counter(glp6-archivo-sec, decimal-leading-zero) " / "; counter-reset: glp6-archivo-min round(down, var(--glp6-archivo-t) / 60) glp6-archivo-sec mod(var(--glp6-archivo-t), 60); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grask-6-archivo-lp .wave-done { clip-path: none; }
+  .grask-6-archivo-lp .wave-head { display: none; }
+  .grask-6-archivo-lp .seg { --glp6-archivo-done: 1; color: var(--g-text); }
+}
+@keyframes glp6-archivo-strip-done {
+  0% { clip-path: inset(0 100% 0 0); }
+  92.7%, 100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes glp6-archivo-strip-head {
+  0% { transform: translateX(0); }
+  92.7%, 100% { transform: translateX(calc(100% - 2px)); }
+}
+@keyframes glp6-archivo-strip-time {
+  0% { --glp6-archivo-t: 0; }
+  92.7%, 100% { --glp6-archivo-t: 372; }
+}
+@keyframes glp6-archivo-seg1 {
+  0%, 24.92% { --glp6-archivo-done: 0; color: var(--g-accent); }
+  25.9%, 100% { --glp6-archivo-done: 1; color: var(--g-text); }
+}
+@keyframes glp6-archivo-seg2 {
+  0%, 24.92% { --glp6-archivo-done: 0; color: var(--g-text-2); }
+  25.9%, 51.08% { --glp6-archivo-done: 0; color: var(--g-accent); }
+  52.1%, 100% { --glp6-archivo-done: 1; color: var(--g-text); }
+}
+@keyframes glp6-archivo-seg3 {
+  0%, 51.08% { --glp6-archivo-done: 0; color: var(--g-text-2); }
+  52.1%, 72.26% { --glp6-archivo-done: 0; color: var(--g-accent); }
+  73.3%, 100% { --glp6-archivo-done: 1; color: var(--g-text); }
+}
+@keyframes glp6-archivo-seg4 {
+  0%, 72.26% { --glp6-archivo-done: 0; color: var(--g-text-2); }
+  73.3%, 92.7% { --glp6-archivo-done: 0; color: var(--g-accent); }
+  93.7%, 100% { --glp6-archivo-done: 1; color: var(--g-text); }
+}

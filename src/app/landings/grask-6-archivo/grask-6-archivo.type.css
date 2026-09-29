@@ -1,0 +1,143 @@
+/* grask-6-archivo (2026-09-29): the Grask type guide with the display face swapped for Archivo, condensed (wdth 75) and black (900);
+   Golos Text and JetBrains Mono, and every token under 28px, are the guide's. The display tokens below are this variant's.
+   The Grask type guide (test-landing/font-styling.css, applied to this landing on 2026-09-29), scoped to .grask-6-archivo-lp: the guide
+   sets its families on :root and its base on html; here both are the landing root, and every .t-* class is prefixed, so nothing leaks
+   out of this landing. Otherwise verbatim: edit font-styling.css first, then re-copy. The markup wears the .t-* classes directly (2026-09-29, the guide applied in full); the h1 / h2 / h3 / summary
+   roles in grask-6-archivo.css repeat the matching tokens for the elements the guide names by tag. Replaces grask-4.fonts.css (the self-hosted Uncut Sans / Urbanist files): the three faces load from Google Fonts. */
+/* ==========================================================================
+   Grask type tokens
+   Display: Archivo (grotesk, wdth 62–125, wght 100–900), used condensed and black  — voice (this variant; the guide's is Piazzolla)
+   Text:    Golos Text (grotesk, wght 400–900)           — work
+   Mono:    JetBrains Mono                                — code in transcripts
+   Coverage: all three ship Latin, Latin Extended and Cyrillic.
+
+   Handoff rule: Display face only at 28px and above, only for short strings.
+   Everything else is Golos. When in doubt, Golos.
+   ========================================================================== */
+
+/* --- Loading ---------------------------------------------------------------
+   Google Fonts variant. For self-hosting use @fontsource-variable/archivo,
+   @fontsource-variable/golos-text and @fontsource-variable/jetbrains-mono.
+   Google serves Archivo's width axis as six named instances (62.5 / 75 / 87.5 / 100 / 112.5 / 125%), so font-stretch must name one
+   of those exactly: 75% is "condensed", 87.5% is "semi-condensed" (85% would fall back to 75%). */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Golos+Text:wght@400..600&family=JetBrains+Mono:wght@400..500&display=swap");
+
+/* --- Metric-matched fallbacks (prevents layout shift while fonts load) -----
+   size-adjust values are starting points; generate exact ascent/descent/
+   line-gap overrides with `fontpie` or Capsize against the real font files. */
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial Narrow"), local("Arial"), local("Helvetica");
+  size-adjust: 96%;
+}
+@font-face {
+  font-family: "Golos Text Fallback";
+  src: local("Arial"), local("Helvetica");
+  size-adjust: 98%;
+}
+
+/* --- Families --------------------------------------------------------------- */
+.grask-6-archivo-lp {
+  --font-display: "Archivo", "Archivo Fallback", "Arial Narrow", system-ui, Arial, sans-serif;
+  --font-text: "Golos Text", "Golos Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* --- Base --------------------------------------------------------------------- */
+.grask-6-archivo-lp {
+  font-family: var(--font-text);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Display role (Archivo, condensed black) -------------------------------------
+   Always: weight 700–900, condensed (font-stretch 75%, semi-condensed 87.5% at display-md),
+   lining figures, no italics, max two lines. The hero headline is set in capitals: the only
+   uppercase display string on the page, a poster, not a rule for the other tokens. */
+.grask-6-archivo-lp .t-display-xl,
+.grask-6-archivo-lp .t-display-lg,
+.grask-6-archivo-lp .t-display-md {
+  font-family: var(--font-display);
+  font-stretch: 75%;
+  font-variant-numeric: lining-nums;
+  font-style: normal;
+  text-wrap: balance;
+}
+
+.grask-6-archivo-lp .t-display-xl { /* hero headline */
+  font-weight: 900;
+  font-size: clamp(3rem, 1rem + 8.4vw, 8rem);        /* 48 → 128px */
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: pretty;
+}
+
+.grask-6-archivo-lp .t-display-lg { /* landing section titles, product page titles */
+  font-weight: 800;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);      /* 32 → 48px */
+  line-height: 0.98;
+  letter-spacing: 0em;
+}
+
+.grask-6-archivo-lp .t-display-md { /* pull quote, grade recommendation number, empty-state headline */
+  font-weight: 700;
+  font-stretch: 87.5%;
+  font-size: 1.875rem;                                /* 30px */
+  line-height: 1.15;
+  letter-spacing: 0em;
+}
+
+/* --- Text role (Golos Text) ------------------------------------------------------ */
+.grask-6-archivo-lp .t-heading-sm { /* card / modal / feature titles, FAQ questions */
+  font: 600 1.25rem/1.3 var(--font-text);             /* 20px */
+}
+
+.grask-6-archivo-lp .t-heading-xs { /* table headers, form section titles */
+  font: 600 1rem/1.4 var(--font-text);                /* 16px */
+}
+
+.grask-6-archivo-lp .t-body-lg { /* hero subheadline, onboarding copy */
+  font: 400 1.125rem/1.5 var(--font-text);            /* 18px */
+  max-width: 60ch;
+}
+
+.grask-6-archivo-lp .t-body { /* default reading size, transcript text, FAQ answers */
+  font: 400 1rem/1.5 var(--font-text);                /* 16px */
+  max-width: 68ch;
+}
+
+.grask-6-archivo-lp .t-body-sm { /* secondary copy, table cells, list items */
+  font: 400 0.875rem/1.5 var(--font-text);            /* 14px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-archivo-lp .t-label { /* buttons, nav, tabs, inputs, rubric criterion names, time readout */
+  font: 500 0.875rem/1.4 var(--font-text);            /* 14px; 15px for nav is fine */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-archivo-lp .t-label-sm { /* dense UI labels, chips, criterion names inside the waveform */
+  font: 500 0.8125rem/1.4 var(--font-text);           /* 13px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-archivo-lp .t-caption { /* timestamps, time ranges, meta, helper text */
+  font: 400 0.75rem/1.4 var(--font-text);             /* 12px */
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Mono role (JetBrains Mono) ---------------------------------------------------- */
+.grask-6-archivo-lp .t-code { /* identifiers and snippets inside transcripts and feedback */
+  font: 400 0.875em/1.5 var(--font-mono);             /* relative: sits inside body text */
+  font-variant-ligatures: none;
+}
+
+/* --- Guard rails --------------------------------------------------------------------- */
+/* The display face is never used below 28px: there is deliberately no
+   .t-display-sm token. Add a heading below that size as a .t-heading-* token. */
+
+/* Never italicise the display face (Archivo has italics; they belong to the text face only). */
+.grask-6-archivo-lp .t-display-xl em, .grask-6-archivo-lp .t-display-lg em, .grask-6-archivo-lp .t-display-md em { font-style: normal; }

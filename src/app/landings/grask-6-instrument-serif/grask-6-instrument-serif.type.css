@@ -1,0 +1,138 @@
+/* The Grask type guide (test-landing/font-styling.css, applied to this landing on 2026-09-29), scoped to .grask-6-instrument-serif-lp: the guide
+   sets its families on :root and its base on html; here both are the landing root, and every .t-* class is prefixed, so nothing leaks
+   out of this landing. Otherwise verbatim: edit font-styling.css first, then re-copy. The markup wears the .t-* classes directly (2026-09-29, the guide applied in full); the h1 / h2 / h3 / summary
+   roles in grask-6-instrument-serif.css repeat the matching tokens for the elements the guide names by tag. Replaces grask-4.fonts.css (the self-hosted Uncut Sans / Urbanist files): the three faces load from Google Fonts. */
+/* ==========================================================================
+   Grask type tokens — the grask-6-instrument-serif variant (2026-09-29): the display face is Instrument Serif instead of
+   Piazzolla. One weight (400) and an italic, tall and airy, so the display sizes go larger than the guide's and the
+   headline is set left-aligned (see README.md). Golos Text and JetBrains Mono are untouched.
+   Display: Instrument Serif (serif, one weight 400 + italic) — voice
+   Text:    Golos Text (grotesk, wght 400–900)           — work
+   Mono:    JetBrains Mono                                — code in transcripts
+   Coverage: all three ship Latin, Latin Extended and Cyrillic.
+
+   Handoff rule: Display face only at 28px and above, only for short strings.
+   Everything else is Golos. When in doubt, Golos.
+   ========================================================================== */
+
+/* --- Loading ---------------------------------------------------------------
+   Google Fonts variant. For self-hosting use @fontsource/instrument-serif,
+   @fontsource-variable/golos-text and @fontsource-variable/jetbrains-mono. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Golos+Text:wght@400..600&family=JetBrains+Mono:wght@400..500&display=swap");
+
+/* --- Metric-matched fallbacks (prevents layout shift while fonts load) -----
+   size-adjust values are starting points; generate exact ascent/descent/
+   line-gap overrides with `fontpie` or Capsize against the real font files. */
+@font-face {
+  font-family: "Instrument Serif Fallback";
+  src: local("Times New Roman"), local("Georgia");
+  size-adjust: 96%;   /* Instrument Serif is narrow and small on the body: Times at 96% is close */
+}
+@font-face {
+  font-family: "Golos Text Fallback";
+  src: local("Arial"), local("Helvetica");
+  size-adjust: 98%;
+}
+
+/* --- Families --------------------------------------------------------------- */
+.grask-6-instrument-serif-lp {
+  --font-display: "Instrument Serif", "Instrument Serif Fallback", Georgia, serif;
+  --font-text: "Golos Text", "Golos Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* --- Base --------------------------------------------------------------------- */
+.grask-6-instrument-serif-lp {
+  font-family: var(--font-text);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Display role (Instrument Serif) ---------------------------------------------
+   The face has one weight, 400, and an italic. Always: weight 400 (font-synthesis off, so no faux bold), lining figures,
+   sentence case, max two lines. The italic is allowed for one word in the hero headline ("heard."), a deliberate
+   exception to the guide's no-italics rule for this variant. */
+.grask-6-instrument-serif-lp .t-display-xl,
+.grask-6-instrument-serif-lp .t-display-lg,
+.grask-6-instrument-serif-lp .t-display-md {
+  font-family: var(--font-display);
+  font-synthesis: none;
+  font-variant-numeric: lining-nums;
+  font-style: normal;
+  text-wrap: balance;
+}
+
+.grask-6-instrument-serif-lp .t-display-xl { /* hero headline */
+  font-weight: 400;
+  font-size: clamp(3.25rem, 1rem + 8vw, 7.5rem);    /* 52 → 120px */
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.grask-6-instrument-serif-lp .t-display-lg { /* landing section titles, product page titles */
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.25rem); /* 36 → 52px */
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+.grask-6-instrument-serif-lp .t-display-md { /* pull quote, grade recommendation number, empty-state headline */
+  font-weight: 400;
+  font-size: 2rem;                                    /* 32px */
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* --- Text role (Golos Text) ------------------------------------------------------ */
+.grask-6-instrument-serif-lp .t-heading-sm { /* card / modal / feature titles, FAQ questions */
+  font: 600 1.25rem/1.3 var(--font-text);             /* 20px */
+}
+
+.grask-6-instrument-serif-lp .t-heading-xs { /* table headers, form section titles */
+  font: 600 1rem/1.4 var(--font-text);                /* 16px */
+}
+
+.grask-6-instrument-serif-lp .t-body-lg { /* hero subheadline, onboarding copy */
+  font: 400 1.125rem/1.5 var(--font-text);            /* 18px */
+  max-width: 60ch;
+}
+
+.grask-6-instrument-serif-lp .t-body { /* default reading size, transcript text, FAQ answers */
+  font: 400 1rem/1.5 var(--font-text);                /* 16px */
+  max-width: 68ch;
+}
+
+.grask-6-instrument-serif-lp .t-body-sm { /* secondary copy, table cells, list items */
+  font: 400 0.875rem/1.5 var(--font-text);            /* 14px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-instrument-serif-lp .t-label { /* buttons, nav, tabs, inputs, rubric criterion names, time readout */
+  font: 500 0.875rem/1.4 var(--font-text);            /* 14px; 15px for nav is fine */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-instrument-serif-lp .t-label-sm { /* dense UI labels, chips, criterion names inside the waveform */
+  font: 500 0.8125rem/1.4 var(--font-text);           /* 13px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-instrument-serif-lp .t-caption { /* timestamps, time ranges, meta, helper text */
+  font: 400 0.75rem/1.4 var(--font-text);             /* 12px */
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Mono role (JetBrains Mono) ---------------------------------------------------- */
+.grask-6-instrument-serif-lp .t-code { /* identifiers and snippets inside transcripts and feedback */
+  font: 400 0.875em/1.5 var(--font-mono);             /* relative: sits inside body text */
+  font-variant-ligatures: none;
+}
+
+/* --- Guard rails --------------------------------------------------------------------- */
+/* The display face is never used below 28px: there is deliberately no
+   .t-display-sm token. Add a heading below that size as a .t-heading-* token. */
+
+/* The display face is not italicised, except the one marked word in the hero headline (.title .ital, grask-6-instrument-serif.css). */
+.grask-6-instrument-serif-lp .t-display-xl em, .grask-6-instrument-serif-lp .t-display-lg em, .grask-6-instrument-serif-lp .t-display-md em { font-style: normal; }

@@ -1,0 +1,50 @@
+/* Grask landing page (capital-G copy): section scrolling (added 2026-09-21).
+   The page scrolls freely (the hero-to-statement snap jump was dropped on 2026-09-22), and one section pins while the
+   scroll drives something else: the statement's text. (Two others are gone: the steps rail, four cards travelling horizontally
+   under "From rubric to grade", removed on 2026-09-22, and the "where it fits" spread, three cards fanning out of a stack over an
+   80vh pin, replaced on 2026-09-25 by the outcome rail, which scrubs its track from JS; see grask-6-syne.rail.css / grask-6-syne.rail.ts.)
+   - Stop (#why): pinned for 100vh of scroll while the statement's two sentences appear, letter by letter in reading order,
+     out of an empty screen, centred a little above the middle of it (the pin's padding, inline, is the header height on top and
+     20dvh below, so the centre of the content box sits at about 44% of the viewport; since 2026-09-23, before that 78px/112px, i.e.
+     the geometric centre; anchoring the text to the hero's top line was tried the same day and left the lower two thirds empty) (a background-clip: text wipe from transparent to ink with a soft edge; since 2026-09-22 the unfilled
+     text is invisible rather than faint). A view timeline on the section: nothing shows until the section's top reaches the top of the viewport,
+     contain 0%, then the first sentence fills over 4-46%, the second over 46-88% (strictly after the first, since the unfilled text is
+     invisible and an early start would show mid-line), and the finished statement holds for the last 12vh
+     before the demo scrolls up).
+   The statement pins and fills at every width in every browser (without animation-timeline, grask-6-syne.ts drives its fill; see
+   Stop). Under prefers-reduced-motion it lays out as before: one plain screen with its text in ink.
+   Property ownership as in grask-6-syne.motion.css: reveal -> transform, lift -> scale. */
+
+/* ---- Stop: the statement ----
+   .stop is the scroll track (200dvh when pinned), .stop-pin the screen that sticks to the top of the viewport for the second
+   100dvh of it. The fill's progress is the track's view timeline where the browser has scroll-driven animations (contain 0% is
+   the pin's first frame, contain 100% its last). Elsewhere (Firefox, as of 2026-09-22) setupStatementFill() in grask-6-syne.ts writes
+   the same progress, 0 to 1, to --glp6-syne-why-p on the track on every scroll frame and the @supports not block maps it onto the
+   same ranges, so the effect is identical. Without JS there the text is simply in ink (the variable's fallback is 1).
+   Soft edge (2026-09-22): the wipe's edge is a --edge (120px) wide ink-to-transparent ramp, a few letters at this size, so letters
+   fade in rather than being cut. The background is 200% plus the edge wide and the ramp sits in its middle, so at position 100%
+   (unfilled) only the transparent half shows and at 0 (filled) only the ink half: both end states stay clean. (A lead that
+   showed the first few letters on arrival was tried and removed the same day.) */
+.grask-6-syne-lp .stop-pin { min-height: 100dvh; }
+.grask-6-syne-lp .fill-2 { color: var(--g-text-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .grask-6-syne-lp .stop { height: 200dvh; }
+  .grask-6-syne-lp .stop-pin { position: sticky; top: 0; height: 100dvh; min-height: 0; }
+  .grask-6-syne-lp .fill { --ink: var(--g-text); --edge: 120px; background-image: linear-gradient(90deg, var(--ink) 0 calc(50% - var(--edge) / 2), transparent calc(50% + var(--edge) / 2) 100%); background-size: calc(200% + var(--edge)) 100%; background-position: 100% 0; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .grask-6-syne-lp .fill-2 { --ink: var(--g-text-3); }
+  @supports (animation-timeline: scroll()) {
+    .grask-6-syne-lp .stop { view-timeline: --glp6-syne-why block; }
+    .grask-6-syne-lp .fill { animation: glp6-syne-fill linear both; animation-timeline: --glp6-syne-why; }
+    .grask-6-syne-lp .fill-1 { animation-range: contain 4% contain 46%; }
+    .grask-6-syne-lp .fill-2 { animation-range: contain 46% contain 88%; }
+  }
+  @supports not (animation-timeline: scroll()) {
+    /* the same ranges as the animation-range values above: --from is where each sentence starts filling, --span how long it takes */
+    .grask-6-syne-lp .fill-1 { --from: .04; --span: .42; }
+    .grask-6-syne-lp .fill-2 { --from: .46; --span: .42; }
+    .grask-6-syne-lp .fill { background-position: calc((1 - clamp(0, (var(--glp6-syne-why-p, 1) - var(--from)) / var(--span), 1)) * 100%) 0; }
+  }
+}
+@keyframes glp6-syne-fill {
+  100% { background-position: 0 0; }
+}

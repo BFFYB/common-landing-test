@@ -1,0 +1,68 @@
+/* The hero lead's type tryout (grask-6-mono only, 2026-09-25; state and the face list in grask-6-mono.lead.ts). One import per face so a
+   family that Google Fonts turns down only loses itself: a combined request fails as a whole. Weight ranges are variable axes;
+   browsers only fetch a face once the lead is set in it. Golos Text, the page's own face, comes with the type guide (grask-6-mono.type.css). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Literata:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
+
+/* The lead itself: the values are bound inline from the tryout (grask-6-mono.html), this only turns off what the caption role would
+   otherwise re-apply on a reload before the bindings land. */
+.grask-6-mono-lp .lead { text-wrap: pretty; }
+
+/* The panel: fixed at the bottom left (the landing switcher HUD is at the bottom right), tooling-styled like the HUD so it never
+   reads as part of the page. 300px wide so it clears a 760px lead at 1440px and up (the lead's left edge is at (100vw - measure) / 2);
+   narrower than that, or with a wider measure, close it with `t` or its head and step faces with , and . . Inside the device preview
+   and on phones it starts as a closed chip. */
+.grask-6-mono-lp .lead-tryout { position: fixed; left: 16px; bottom: 16px; z-index: 40; width: min(300px, calc(100vw - 32px)); box-sizing: border-box; font: 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace; color: #fff; letter-spacing: 0; background: rgb(18 18 22 / 0.92); border: 1px solid rgb(255 255 255 / 0.12); border-radius: 14px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.35); backdrop-filter: blur(10px); -webkit-font-smoothing: auto; }
+.grask-6-mono-lp .lead-tryout:not(.is-open) { width: auto; border-radius: 999px; }
+.grask-6-mono-lp .lt-head { display: flex; align-items: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 9px 12px; background: transparent; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; border-radius: inherit; }
+.grask-6-mono-lp .lt-head:hover { background: rgb(255 255 255 / 0.06); }
+.grask-6-mono-lp .lt-title { font-weight: 600; }
+.grask-6-mono-lp .lt-face { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.85; }
+.grask-6-mono-lp .lt-w { opacity: 0.55; }
+.grask-6-mono-lp .lt-body { display: flex; flex-direction: column; gap: 8px; padding: 4px 12px 12px; border-top: 1px solid rgb(255 255 255 / 0.1); }
+.grask-6-mono-lp .lt-row { display: grid; grid-template-columns: 62px 1fr 52px; align-items: center; gap: 8px; }
+.grask-6-mono-lp .lt-row > span { opacity: 0.6; }
+.grask-6-mono-lp .lt-row > b { font-weight: 400; text-align: right; font-variant-numeric: tabular-nums; opacity: 0.85; }
+.grask-6-mono-lp .lt-nav { grid-template-columns: 28px 1fr 28px; padding-top: 6px; }
+.grask-6-mono-lp .lt-select { min-width: 0; height: 28px; padding: 0 8px; box-sizing: border-box; background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.14); border-radius: 8px; color: inherit; font: inherit; }
+.grask-6-mono-lp .lt-select option, .grask-6-mono-lp .lt-select optgroup { color: #111; background: #fff; }
+.grask-6-mono-lp .lt-btn { height: 28px; min-width: 28px; padding: 0 8px; display: inline-grid; place-items: center; background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.14); border-radius: 8px; color: inherit; font: inherit; cursor: pointer; }
+.grask-6-mono-lp .lt-btn:hover { background: rgb(255 255 255 / 0.16); }
+.grask-6-mono-lp .lt-note { margin: 0; opacity: 0.6; }
+.grask-6-mono-lp .lt-row input[type='range'] { width: 100%; margin: 0; accent-color: #9AD1D9; }
+.grask-6-mono-lp .lt-colors { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.grask-6-mono-lp .lt-colors > span { width: 62px; margin-right: 4px; }
+.grask-6-mono-lp .lt-chips { display: contents; }
+.grask-6-mono-lp .lt-chip { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 8px; background: transparent; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px; color: inherit; font: inherit; cursor: pointer; opacity: 0.7; }
+.grask-6-mono-lp .lt-chip i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.3); }
+.grask-6-mono-lp .lt-chip.is-on { opacity: 1; background: rgb(255 255 255 / 0.12); }
+.grask-6-mono-lp .lt-css { margin: 0; padding: 8px 10px; background: rgb(0 0 0 / 0.35); border-radius: 8px; font-family: inherit; font-size: 11px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; opacity: 0.85; user-select: all; }
+.grask-6-mono-lp .lt-actions { display: flex; gap: 6px; }
+.grask-6-mono-lp .lt-actions .lt-btn { flex: 1; }
+.grask-6-mono-lp .lt-keys { margin: 0; opacity: 0.45; }
+/* Phones: the switcher HUD runs nearly edge to edge at the bottom, so the panel sits above it, and it starts closed (the open panel
+   would cover the lead itself; see LeadTryout.open). */
+@media (max-width: 639px) { .grask-6-mono-lp .lead-tryout { bottom: 72px; max-height: calc(100dvh - 88px); overflow: auto; } }
+@media print { .grask-6-mono-lp .lead-tryout { display: none; } }

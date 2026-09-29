@@ -1,0 +1,41 @@
+/* Grask landing page: page motion (added 2026-09-20, modelled on a scroll-through reference).
+   - Scroll reveals: elements marked data-reveal fade/rise in once they enter the viewport.
+     The component adds .glp6-bodoni-moda-js to the root and .is-in per element; without JS nothing is hidden.
+     Stagger with data-delay="1".."6". data-reveal="mask" rises out of an overflow:hidden parent.
+   - Parallax: .drift cards move at their own --dy while their section scrolls through (scroll-driven, progressive).
+   - Hover lift: .lift cards scale up slightly with a deeper shadow.
+   Property ownership so nothing fights: reveal -> transform, drift -> translate, lift -> scale.
+   Every keyframe is prefixed glp6-bodoni-moda-, every selector is scoped under .grask-6-bodoni-moda-lp. All motion is off under prefers-reduced-motion. */
+
+/* ---- Scroll reveals ----
+   Hidden state has no transition, so dropping .is-in (element scrolled back out below the viewport) snaps it
+   back instantly and the next entrance plays in full. The entrance transition lives on .is-in only. */
+@media (prefers-reduced-motion: no-preference) {
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-reveal] { opacity: 0; transform: translateY(28px); filter: blur(5px); transition: none; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-reveal="mask"] { opacity: 1; filter: none; transform: translateY(45%); } /* 45% in this variant (grask-6: 55%): the giant wordmark's box is shorter in Bodoni Moda and its bottom crop deeper (see .giant in grask-6-bodoni-moda.css), so at the end of the page a 55% rise left only 41px of it above the observer's fold, under the 12% it needs to reveal; 45% gives it the 83px grask-6 has. */
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-reveal].is-in { opacity: 1; transform: none; filter: none; transition-property: opacity, transform, filter, scale, box-shadow; transition-duration: .9s, .9s, .9s, .35s, .35s; transition-timing-function: cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), cubic-bezier(.2, .7, .2, 1), ease; transition-delay: var(--d, 0s), var(--d, 0s), var(--d, 0s), 0s, 0s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-reveal="mask"].is-in { transition-duration: 1.3s, 1.3s, 1.3s, .35s, .35s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="1"] { --d: .08s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="2"] { --d: .16s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="3"] { --d: .24s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="4"] { --d: .32s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="5"] { --d: .40s; }
+  .grask-6-bodoni-moda-lp.glp6-bodoni-moda-js [data-delay="6"] { --d: .48s; }
+}
+
+/* ---- Hover lift ---- */
+.grask-6-bodoni-moda-lp .lift { transition: scale .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .grask-6-bodoni-moda-lp .lift:hover { scale: 1.02; box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), .04), 0 28px 48px -28px rgba(var(--g-ink-rgb), .4); }
+}
+
+/* ---- Scroll-driven extras (browsers without animation-timeline simply skip them) ---- */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grask-6-bodoni-moda-lp .drift { animation: glp6-bodoni-moda-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes glp6-bodoni-moda-drift {
+  0% { translate: 0 var(--dy, 0px); }
+  100% { translate: 0 calc(var(--dy, 0px) * -1); }
+}

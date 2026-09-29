@@ -1,0 +1,421 @@
+<div class="grask-6-fraunces-lp" style="width: 100%; background: var(--g-bg); color: var(--g-text);">
+
+<header class="bar" style="position: sticky; top: 0; z-index: 30; height: var(--glp6-fraunces-header-h); box-sizing: border-box;">
+<div style="max-width: 1200px; height: 100%; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(20px, 4vw, 40px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;">
+<a href="#top" (click)="go($event)" class="plain" style="display: inline-flex; align-items: center; justify-self: start;"><span class="lockup" style="display: inline-flex; align-items: center; gap: 10px;"><img src="/landings/grask-6-fraunces/logo/grask-mark-tile.svg" alt="" width="34" height="34" style="display: block; width: 34px; height: 34px;"><span class="wordmark" style="font-size: 30px;">Grask</span></span></a>
+<nav class="nav-links t-label" aria-label="Main" style="display: flex; align-items: center; gap: 30px;">
+<a class="plain" href="#how" (click)="go($event)" style="padding: 12px 0;"><span>How it works</span></a>
+<a class="plain" href="#lms" (click)="go($event)" style="padding: 12px 0;"><span>Integrations</span></a>
+<a class="plain" href="#faq" (click)="go($event)" style="padding: 12px 0;"><span>Questions</span></a>
+</nav>
+<div class="bar-cta" style="grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 24px;">
+<a href="https://grask.eu" target="_blank" rel="noopener" class="plain bar-link t-label" style="padding: 12px 0; white-space: nowrap;"><span>Try it out</span></a>
+<a routerLink="/grask-6-fraunces/pilot" class="btn-light t-label" style="display: inline-flex; align-items: center; justify-content: center; height: 44px; box-sizing: border-box; padding: 0 20px; background: var(--g-surface); color: var(--g-text); border: 1.5px solid var(--g-text); border-radius: var(--g-radius-button); text-decoration: none; white-space: nowrap;"><span>Book a demo</span></a>
+</div>
+</div>
+</header>
+
+<section id="top" class="hero" style="scroll-margin-top: var(--glp6-fraunces-header-h); max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: clamp(64px, 7.8vw, 112px) clamp(20px, 4vw, 40px) clamp(40px, 5vw, 72px); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; gap: 28px;">
+<h1 class="title" style="max-width: 1080px;"><span class="w" style="--i: 0;">Every</span>&ngsp;<span class="w" style="--i: 1;">student&nbsp;&mdash;</span>&ngsp;<span class="w ital" style="--i: 2;">heard.</span>&ngsp;<span class="w" style="--i: 3;">Without</span>&ngsp;<span class="mark mark-in"><span class="w" style="--i: 4;">the</span>&ngsp;<span class="w" style="--i: 5;">hours.</span></span></h1>
+<p class="lead t-body-lg rise rise-3" style="max-width: 600px; color: var(--g-text-lead); text-wrap: balance;" [style.font-family]="lead.face().family" [style.font-weight]="lead.weight()" [style.font-size]="lead.fontSize()" [style.letter-spacing.em]="lead.tracking()" [style.line-height]="lead.leading()" [style.color]="lead.colorValue()" [style.max-width.px]="lead.width()">Runs your oral checks by voice, against your rubric. Hands back the recording, a transcript by criterion and a grade recommendation for every student.</p>
+<div class="rise rise-4" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding-top: 4px;">
+<a routerLink="/grask-6-fraunces/pilot" class="btn-dark t-label" style="display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 30px; background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-button); text-decoration: none;"><span>Book a demo</span></a>
+</div>
+<div class="strip rise rise-6">
+<p class="vh">Example: a six-minute oral check, split into four rubric criteria.</p>
+<div class="strip-head">
+<a href="#how" (click)="go($event)" class="plain strip-cta"><svg class="strip-play" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="var(--g-accent)"></circle><path d="M10.2 8.2 L18 13 L10.2 17.8 Z" fill="var(--g-on-accent)"></path></svg><span>Watch a check run</span></a>
+<div class="strip-meta" aria-hidden="true"><span class="strip-ctx">Lab 3 · hash tables · oral check</span><span class="strip-time tnum"><span class="strip-clock"></span>06:12</span></div>
+</div>
+<div class="wave" aria-hidden="true">
+<div class="wave-bars">@for (h of bars; track $index) {<i [style.height.%]="h"></i>}</div>
+<div class="wave-bars wave-done">@for (h of bars; track $index) {<i [style.height.%]="h"></i>}</div>
+@for (s of segments; track s.name; let i = $index) {@if (i > 0) {<i class="wave-div" [style.left.%]="(s.from / total) * 100"></i>}}
+<div class="wave-head"></div>
+</div>
+<div class="segs">
+@for (s of segments; track s.name; let i = $index) {
+<button type="button" class="seg seg-{{ i + 1 }}" [style.flex-basis.%]="((s.to - s.from) / total) * 100" (click)="seek(i)" [attr.aria-label]="'Jump the example to ' + s.name + ', ' + s.range">
+<span class="seg-name"><span>{{ s.name }}</span><svg class="seg-check" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.5 L5 9 L9.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<span class="seg-time tnum">{{ s.range }}</span>
+</button>
+}
+</div>
+</div>
+</section>
+
+<section id="why" class="stop" style="scroll-margin-top: 0; max-width: 1200px; margin: 0 auto; box-sizing: border-box;">
+<div class="stop-pin" style="box-sizing: border-box; padding: var(--glp6-fraunces-header-h) clamp(20px, 4vw, 40px) 20dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+<p class="statement t-display-md" style="max-width: 900px;"><span class="fill fill-1">Generative AI has made written work an unreliable measure of what a student understands.</span>&ngsp;<span class="fill fill-2">Oral formats still hold up, but instructors and TAs spend tens of hours per course per term running them, so they are rationed or skipped.</span></p>
+</div>
+</section>
+
+<section id="how" style="scroll-margin-top: var(--glp6-fraunces-header-h); box-sizing: border-box; padding: 0 0 clamp(64px, 8vw, 112px);">
+<div data-reveal style="position: relative; background: var(--g-accent-soft); padding: clamp(14px, 2.4vw, 32px) calc(var(--glp6-fraunces-col) + clamp(14px, 2.4vw, 32px)); display: flex; flex-direction: column; gap: clamp(14px, 2vw, 24px);">
+<div class="plate-bar" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding: 4px 6px 0;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;">
+<h2>What an oral check looks like</h2>
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.7); color: var(--g-text-2);">Scripted example, on a loop</span>
+</div>
+</div>
+
+<div class="stage" style="display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px);">
+
+<div style="flex: 1 1 380px; min-width: 0; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-card); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), 0.04), 0 24px 48px -28px rgba(var(--g-ink-rgb), 0.22); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L21 5 V12 C21 17.5 17.2 21.2 12 23 C6.8 21.2 3 17.5 3 12 V5 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+<span class="t-heading-xs">Your University</span>
+</div>
+<div class="t-label-sm" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); color: var(--g-accent);">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--g-accent);"></span>
+<span>Recording</span>
+</div>
+</div>
+<p class="t-body-sm" style="color: var(--g-text-3);">Student’s view. Oral check for Lab 3, hash tables.</p>
+<div class="bars" aria-hidden="true">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="caps">
+<div class="cap cap-0">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line);">[Persona name], AI examiner</span>
+<p class="t-body-lg"><span class="say">“Hi, I’m [Persona name], an AI examiner working with Your University; this conversation is recorded and your instructor will review it.”</span></p>
+</div>
+<div class="cap cap-1">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line);">[Persona name], AI examiner</span>
+<p class="t-body-lg"><span class="say">“Your report shows lookups slowing once the table is about 70% full. Why does that happen with linear probing?”</span></p>
+</div>
+<div class="cap cap-2">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); color: var(--g-accent);">Student</span>
+<p class="t-body-lg"><span class="say">“Clustering. Occupied slots form long runs, so a new key has to walk to the end of a run, and then it makes that run longer.”</span></p>
+</div>
+<div class="cap cap-3">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line);">[Persona name], AI examiner</span>
+<p class="t-body-lg"><span class="say">“What would you change to keep lookups fast at that load?”</span></p>
+</div>
+<div class="cap cap-4">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-accent-soft); color: var(--g-accent);">Student</span>
+<p class="t-body-lg"><span class="say">“Resize earlier, or switch to double hashing so the probes spread out.”</span></p>
+</div>
+<div class="cap cap-5">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: var(--g-line);">Call ended</span>
+<p class="t-body-lg">The recording, the transcript and the evidence report go to the instructor.</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--g-border);">
+<span class="t-label" style="display: inline-flex; align-items: center; gap: 8px; color: var(--g-text-2);"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.5" y="1.5" width="5" height="8.5" rx="2.5" stroke="currentColor" stroke-width="1.5"></rect><path d="M3 8 C3 10.8 5.2 12.6 8 12.6 C10.8 12.6 13 10.8 13 8 M8 12.6 V14.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg><span>Microphone on</span></span>
+<span class="t-label" style="display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: var(--g-radius-control); border: 1px solid rgba(var(--g-ink-rgb), 0.14);">End call</span>
+</div>
+</div>
+
+<div style="flex: 1.25 1 440px; min-width: 0; box-sizing: border-box; background: var(--g-surface); border-radius: var(--g-radius-card); box-shadow: 0 1px 2px rgba(var(--g-ink-rgb), 0.04), 0 24px 48px -28px rgba(var(--g-ink-rgb), 0.22); padding: clamp(20px, 2.2vw, 32px); display: flex; flex-direction: column;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-bottom: 18px; border-bottom: 1px solid var(--g-border);">
+<span class="t-heading-sm">Evidence report</span>
+<span class="t-body-sm" style="color: var(--g-text-3);">Instructor’s view. Lab 3, hash tables.</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 100px; box-sizing: border-box;">
+<span class="t-label" style="flex: 0 0 160px;">Explains the measured result</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-1" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p class="t-body"><span class="hl">“Occupied slots form long runs, so a new key has to walk to the end of a run”</span></p>
+<span class="t-label-sm" style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); color: var(--g-text-2);"><span>Student</span><span>01:12</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 92px; box-sizing: border-box;">
+<span class="t-label" style="flex: 0 0 160px;">Understands the mechanism</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-2" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p class="t-body"><span class="hl">“and then it makes that run longer”</span></p>
+<span class="t-label-sm" style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); color: var(--g-text-2);"><span>Student</span><span>01:19</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--g-border); min-height: 100px; box-sizing: border-box;">
+<span class="t-label" style="flex: 0 0 160px;">Reasons about alternatives</span>
+<div style="flex: 1 1 220px; min-width: 0; position: relative;">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; display: flex; flex-direction: column; gap: 12px;"><span style="height: 10px; width: 86%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span><span style="height: 10px; width: 52%; border-radius: var(--g-radius-pill); background: var(--g-line);"></span></div>
+<div class="ev ev-3" style="position: relative; background: var(--g-surface); display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+<p class="t-body"><span class="hl">“Resize earlier, or switch to double hashing so the probes spread out.”</span></p>
+<span class="t-label-sm" style="display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 10px; border-radius: var(--g-radius-pill); background: var(--g-line); color: var(--g-text-2);"><span>Student</span><span>02:03</span></span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 24px; padding-top: 20px;">
+<span class="t-label" style="flex: 0 0 160px; padding-top: 15px;">Grade</span>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+<div class="grade-box t-label" style="height: 48px; box-sizing: border-box; border: 1px dashed var(--g-border-input); border-radius: var(--g-radius-control); background: var(--g-surface); display: flex; align-items: center; padding: 0 16px; color: var(--g-text-2);">Entered by you</div>
+<span class="t-caption" style="color: var(--g-text-3);">Grask does not score or grade.</span>
+</div>
+</div>
+</div>
+
+</div>
+<div class="plate-foot" data-reveal style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 2px 6px 0;">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.7); color: var(--g-text-2);">Across the cohort</span>
+<p class="t-body" style="color: var(--g-text-2);">A dashboard shows which criteria a course is weak on, so you can find and fix weak spots in the study programme.</p>
+</div>
+</div>
+</section>
+
+<section id="outcomes" aria-labelledby="outcomes-title" style="scroll-margin-top: var(--glp6-fraunces-header-h); box-sizing: border-box; padding: 0 0 clamp(64px, 8vw, 112px);">
+<div class="rail">
+<div class="rail-stage">
+<div class="rail-head" data-reveal>
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); color: var(--g-on-accent);">After the first oral check</span>
+<h2 id="outcomes-title">What your course<br>gets back</h2>
+</div>
+<div class="rail-column">
+<ul class="rail-track" [style.--n]="rail.cards.length">
+@for (card of rail.loop; track $index) {
+<li class="rail-card" [class.dup]="$index >= rail.cards.length" [attr.aria-hidden]="$index >= rail.cards.length ? 'true' : null" [style.--c1]="card.tone[0]" [style.--c2]="card.tone[1]" [style.--c3]="card.tone[2]" [attr.data-kind]="card.kind">
+<h3>{{ card.title }}</h3>
+<div class="appear" [style.--delay]="card.delay + 's'">
+@switch (card.kind) {
+@case ('live') {
+<div class="rail-glass live hov">
+<p class="chip"><span class="rec"></span>Live check<span class="time">04:12</span></p>
+<div class="rail-wave" aria-hidden="true">@for (h of rail.bars; track $index) {<i [style.--h]="h" [style.--i]="$index"></i>}</div>
+<p class="said">“It slows down once the table is about seventy percent full, so it resizes before that.”</p>
+</div>
+}
+@case ('quote') {
+<figure class="rail-glass quote hov">
+<figcaption class="label">In Ben's own words</figcaption>
+<blockquote class="t-heading-sm">“I moved to open addressing after chaining kept missing the cache.”</blockquote>
+<p class="tags"><span><b>✓</b> Collision handling</span><span><b>✓</b> Matches the report</span></p>
+</figure>
+}
+@case ('rubric') {
+<div class="rail-glass rubric hov">
+<ul>
+@for (c of rail.criteria; track c.name) {<li><span class="tick">✓</span><span class="name">{{ c.name }}</span><span class="pts">{{ c.pts }}</span></li>}
+</ul>
+<p class="total"><span>Suggested grade</span><b>16<small>/20</small></b></p>
+</div>
+}
+@case ('bars') {
+<div class="rail-glass chart hov">
+<p class="label">Lab 3 · cohort of 84</p>
+<div class="cols">
+@for (t of rail.topics; track t.name) {<div class="col" [class.weak]="t.pct < 50" [style.--p]="t.pct"><span class="pct">{{ t.pct }}%</span><i></i><span class="name">{{ t.name }}</span></div>}
+</div>
+</div>
+}
+@case ('team') {
+<div class="stack">
+<p class="label">Team 7 · Lab 3 demo</p>
+<div class="rail-glass team hov">
+<div class="avs">@for (m of rail.team; track m.initials) {<span class="av" [attr.data-state]="m.state">{{ m.initials }}</span>}</div>
+<p class="sum"><span class="n"><b>3 of 4</b> checked</span><span class="flag">Chloé: follow up</span></p>
+</div>
+</div>
+}
+@case ('lms') {
+<div class="stack">
+<p class="label">In the course page</p>
+<div class="rail-glass lms hov">
+<div class="txt"><p class="t">Lab 3 · Hash tables</p><p class="s">Due Friday · oral check attached</p></div>
+<span class="toggle" aria-hidden="true"><i></i></span>
+</div>
+</div>
+}
+}
+</div>
+</li>
+}
+</ul>
+</div>
+</div>
+<div class="rail-spacer" aria-hidden="true"></div>
+</div>
+</section>
+
+<section id="lms" style="scroll-margin-top: var(--glp6-fraunces-header-h); box-sizing: border-box; padding: 0 0 clamp(64px, 8vw, 112px);">
+<div data-reveal style="position: relative; overflow: hidden; background: var(--g-surface); padding: clamp(40px, 5vw, 72px) 0 clamp(16px, 2vw, 28px); display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;">
+<span style="width: 60px; height: 60px; border-radius: var(--g-radius-control); background: var(--g-surface); color: var(--g-accent); border: 1px solid rgba(var(--g-ink-rgb), 0.08); box-shadow: 0 10px 24px -12px rgba(var(--g-ink-rgb), 0.3); display: flex; align-items: center; justify-content: center;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3 V7 M15 3 V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M6 7 H18 V11 C18 14.3 15.3 17 12 17 C8.7 17 6 14.3 6 11 Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M12 17 V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+</span>
+<h2 style="max-width: 760px; padding: 0 clamp(18px, 3vw, 48px);">Works with the LMS you already use</h2>
+
+<div class="orbit">
+<div class="orbit-tiles" aria-hidden="true">
+<div class="orbit-tile"><img src="/landings/grask-6-fraunces/lms/moodle.svg" alt="" width="72" height="49"></div>
+<div class="orbit-tile"><img src="/landings/grask-6-fraunces/lms/blackboard.svg" alt="" width="68" height="72"></div>
+<div class="orbit-tile"><img src="/landings/grask-6-fraunces/lms/canvas.svg" alt="" width="60" height="60"></div>
+<div class="orbit-tile"><img src="/landings/grask-6-fraunces/lms/brightspace.svg" alt="" width="72" height="34"></div>
+</div>
+<div class="orbit-labels">
+<div class="orbit-label">
+<span class="t-heading-sm">Moodle</span>
+</div>
+<div class="orbit-label">
+<span class="t-heading-sm">Blackboard</span>
+</div>
+<div class="orbit-label">
+<span class="t-heading-sm">Canvas</span>
+</div>
+<div class="orbit-label">
+<span class="t-heading-sm">Brightspace</span>
+</div>
+</div>
+</div>
+
+<div class="plate-bar" style="width: 100%; max-width: 1200px; box-sizing: border-box; padding: 0 calc(clamp(12px, 3vw, 40px) + clamp(18px, 3vw, 48px)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; text-align: left;">
+<p class="t-body-sm" style="color: var(--g-text-3); padding-left: 8px;">Using a different LMS? Tell us when you apply.</p>
+</div>
+</div>
+</section>
+
+<section id="trust" style="scroll-margin-top: var(--glp6-fraunces-header-h); box-sizing: border-box; padding: 0 0 clamp(64px, 8vw, 112px);">
+<div class="on-dark" data-reveal style="background: var(--g-ink); color: var(--g-on-accent); padding: clamp(32px, 5vw, 80px) calc(var(--glp6-fraunces-col) + clamp(32px, 5vw, 80px)); display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px);">
+<div style="display: flex; flex-wrap: wrap; gap: 48px 72px;">
+<div style="flex: 1.15 1 420px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); color: var(--g-on-accent);">What every student hears first</span>
+<blockquote class="t-heading-sm" style="max-width: 560px; text-wrap: pretty;">“Hi, I’m [Persona name], an AI examiner working with [University]; this conversation is recorded and your instructor will review it.”</blockquote>
+<p class="t-body" style="max-width: 520px; color: var(--g-on-accent-2);">Every session opens with this sentence. The student view carries the university’s logo; the examiner’s name appears only in the voice and the transcript header.</p>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;">
+<span class="t-label-sm" style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); color: var(--g-on-accent);">What Grask does not do</span>
+<ul style="align-self: stretch; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+<li data-reveal data-delay="1" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-card); background: rgba(255, 255, 255, 0.06);">
+<span class="t-heading-sm" style="flex: 0 0 auto; color: var(--g-accent-soft-2);">No</span>
+<span class="t-body">surveillance or proctoring</span>
+</li>
+<li data-reveal data-delay="2" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-card); background: rgba(255, 255, 255, 0.06);">
+<span class="t-heading-sm" style="flex: 0 0 auto; color: var(--g-accent-soft-2);">No</span>
+<span class="t-body">emotion or stress inference</span>
+</li>
+<li data-reveal data-delay="3" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-card); background: rgba(255, 255, 255, 0.06);">
+<span class="t-heading-sm" style="flex: 0 0 auto; color: var(--g-accent-soft-2);">No</span>
+<span class="t-body">voice biometrics</span>
+</li>
+<li data-reveal data-delay="4" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: var(--g-radius-card); background: rgba(255, 255, 255, 0.06);">
+<span class="t-heading-sm" style="flex: 0 0 auto; color: var(--g-accent-soft-2);">No</span>
+<span class="t-body">scores, grades or verdicts from the AI</span>
+</li>
+</ul>
+<p class="t-body" style="color: var(--g-on-accent-2);">A human grades. The AI produces evidence, not verdicts.</p>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid rgba(255, 255, 255, 0.14);">
+<p class="t-body" style="flex: 1 1 380px; min-width: 0; max-width: 560px; color: var(--g-on-accent);">Built EU-first, with GDPR and the EU AI Act in view from the start. The facts your data-protection officer and IT office will ask for:</p>
+<div class="t-label-sm" style="flex: 1 1 380px; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px;">
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Hosting region]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Sub-processors]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Retention period]</span>
+<span style="border: 1px dashed rgba(255, 255, 255, 0.5); border-radius: var(--g-radius-pill); padding: 9px 16px;">[Data-processing agreement]</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="faq" style="scroll-margin-top: var(--glp6-fraunces-header-h); max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(12px, 3vw, 40px) clamp(64px, 8vw, 112px); display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 3.4vw, 44px);">
+<h2 data-reveal style="text-align: center;">Questions</h2>
+<div style="width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 10px;">
+<details data-reveal data-delay="1" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>Does the AI grade?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">No. Grask conducts the conversation and organises what was said by rubric criterion. You review the evidence and you grade. The AI produces evidence, not verdicts.</p>
+</details>
+<details data-reveal data-delay="2" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>How much of my time does it take?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">Conducting the conversations takes none of your time. Reviewing the evidence and grading does, and that part stays with you.</p>
+</details>
+<details data-reveal data-delay="3" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>Is this a proctoring tool?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">No. Grask does not monitor students, infer emotion or stress, or use voice biometrics. It holds a conversation with a student about their own work.</p>
+</details>
+<details data-reveal data-delay="4" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>Which languages does it work in?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">English today. German, Dutch, French, Italian, Spanish and Polish are planned.</p>
+</details>
+<details data-reveal data-delay="5" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>Do I need approval from my study board?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">Formative checks carry no grade, so they usually sit within the instructor’s own remit. Your institution’s rules decide.</p>
+</details>
+<details data-reveal data-delay="6" style="background: var(--g-surface); border-radius: var(--g-radius-card); padding: 0 clamp(18px, 2.4vw, 30px);">
+<summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; box-sizing: border-box; padding: 16px 0;"><span>What does a pilot cost?</span><span class="faq-plus" aria-hidden="true" style="flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--g-accent-soft); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 V12.5 M1.5 7 H12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span></summary>
+<p class="t-body" style="padding-bottom: 26px; color: var(--g-text-2);">The formative pilots planned for December 2026 are free.</p>
+</details>
+</div>
+</section>
+
+<section id="sandbox" style="scroll-margin-top: var(--glp6-fraunces-header-h); box-sizing: border-box; padding: 0 0 clamp(56px, 7vw, 96px);">
+<div data-reveal style="background: var(--g-accent); color: var(--g-on-accent); padding: clamp(48px, 7vw, 104px) calc(var(--glp6-fraunces-col) + clamp(20px, 4vw, 56px)); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px;">
+<h2 style="max-width: 880px;">Run a check yourself in the sandbox.</h2>
+<a href="https://grask.eu" target="_blank" rel="noopener" class="btn-on-accent t-label" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 60px; padding: 0 34px; margin-top: 6px; background: var(--g-surface); color: var(--g-accent); border-radius: var(--g-radius-button); text-decoration: none; white-space: nowrap;">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="2" stroke="currentColor" stroke-width="1.6"></rect><path d="M5 7 V4.8 C5 3.1 6.3 1.8 8 1.8 C9.7 1.8 11 3.1 11 4.8 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+<span>Open the sandbox</span>
+</a>
+</div>
+</section>
+
+<footer class="footer-wrap" style="box-sizing: border-box;">
+<div data-reveal style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 clamp(20px, 4vw, 48px) clamp(28px, 3vw, 40px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 36px 64px;">
+<div style="flex: 1 1 280px; max-width: 380px; display: flex; flex-direction: column; gap: 12px;">
+<span class="lockup" style="display: inline-flex; align-items: center; gap: 8px;"><img src="/landings/grask-6-fraunces/logo/grask-mark-tile.svg" alt="" width="32" height="32" style="display: block; width: 32px; height: 32px;"><span class="wordmark" style="font-size: 28px;">Grask</span></span>
+<p class="t-body" style="color: var(--g-text-2);">An AI examiner for oral checks and defences. A human grades.</p>
+</div>
+<nav class="t-body-sm" aria-label="Product" style="display: flex; flex-direction: column;">
+<span class="t-label-sm" style="color: var(--g-text-3); padding-bottom: 6px;">Product</span>
+<a class="plain" href="#how" (click)="go($event)" style="padding: 10px 0;">How it works</a>
+<a class="plain" href="#lms" (click)="go($event)" style="padding: 10px 0;">Integrations</a>
+<a class="plain" routerLink="/grask-6-fraunces/pilot" style="padding: 10px 0;">Pilot</a>
+<a class="plain" href="#sandbox" (click)="go($event)" style="padding: 10px 0;">Sandbox</a>
+</nav>
+<nav class="t-body-sm" aria-label="Company" style="display: flex; flex-direction: column;">
+<span class="t-label-sm" style="color: var(--g-text-3); padding-bottom: 6px;">Company</span>
+<a class="plain" href="#faq" (click)="go($event)" style="padding: 10px 0;">Questions</a>
+<span style="padding: 10px 0; color: var(--g-text-3);">[Contact email]</span>
+</nav>
+<nav class="t-body-sm" aria-label="Legal" style="display: flex; flex-direction: column;">
+<span class="t-label-sm" style="color: var(--g-text-3); padding-bottom: 6px;">Legal</span>
+<a class="plain" href="#top" (click)="go($event)" style="padding: 10px 0;">Privacy policy</a>
+<a class="plain" href="#top" (click)="go($event)" style="padding: 10px 0;">Imprint</a>
+<span style="padding: 10px 0; color: var(--g-text-3);">[Legal entity and address]</span>
+</nav>
+</div>
+<div class="t-body-sm" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 18px clamp(20px, 4vw, 48px) 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; border-top: 1px solid rgba(var(--g-ink-rgb), 0.1); color: var(--g-text-3);">
+<span>© 2026 [Legal entity]</span>
+<span>ask + grasp</span>
+<span>grask.eu</span>
+</div>
+<div aria-hidden="true" style="overflow: hidden; display: flex; justify-content: center; padding-top: clamp(8px, 2vw, 24px);">
+<div class="giant wordmark" data-reveal="mask" style="font-size: 43cqw; line-height: 0.8; margin: -0.02em 0.03em -0.078em 0; color: var(--g-text);">Grask</div>
+</div>
+</footer>
+
+<!-- The hero lead's type tryout (grask-6-fraunces only; grask-6-fraunces.lead.ts / grask-6-fraunces.lead.css). Fixed at the bottom left. -->
+<aside class="lead-tryout" [class.is-open]="lead.open()" aria-label="Lead type tryout">
+<button type="button" class="lt-head" (click)="lead.open.set(!lead.open())" [attr.aria-expanded]="lead.open()"><span class="lt-title">Lead type</span><span class="lt-face">{{ lead.face().name }}</span><span class="lt-w">{{ lead.weight() }} · {{ lead.size() }}px</span></button>
+@if (lead.open()) {
+<div class="lt-body">
+<div class="lt-row lt-nav">
+<button type="button" class="lt-btn" (click)="lead.prev()" title="Previous face  ,">‹</button>
+<select class="lt-select" aria-label="Face" [value]="lead.face().name" (change)="lead.pick($any($event.target).value)">
+@for (g of lead.groups; track g.id) {<optgroup [label]="g.label">@for (f of lead.faces; track f.name) {@if (f.group === g.id) {<option [value]="f.name" [selected]="f.name === lead.face().name">{{ f.name }}</option>}}</optgroup>}
+</select>
+<button type="button" class="lt-btn" (click)="lead.next()" title="Next face  .">›</button>
+</div>
+<p class="lt-note">{{ lead.index() + 1 }}/{{ lead.faces.length }} · {{ lead.face().note }} · {{ lead.face().weights }}</p>
+<label class="lt-row"><span>weight</span><input type="range" min="300" max="700" step="10" [value]="lead.weight()" (input)="lead.weight.set(+$any($event.target).value)"><b>{{ lead.weight() }}</b></label>
+<label class="lt-row"><span>size</span><input type="range" min="16" max="26" step="0.5" [value]="lead.size()" (input)="lead.size.set(+$any($event.target).value)"><b>{{ lead.size() }}px</b></label>
+<label class="lt-row"><span>tracking</span><input type="range" min="-0.04" max="0.03" step="0.005" [value]="lead.tracking()" (input)="lead.tracking.set(+$any($event.target).value)"><b>{{ lead.tracking().toFixed(3) }}</b></label>
+<label class="lt-row"><span>leading</span><input type="range" min="1.2" max="1.8" step="0.02" [value]="lead.leading()" (input)="lead.leading.set(+$any($event.target).value)"><b>{{ lead.leading().toFixed(2) }}</b></label>
+<label class="lt-row"><span>measure</span><input type="range" min="480" max="1000" step="10" [value]="lead.width()" (input)="lead.width.set(+$any($event.target).value)"><b>{{ lead.width() }}px</b></label>
+<div class="lt-row lt-colors"><span>colour</span><div class="lt-chips" role="radiogroup" aria-label="Colour">@for (c of lead.colors; track c.id) {<button type="button" class="lt-chip" role="radio" [attr.aria-checked]="lead.color() === c.id" [class.is-on]="lead.color() === c.id" (click)="lead.color.set(c.id)"><i [style.background]="c.hex"></i>{{ c.label }}</button>}</div></div>
+<pre class="lt-css">{{ lead.css() }}</pre>
+<div class="lt-actions"><button type="button" class="lt-btn" (click)="lead.copy()">{{ lead.copied() ? 'Copied' : 'Copy CSS' }}</button><button type="button" class="lt-btn" (click)="lead.reset()" title="Golos Text 400, 18px, 0, 1.5, 650px (the guide)">Guide</button><button type="button" class="lt-btn" (click)="lead.original()" title="Inter 450, 20px, -0.01em, 1.5, 760px (grask-4)">grask-4</button></div>
+<p class="lt-keys">, . faces · t panel · saved in this browser</p>
+</div>
+}
+</aside>
+
+</div>

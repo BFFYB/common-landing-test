@@ -1,0 +1,138 @@
+/* The Grask type guide (test-landing/font-styling.css, applied to this landing on 2026-09-29), scoped to .grask-6-syne-lp: the guide
+   sets its families on :root and its base on html; here both are the landing root, and every .t-* class is prefixed, so nothing leaks
+   out of this landing. Otherwise verbatim: edit font-styling.css first, then re-copy. The markup wears the .t-* classes directly (2026-09-29, the guide applied in full); the h1 / h2 / h3 / summary
+   roles in grask-6-syne.css repeat the matching tokens for the elements the guide names by tag. Replaces grask-4.fonts.css (the self-hosted Uncut Sans / Urbanist files): the three faces load from Google Fonts.
+   grask-6-syne (2026-09-29): the display face is Syne (an extra-wide geometric, wght 400–800) instead of Piazzolla; the three display tokens
+   below are re-cut for it (800 / 700 / 600, smaller sizes because the face is so wide). The text and mono roles are the guide's, untouched. */
+/* ==========================================================================
+   Grask type tokens
+   Display: Syne (extra-wide geometric, wght 400–800)   — voice (grask-6-syne; the guide's is Piazzolla)
+   Text:    Golos Text (grotesk, wght 400–900)           — work
+   Mono:    JetBrains Mono                                — code in transcripts
+   Coverage: all three ship Latin, Latin Extended and Cyrillic.
+
+   Handoff rule: Display face only at 28px and above, only for short strings.
+   Everything else is Golos. When in doubt, Golos.
+   ========================================================================== */
+
+/* --- Loading ---------------------------------------------------------------
+   Google Fonts variant. For self-hosting use @fontsource-variable/syne,
+   @fontsource-variable/golos-text and @fontsource-variable/jetbrains-mono. */
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Golos+Text:wght@400..600&family=JetBrains+Mono:wght@400..500&display=swap");
+
+/* --- Metric-matched fallbacks (prevents layout shift while fonts load) -----
+   size-adjust values are starting points; generate exact ascent/descent/
+   line-gap overrides with `fontpie` or Capsize against the real font files. */
+@font-face {
+  font-family: "Syne Fallback";
+  src: local("Arial Black"), local("Arial Bold"), local("Helvetica");
+  size-adjust: 118%; /* Syne is far wider than Arial; a starting point */
+}
+@font-face {
+  font-family: "Golos Text Fallback";
+  src: local("Arial"), local("Helvetica");
+  size-adjust: 98%;
+}
+
+/* --- Families --------------------------------------------------------------- */
+.grask-6-syne-lp {
+  --font-display: "Syne", "Syne Fallback", system-ui, Arial, sans-serif;
+  --font-text: "Golos Text", "Golos Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* --- Base --------------------------------------------------------------------- */
+.grask-6-syne-lp {
+  font-family: var(--font-text);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Display role (Syne) ----------------------------------------------------------
+   Always: weight 600–800, lining figures, no italics (Syne has none), sentence
+   case, max two lines. Syne is extra-wide, so every display size sits below the
+   guide's Piazzolla numbers; display-md stays on the 28px floor. */
+.grask-6-syne-lp .t-display-xl,
+.grask-6-syne-lp .t-display-lg,
+.grask-6-syne-lp .t-display-md {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variant-numeric: lining-nums;
+  font-style: normal;
+  text-wrap: balance;
+}
+
+.grask-6-syne-lp .t-display-xl { /* hero headline */
+  font-weight: 800;
+  font-size: clamp(2.25rem, 0.8rem + 4.6vw, 4.25rem); /* 36 → 68px */
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+.grask-6-syne-lp .t-display-lg { /* landing section titles, product page titles */
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.25rem); /* 28 → 36px */
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.grask-6-syne-lp .t-display-md { /* pull quote, grade recommendation number, empty-state headline */
+  font-weight: 600;
+  font-size: 1.75rem;                                 /* 28px */
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+/* --- Text role (Golos Text) ------------------------------------------------------ */
+.grask-6-syne-lp .t-heading-sm { /* card / modal / feature titles, FAQ questions */
+  font: 600 1.25rem/1.3 var(--font-text);             /* 20px */
+}
+
+.grask-6-syne-lp .t-heading-xs { /* table headers, form section titles */
+  font: 600 1rem/1.4 var(--font-text);                /* 16px */
+}
+
+.grask-6-syne-lp .t-body-lg { /* hero subheadline, onboarding copy */
+  font: 400 1.125rem/1.5 var(--font-text);            /* 18px */
+  max-width: 60ch;
+}
+
+.grask-6-syne-lp .t-body { /* default reading size, transcript text, FAQ answers */
+  font: 400 1rem/1.5 var(--font-text);                /* 16px */
+  max-width: 68ch;
+}
+
+.grask-6-syne-lp .t-body-sm { /* secondary copy, table cells, list items */
+  font: 400 0.875rem/1.5 var(--font-text);            /* 14px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-syne-lp .t-label { /* buttons, nav, tabs, inputs, rubric criterion names, time readout */
+  font: 500 0.875rem/1.4 var(--font-text);            /* 14px; 15px for nav is fine */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-syne-lp .t-label-sm { /* dense UI labels, chips, criterion names inside the waveform */
+  font: 500 0.8125rem/1.4 var(--font-text);           /* 13px */
+  font-variant-numeric: tabular-nums;
+}
+
+.grask-6-syne-lp .t-caption { /* timestamps, time ranges, meta, helper text */
+  font: 400 0.75rem/1.4 var(--font-text);             /* 12px */
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Mono role (JetBrains Mono) ---------------------------------------------------- */
+.grask-6-syne-lp .t-code { /* identifiers and snippets inside transcripts and feedback */
+  font: 400 0.875em/1.5 var(--font-mono);             /* relative: sits inside body text */
+  font-variant-ligatures: none;
+}
+
+/* --- Guard rails --------------------------------------------------------------------- */
+/* The display face is never used below 28px: there is deliberately no
+   .t-display-sm token. Add a heading below that size as a .t-heading-* token. */
+
+/* Never italicise the display face; italics belong to the text face only. */
+.grask-6-syne-lp .t-display-xl em, .grask-6-syne-lp .t-display-lg em, .grask-6-syne-lp .t-display-md em { font-style: normal; }

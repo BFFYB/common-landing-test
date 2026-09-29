@@ -1,0 +1,90 @@
+/* grask design tokens — copied from bffyb/common/styling/tokens.css (generated 2026-09-19), with the typography swapped for the
+   Uncut Sans / Urbanist spec on 2026-09-21 (see "Type" below and the README). Everything else is the kit's.
+   Source of truth for the palette is styling/tokens.json; if it changes, regenerate there and re-copy the values here.
+   Scoped to .grask-6-bodoni-moda-lp instead of :root so nothing leaks out of this landing (html.glp6-bodoni-moda-page is the same landing while it is on screen:
+   grask-6-bodoni-moda.ts adds it so the page scrollbar can be styled with these tokens too). */
+.grask-6-bodoni-moda-lp, html.glp6-bodoni-moda-page {
+  --g-paper: #FAFAF7;
+  --g-ink: #111827;
+  --g-petrol: #0E5A66;
+  --g-petrol-dark: #0B4A54;
+  --g-tint: #DCEFF1;
+  --g-tint-strong: #9AD1D9;
+  --g-line: #E5E7EB;
+  --g-muted: #6B7280;
+  --g-text-primary: #0D0D0D;      /* type spec (2026-09-21): near-black, never pure #000; the kit has no separate text colour, it uses ink */
+  --g-text-secondary: #83848B;    /* type spec; the kit's value is #4B5563 */
+  --g-surface: #FFFFFF;
+
+  /* status — evidence report only; always paired with a word or icon */
+  --g-status-demonstrated: #15803D;
+  --g-status-partial: #B45309;
+  --g-status-missing: #BE123C;
+
+  /* Type (the Grask type guide, applied in full on 2026-09-29; the guide itself is grask-6-bodoni-moda.type.css, a copy of test-landing/font-styling.css
+     scoped to this landing). In this variant (2026-09-29) Bodoni Moda is the voice: the display face, only at 28px and above and only for
+     short strings, weights 500–700 with optical sizing; the guide's own display face is Piazzolla, and the values below follow this variant. Golos Text is the
+     work: everything else. JetBrains Mono for code in transcripts (nothing on this page yet). Unlike grask-5, which pointed these kit names
+     at the guide's faces and kept the canvas's sizes, grask-6-bodoni-moda sets every text style as one of the guide's twelve tokens: the .t-* classes
+     in the markup, the h1 / h2 / h3 / summary roles in grask-6-bodoni-moda.css, and font shorthands (the token named in a comment) in the strip and
+     rail stylesheets. The kit names below are kept so nothing that still reads them breaks; their values are the guide's. */
+  --g-font-primary: var(--font-text);
+  --g-font-secondary: var(--font-text);       /* the guide has one text face: subtitles and captions are Golos too */
+  --g-font-ui: var(--font-text);              /* kit names, kept so nothing that reads them breaks */
+  --g-font-display: var(--font-display);
+  --g-font-mono: var(--font-mono);
+  --g-weight-display: 700;                    /* display-xl and -lg, the wordmark */
+  --g-weight-display-md: 500;
+  --g-weight-title: 600;
+  --g-weight-ui: 500;
+  --g-weight-body: 400;
+  --g-tracking-display: -0.02em;
+  --g-tracking-display-lg: -0.015em;
+  --g-tracking-display-md: -0.005em;
+  --g-tracking-title: 0em;
+  --g-tracking-ui: 0em;
+  --g-tracking-caption: 0em;
+  --g-tracking-body: 0em;
+  --g-leading-display: 0.98;
+  --g-leading-display-lg: 1.05;
+  --g-leading-display-md: 1.2;
+  --g-leading-title: 1.3;
+  --g-leading-caption: 1.5;
+  --g-leading-body: 1.5;
+
+  --g-radius-sm: 6px;
+  --g-radius-md: 8px;
+  --g-radius-lg: 12px;
+  --g-radius-xl: 16px;
+  --g-radius-pill: 9999px;         /* radius scale (2026-09-21): the kit's 999px, raised to the spec's value; see the three-step scale below */
+
+  /* semantic aliases the product should use instead of the raw palette */
+  --g-bg: var(--g-paper);
+  --g-card: var(--g-surface);
+  --g-border: var(--g-line);
+  --g-text: var(--g-text-primary);           /* the type spec has two text colours; the kit's three text aliases map onto them */
+  --g-text-2: var(--g-text-secondary);
+  --g-text-3: var(--g-text-secondary);
+  --g-accent: var(--g-petrol);
+  --g-accent-hover: var(--g-petrol-dark);
+  --g-accent-soft: var(--g-tint);
+  --g-accent-soft-2: var(--g-tint-strong);
+  --g-on-accent: #FAFAF7;
+
+  /* landing-only derived aliases (not in the brand kit): things the kit has no token for yet */
+  --g-border-input: color-mix(in srgb, var(--g-muted) 45%, var(--g-surface));   /* form fields need more than a hairline */
+  --g-ink-rgb: 17, 24, 39;                                                          /* for rgba() shadows and hairlines on paper */
+  --g-on-accent-2: rgba(250, 250, 247, 0.72);                                       /* secondary copy on petrol / ink */
+  --g-text-faint: color-mix(in srgb, var(--g-muted) 50%, var(--g-surface));        /* not-yet-spoken words in the demo captions */
+  --g-tint-strong-rgb: 154, 209, 217;                                               /* for the grade-box focus ring in the demo */
+  --g-text-lead: #444444;                                                          /* the hero lead: darker than the secondary text colour (spec 2026-09-21) */
+  --g-surface-2: #F3F5F6;
+  /* Corner-radius scale (spec 2026-09-21; the spec's --radius-control / --radius-card / --radius-pill). Every radius on the page is
+     one of these three: control for inputs, fields and small controls; card for cards, panels and the strip; pill for small tags and badges
+     (and for thin bars, where full rounding is what the eye sees anyway). Nested panels use the outer radius minus the padding between
+     them, minimum 8px: on this page every such gap is 20px or more, so the inner radius is always the control value. Circles (the
+     recording dot, the FAQ plus) and the hero marker keep their own shape. */
+  --g-radius-control: 8px;
+  --g-radius-button: 16px;                                                         /* the three CTA buttons only ("Book a demo" ×2, "Open the sandbox"; since 2026-09-23), two steps up from control (2026-09-21, "more rounded"); the other controls stay at 8px */
+  --g-radius-card: 16px;                                                           /* the spec's light surface for tiles: the LMS logo tiles */
+}
