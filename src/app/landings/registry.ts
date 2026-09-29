@@ -28,6 +28,21 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-5',
+    title: 'Grask (Piazzolla + Golos)',
+    description:
+      'grask-4 duplicated on 2026-09-29 with the Grask type guide applied (test-landing/font-styling.css, scoped into grask-5.type.css): Piazzolla for the display face at 28px and above (headline, section titles, the statement, quotes, the wordmark, the grade number), Golos Text for everything else, JetBrains Mono for code. Kit names point at the guide\'s tokens; sizes stay as exported, except where the 28px floor lifted them. The lead opens as the guide\'s hero subheadline (Golos 400, 18px); the tryout panel stays for comparison.',
+    created: '2026-09-29',
+    load: () => import('./grask-5/grask-5').then((m) => m.Grask5),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask (Piazzolla + Golos) · Pilot',
+        load: () => import('./grask-5/pilot/pilot').then((m) => m.Grask5Pilot),
+      },
+    ],
+  },
+  {
     slug: 'grask-4',
     title: 'Grask (lead type tryout)',
     description:
