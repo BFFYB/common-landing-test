@@ -28,6 +28,21 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-4',
+    title: 'Grask (lead type tryout)',
+    description:
+      "grask-3 duplicated on 2026-09-25 to try other faces for the hero lead (\"Runs your oral checks by voice…\"), which felt unreadable in Urbanist. The lead has its own type tryout: a panel at the bottom left with 26 faces, weight, size, tracking, leading and colour, kept in localStorage, with the CSS to copy. , and . step through the faces, t hides the panel. Everything else is grask-3.",
+    created: '2026-09-25',
+    load: () => import('./grask-4/grask-4').then((m) => m.Grask4),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask (lead type tryout) · Pilot',
+        load: () => import('./grask-4/pilot/pilot').then((m) => m.Grask4Pilot),
+      },
+    ],
+  },
+  {
     slug: 'grask-rail',
     title: 'Grask outcome rail',
     description:

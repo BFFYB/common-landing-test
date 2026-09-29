@@ -1,0 +1,103 @@
+/* Grask landing page.
+   Every rule is scoped under .grask-4-lp and every keyframe is prefixed glp4-,
+   so this stylesheet cannot leak into the rest of an app.
+   All motion is CSS only; it stops under prefers-reduced-motion (the per-loop Pause controls were removed on 2026-09-22). */
+/* Split by job (tokens, fonts, base, demo, timeline, orbit, motion, glass). Colours and radii come from grask.tokens.css (the brand kit). */
+
+/* --glp4-col is the inset from the viewport edge to the content of the 1200px column (its centring margin plus the page gutter). The
+   bands, i.e. the plates whose colour differs from the page (demo, LMS, students and data, sandbox), run edge to edge and pad by it
+   plus their own padding, so their content sits exactly where it did as a card on the column. The 100% resolves where it is used. */
+.grask-4-lp { --glp4-header-h: 72px; --glp4-col: calc(max(0px, (100% - 1200px) / 2) + clamp(12px, 3vw, 40px)); background: var(--g-bg); color: var(--g-text); font-family: var(--g-font-primary); font-weight: var(--g-weight-body); letter-spacing: var(--g-tracking-body); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; min-height: 100vh; }
+.grask-4-lp h1, .grask-4-lp h2, .grask-4-lp h3, .grask-4-lp p, .grask-4-lp blockquote { margin: 0; }
+/* Type roles (tokens and the role table in grask-4.tokens.css). Sizes stay inline per element; weight, tracking and leading come from
+   the role: h1 is the display headline; h2, h3, .display and the FAQ summaries are titles; .sub is a subtitle, description or caption
+   in the secondary face; everything else inherits body from the root, and UI text (buttons, nav, labels, chips) sets
+   --g-weight-ui / --g-tracking-ui inline, the way it sets its size. Long body text sets line-height: var(--g-leading-body) inline. */
+.grask-4-lp h1 { font-weight: var(--g-weight-display); letter-spacing: var(--g-tracking-display); line-height: var(--g-leading-display); text-wrap: balance; }
+.grask-4-lp h2, .grask-4-lp h3, .grask-4-lp .display, .grask-4-lp summary { font-weight: var(--g-weight-title); letter-spacing: var(--g-tracking-title); line-height: var(--g-leading-title); }
+.grask-4-lp .sub { font-family: var(--g-font-secondary); font-weight: var(--g-weight-body); letter-spacing: var(--g-tracking-caption); line-height: var(--g-leading-caption); }
+.grask-4-lp button, .grask-4-lp input, .grask-4-lp label, .grask-4-lp legend, .grask-4-lp summary { font-family: inherit; }
+.grask-4-lp a { color: var(--g-text); text-underline-offset: 3px; }
+.grask-4-lp a:hover { color: var(--g-accent); }
+.grask-4-lp .on-dark a { color: var(--g-on-accent); }
+.grask-4-lp .on-dark a:hover { color: var(--g-accent-soft-2); }
+.grask-4-lp .plain { text-decoration: none; }
+.grask-4-lp .plain:hover { text-decoration: underline; }
+.grask-4-lp a:has(> .lockup):hover { color: var(--g-text); text-decoration: none; } /* the wordmark is a logo, not a link label: no hover state */
+/* Page scrollbar, while this landing is on screen (grask-4.ts puts .glp4-page on <html>): a slim rounded thumb in muted petrol on the
+   paper track, no rail. WebKit/Chromium via the pseudo-elements; Firefox via the standard properties (kept apart on purpose:
+   Chromium ignores the pseudo-elements once scrollbar-color is set). */
+html.glp4-page::-webkit-scrollbar { width: 12px; height: 12px; }
+html.glp4-page::-webkit-scrollbar-track { background: var(--g-bg); }
+html.glp4-page::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--g-accent) 32%, var(--g-bg)); background-clip: padding-box; border: 3px solid transparent; border-radius: var(--g-radius-pill); }
+html.glp4-page::-webkit-scrollbar-thumb:hover, html.glp4-page::-webkit-scrollbar-thumb:active { background-color: color-mix(in srgb, var(--g-accent) 60%, var(--g-bg)); }
+html.glp4-page::-webkit-scrollbar-corner { background: var(--g-bg); }
+@supports not selector(::-webkit-scrollbar) {
+  html.glp4-page { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--g-accent) 32%, var(--g-bg)) var(--g-bg); }
+}
+/* Header: a straight, full-width bar (logo left, links centred, button right), --glp4-header-h tall; the hero and every nav-anchored
+   section measure it. Solid paper with a hairline; within 80px of the top (.is-top) it is transparent and borderless, so it disappears
+   into the page. Scrolling down hides it (.is-hidden, a transform, so nothing reflows), scrolling up brings it back; both classes are
+   set by setupHeaderHide() in grask-4.ts. Without JS it is simply the solid bar. */
+.grask-4-lp .bar { background: color-mix(in srgb, var(--g-bg) 95%, transparent); border-bottom: 1px solid rgba(var(--g-ink-rgb), .08); transition: transform .2s ease, background-color .2s ease, border-color .2s ease; }
+.grask-4-lp .bar.is-top { background: transparent; border-bottom-color: transparent; }
+.grask-4-lp .bar.is-hidden { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) {
+  .grask-4-lp .bar { transition: none; }
+}
+.grask-4-lp .hero { position: relative; } /* the opening: content anchored to the top (fixed top padding, inline) and no minimum height, so the statement track starts right after the recording strip (until 2026-09-23 the hero was a full screen tall, which left an empty screen between the strip and the statement) */
+.grask-4-lp .title .w { display: inline-block; }
+/* Buttons and header nav links: the wisprflow.ai hover. A button presses in (scale .98 over 200ms) and its label ripples: setupButtonWave()
+   in grask-4.ts splits each label (the <span> inside every button and every .nav-links link) into one .char per letter and bobs them one
+   after the other on mouseenter, 60ms apart (timing there). The nav links get the ripple and the petrol colour but not the press, as on
+   the original; their underline is off because a decoration never reaches into inline-block letters and would only show under the
+   spaces. The header's "Try it out" text link (.bar-link) and the strip's "Watch a check run" title (.strip-cta, grask-4.strip.css) are treated
+   like the nav links. Pointer devices only, nothing under prefers-reduced-motion; without JS only the press remains. Words are inline-block so a
+   label never breaks inside a word. The .btn-light rule keeps the generic link hover from turning the outlined button's label petrol. */
+.grask-4-lp .btn-dark, .grask-4-lp .btn-light, .grask-4-lp .btn-on-accent { transition: transform .2s ease; }
+.grask-4-lp .btn-dark:hover, .grask-4-lp .btn-light:hover, .grask-4-lp .btn-on-accent:hover { transform: scale(.98); }
+.grask-4-lp .btn-light:hover { color: var(--g-text); }
+.grask-4-lp .nav-links .plain:hover, .grask-4-lp .bar-link:hover { text-decoration: none; }
+.grask-4-lp .word { display: inline-block; white-space: nowrap; }
+.grask-4-lp .char { display: inline-block; }
+@media (prefers-reduced-motion: reduce) {
+  .grask-4-lp .btn-dark, .grask-4-lp .btn-light, .grask-4-lp .btn-on-accent { transition: none; }
+  .grask-4-lp .btn-dark:hover, .grask-4-lp .btn-light:hover, .grask-4-lp .btn-on-accent:hover { transform: none; }
+}
+.grask-4-lp a:focus-visible, .grask-4-lp button:focus-visible, .grask-4-lp input:focus-visible, .grask-4-lp summary:focus-visible { outline: 2px solid var(--g-accent); outline-offset: 3px; }
+.grask-4-lp .on-dark a:focus-visible { outline-color: var(--g-accent-soft-2); }
+.grask-4-lp input::placeholder { color: var(--g-text-3); }
+.grask-4-lp summary { list-style: none; cursor: pointer; }
+.grask-4-lp summary::-webkit-details-marker { display: none; }
+.grask-4-lp .faq-plus { transition: transform .25s ease; }
+.grask-4-lp details[open] .faq-plus { transform: rotate(45deg); }
+@media (max-width: 920px) {
+  .grask-4-lp .nav-links { display: none !important; }
+}
+.grask-4-lp .mark { background-image: linear-gradient(var(--g-accent-soft-2), var(--g-accent-soft-2)); background-repeat: no-repeat; background-position: 0 86%; background-size: 100% 56%; padding: 0 .08em; margin: 0 -.08em; } /* the highlighter under "the hours." in the headline: two words, not the line */
+.grask-4-lp .footer-wrap { container-type: inline-size; }
+/* Giant footer wordmark: edge to edge like Instructure's. 39.6cqw = footer width / the word's ink width (2.586em in Uncut Sans 600 at -0.05em, from the
+   glyph bounds), with the same bleed as grask-2's; the ink sits 0.042em right of the box centre, which the right margin corrects; the negative bottom margin
+   lets the overflow:hidden parent crop the bottom 12% of the caps (baseline 0.05em above the 0.8 line box, cap height 0.70em). Re-derive all three if the face changes. */
+.grask-4-lp .giant { flex: none; white-space: nowrap; }
+@media (prefers-reduced-motion: no-preference) {
+  .grask-4-lp .title .w { animation: glp4-word .6s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--i) * 80ms) both; } /* the last (sixth) word lands at 1.2s */
+  .grask-4-lp .mark-in { animation: glp4-mark-in 1.1s cubic-bezier(.6, 0, .2, 1) 1.1s both; } /* the highlighter sweeps in under the last two words as they land */
+  .grask-4-lp .rise { animation: glp4-rise .9s cubic-bezier(.2, .7, .2, 1) both; }
+  .grask-4-lp .rise-3 { animation-delay: .9s; }
+  .grask-4-lp .rise-4 { animation-delay: 1.05s; }
+  .grask-4-lp .rise-5 { animation-delay: .36s; }
+  .grask-4-lp .rise-6 { animation-delay: 1.3s; }
+}
+@keyframes glp4-mark-in {
+  0% { background-size: 0% 56%; }
+  100% { background-size: 100% 56%; }
+}
+@keyframes glp4-word {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes glp4-rise {
+  0% { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0px); filter: blur(0); }
+}
