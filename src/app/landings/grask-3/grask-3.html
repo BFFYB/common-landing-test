@@ -164,41 +164,76 @@
 </div>
 </section>
 
-<section id="where" class="spread">
-<div class="spread-pin" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; gap: clamp(32px, 4vw, 52px);">
-<div data-reveal style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 0 8px;">
-<h2 style="font-size: clamp(32px, 3.9vw, 54px);">Where it fits first</h2>
-<p class="sub" style="max-width: 640px; font-size: clamp(17px, 1.4vw, 19.5px); color: var(--g-text-2);">If you already run oral exams, Grask adds the frequent, low-stakes checks in between, at no extra examiner time.</p>
+<section id="outcomes" aria-labelledby="outcomes-title" style="scroll-margin-top: var(--glp3-header-h); box-sizing: border-box; padding: 0 0 clamp(64px, 8vw, 112px);">
+<div class="rail">
+<div class="rail-stage">
+<div class="rail-head" data-reveal>
+<span style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: var(--g-radius-pill); background: rgba(255, 255, 255, 0.1); font-size: 14px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); color: var(--g-on-accent);">After the first oral check</span>
+<h2 id="outcomes-title" style="font-size: clamp(32px, 3.9vw, 54px);">What your course<br>gets back</h2>
 </div>
-<div class="spread-row" style="display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 24px);">
-<div class="lift card" data-reveal data-delay="1" style="--fx: 1; --rot: -6deg; z-index: 2; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent-soft); border-radius: var(--g-radius-card); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
-<span style="width: 56px; height: 56px; border-radius: var(--g-radius-control); background: var(--g-surface); display: flex; align-items: center; justify-content: center;">
-<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3 H14 L19 8 V21 H6 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="M14 3 V8 H19" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="M9 13 H16 M9 17 H14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
-</span>
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 class="display" style="font-size: 26px;">After each lab report</h3>
-<p class="sub" style="font-size: 16.5px; color: var(--g-text-2);">A short conversation about the report the student has just handed in.</p>
+<div class="rail-column">
+<ul class="rail-track" [style.--n]="rail.cards.length">
+@for (card of rail.loop; track $index) {
+<li class="rail-card" [class.dup]="$index >= rail.cards.length" [attr.aria-hidden]="$index >= rail.cards.length ? 'true' : null" [style.--c1]="card.tone[0]" [style.--c2]="card.tone[1]" [style.--c3]="card.tone[2]" [attr.data-kind]="card.kind">
+<h3>{{ card.title }}</h3>
+<div class="appear" [style.--delay]="card.delay + 's'">
+@switch (card.kind) {
+@case ('live') {
+<div class="rail-glass live hov">
+<p class="chip"><span class="rec"></span>Live check<span class="time">04:12</span></p>
+<div class="rail-wave" aria-hidden="true">@for (h of rail.bars; track $index) {<i [style.--h]="h" [style.--i]="$index"></i>}</div>
+<p class="said">“It slows down once the table is about seventy percent full, so it resizes before that.”</p>
+</div>
+}
+@case ('quote') {
+<figure class="rail-glass quote hov">
+<figcaption class="label">In Ben's own words</figcaption>
+<blockquote class="display">“I moved to open addressing after chaining kept missing the cache.”</blockquote>
+<p class="tags"><span><b>✓</b> Collision handling</span><span><b>✓</b> Matches the report</span></p>
+</figure>
+}
+@case ('rubric') {
+<div class="rail-glass rubric hov">
+<ul>
+@for (c of rail.criteria; track c.name) {<li><span class="tick">✓</span><span class="name">{{ c.name }}</span><span class="pts">{{ c.pts }}</span></li>}
+</ul>
+<p class="total"><span>Suggested grade</span><b>16<small>/20</small></b></p>
+</div>
+}
+@case ('bars') {
+<div class="rail-glass chart hov">
+<p class="label">Lab 3 · cohort of 84</p>
+<div class="cols">
+@for (t of rail.topics; track t.name) {<div class="col" [class.weak]="t.pct < 50" [style.--p]="t.pct"><span class="pct">{{ t.pct }}%</span><i></i><span class="name">{{ t.name }}</span></div>}
 </div>
 </div>
-<div class="lift card" data-reveal data-delay="2" style="--fx: 0; --rot: 0deg; z-index: 1; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent-soft-2); border-radius: var(--g-radius-card); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
-<span style="width: 56px; height: 56px; border-radius: var(--g-radius-control); background: var(--g-surface); display: flex; align-items: center; justify-content: center;">
-<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2" stroke="currentColor" stroke-width="1.6"></circle><path d="M3 19.5 C3 16 5.7 14 9 14 C12.3 14 15 16 15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="17" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.6"></circle><path d="M17.5 14.2 C19.8 14.6 21 16.3 21 18.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
-</span>
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 class="display" style="font-size: 26px;">Per team member</h3>
-<p class="sub" style="font-size: 16.5px; color: var(--g-text-2);">Each member of a project team explains their own part of the work.</p>
+}
+@case ('team') {
+<div class="stack">
+<p class="label">Team 7 · Lab 3 demo</p>
+<div class="rail-glass team hov">
+<div class="avs">@for (m of rail.team; track m.initials) {<span class="av" [attr.data-state]="m.state">{{ m.initials }}</span>}</div>
+<p class="sum"><span class="n"><b>3 of 4</b> checked</span><span class="flag">Chloé: follow up</span></p>
 </div>
 </div>
-<div class="lift card" data-reveal data-delay="3" style="--fx: -1; --rot: 5deg; z-index: 3; flex: 1 1 280px; box-sizing: border-box; min-height: clamp(220px, 22vw, 300px); background: var(--g-accent); color: var(--g-on-accent); border-radius: var(--g-radius-card); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px;">
-<span style="width: 56px; height: 56px; border-radius: var(--g-radius-control); background: var(--g-surface); color: var(--g-accent); display: flex; align-items: center; justify-content: center;">
-<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3" stroke="currentColor" stroke-width="1.6"></rect><path d="M3.5 10 H20.5 M8 3 V7 M16 3 V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><path d="M9 15 L11.2 17 L15.2 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-</span>
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 class="display" style="font-size: 26px;">Mid-term</h3>
-<p class="sub" style="font-size: 16.5px; color: var(--g-on-accent-2);">A low-stakes check of where each student stands, while there is still time to act on it.</p>
+}
+@case ('lms') {
+<div class="stack">
+<p class="label">In the course page</p>
+<div class="rail-glass lms hov">
+<div class="txt"><p class="t">Lab 3 · Hash tables</p><p class="s">Due Friday · oral check attached</p></div>
+<span class="toggle" aria-hidden="true"><i></i></span>
 </div>
 </div>
+}
+}
 </div>
+</li>
+}
+</ul>
+</div>
+</div>
+<div class="rail-spacer" aria-hidden="true"></div>
 </div>
 </section>
 

@@ -8,6 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RAIL, setupRail } from './grask-3.rail';
 import { setupButtonWave } from './grask-3.wave';
 
 /**
@@ -20,7 +21,8 @@ import { setupButtonWave } from './grask-3.wave';
  * grask.motion.css), the header bar that hides on the way down and returns on the way up
  * (setupHeaderHide), the statement's scroll-driven fill where the browser has no animation-timeline
  * (setupStatementFill), the button hover (grask-3.wave.ts), seek(),
- * which moves the demo and the strip to a rubric criterion, and the SVG
+ * which moves the demo and the strip to a rubric criterion, the outcome rail after the demo (grask-3.rail.ts:
+ * the scroll scrub on a spring and the widgets' appearance; its look is grask-3.rail.css), and the SVG
  * lens filter for [data-liquid-glass] elements (grask.glass.css; the header no longer uses it).
  * The pilot form is its own page, pilot/pilot.ts at /grask-3/pilot; the "Book a demo" buttons and the
  * Pilot links are router links to it. The hero's "Watch a check run" is the strip's title, an in-page link to #how.
@@ -40,6 +42,7 @@ import { setupButtonWave } from './grask-3.wave';
     './grask-3.motion.css',
     './grask-3.scroll.css',
     './grask-3.strip.css',
+    './grask-3.rail.css',
     './grask-3.glass.css',
   ],
   imports: [RouterLink],
@@ -55,6 +58,8 @@ export class Grask3 {
   readonly bars = STRIP_BARS;
   readonly total = STRIP_TOTAL_S;
   readonly segments = STRIP_SEGMENTS;
+  /** The outcome rail after the demo: card data for the template (see grask-3.rail.ts). */
+  readonly rail = RAIL;
 
   constructor() {
     afterNextRender(() => {
@@ -67,6 +72,7 @@ export class Grask3 {
       const root = this.host.nativeElement.querySelector<HTMLElement>('.grask-3-lp');
       if (root) {
         setupButtonWave(root);
+        this.destroyRef.onDestroy(setupRail(root));
       }
     });
   }

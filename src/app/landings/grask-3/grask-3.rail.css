@@ -1,0 +1,161 @@
+/* Grask landing page: the outcome rail (added 2026-09-25), the section after the demo, in place of the "Where it fits first" cards.
+   Ported from src/app/landings/grask-rail/ (its README has the original's mechanics, worked out from the outcomes section on
+   getfluently.app): an ink stage pins to the screen while six outcome cards slide sideways as the page scrolls, the track chasing the
+   scroll on an overdamped spring, and each card's widget springs up once as its card comes into view. The scrub, the spring and the
+   appear observer are setupRail() in grask-3.rail.ts, which also holds the card data; this file is the look and the two CSS springs.
+   Fitted to this page: a full-bleed ink band like the other plates (no radius; the stage pads by the page gutter so the 1120px column
+   sits where the other sections' content does), the h2 and the card titles in the title role, the eyebrow as a chip in the trust
+   band's style, the widget labels in sentence case (the type spec: no caps), the radius scale (cards --g-radius-card, the glass
+   widgets --g-radius-control as nested panels, tags and chips pill), and the fonts, tint and on-dark text from the tokens. The
+   live / ok / warn colours are the widgets' own status colours, not the palette's. Every selector is scoped under .grask-3-lp .rail;
+   the structural classes and the three that would meet the strip's .wave, the demo's .stage (seek() in grask-3.ts targets both) or the
+   header's .glass are prefixed rail-. Keyframes are glp3-rail-*. Under 720px there is no runway: the cards run as a marquee over
+   a second copy of the list. */
+.grask-3-lp .rail {
+  --night: var(--g-ink);
+  --on-night: var(--g-on-accent);
+  --on-night-2: var(--g-on-accent-2);
+  --tint: var(--g-accent-soft-2);
+  --live: #FF5A4E;
+  --ok: #4ADE80;
+  --warn: #FBBF24;
+  /* Springs as linear() curves, generated from response + bounce (SwiftUI's parameters: omega = 2π / response, damping ratio = 1 - bounce),
+     sampled at 41 points until the curve stays within 0.2% of 1. The durations are those settle times. */
+  --spring-rise: linear(0, 0.0293, 0.1051, 0.2108, 0.3327, 0.4597, 0.5833, 0.6976, 0.7986, 0.8842, 0.9537, 1.0074, 1.0465, 1.0728, 1.088, 1.0943, 1.0937, 1.088, 1.0789, 1.0678, 1.0558, 1.0439, 1.0327, 1.0226, 1.0139, 1.0067, 1.0011, 0.9969, 0.9939, 0.9921, 0.9912, 0.991, 0.9914, 0.9922, 0.9932, 0.9943, 0.9954, 0.9965, 0.9975, 0.9984, 1); /* response .8s, bounce .4 */
+  --spring-rise-dur: 1.3s;
+  --spring-nudge: linear(0, 0.0187, 0.067, 0.1348, 0.2145, 0.2998, 0.3861, 0.4701, 0.5495, 0.6228, 0.689, 0.7477, 0.7991, 0.8432, 0.8806, 0.9118, 0.9375, 0.9582, 0.9746, 0.9873, 0.997, 1.004, 1.009, 1.0122, 1.0141, 1.015, 1.0151, 1.0147, 1.0138, 1.0127, 1.0115, 1.0101, 1.0088, 1.0076, 1.0064, 1.0053, 1.0044, 1.0035, 1.0028, 1.0022, 1); /* response .5s, bounce .2 */
+  --spring-nudge-dur: .65s;
+  position: relative; background: var(--night); color: var(--on-night); overflow: clip; /* clip, not hidden: no scroll container, so the sticky stage still sticks */
+}
+.grask-3-lp .rail ul, .grask-3-lp .rail figure { margin: 0; padding: 0; list-style: none; }
+
+/* Runway: a sticky stage one screen high, then a spacer the scrub reads (grask-3.rail.ts); the stage clips the overflowing track. */
+.grask-3-lp .rail-stage { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(32px, 8vh, 80px); padding: clamp(48px, 8vh, 80px) clamp(12px, 3vw, 40px) clamp(24px, 4vh, 40px); overflow: clip; }
+.grask-3-lp .rail-spacer { height: 135vh; }
+.grask-3-lp .rail-head { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 640px; text-align: center; }
+.grask-3-lp .rail-head h2 { color: var(--on-night); text-wrap: balance; }
+.grask-3-lp .rail-column { width: 100%; max-width: 1120px; height: 400px; }
+.grask-3-lp .rail-track { display: flex; gap: 16px; width: max-content; height: 100%; align-items: center; will-change: transform; }
+
+/* Card: CSS art in place of a photo. Two coloured glows on a dark base (--c1..3 inline, from the card data), a light bloom where the
+   widget sits, film grain, and the top shade that keeps the title readable (the part a photo card needs most). */
+.grask-3-lp .rail-card { position: relative; flex: none; width: 440px; height: 400px; padding: 40px; border-radius: var(--g-radius-card); overflow: hidden; isolation: isolate; display: flex; flex-direction: column; align-items: center; justify-content: space-between; background: radial-gradient(90% 75% at 8% 108%, color-mix(in oklab, var(--c1) 88%, transparent), transparent 62%), radial-gradient(75% 65% at 100% -6%, color-mix(in oklab, var(--c2) 78%, transparent), transparent 64%), radial-gradient(55% 38% at 50% 78%, rgba(255, 255, 255, .10), transparent 70%), var(--c3); }
+.grask-3-lp .rail-card::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .22; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.grask-3-lp .rail-card::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(rgba(0, 0, 0, .5), transparent 55%); }
+.grask-3-lp .rail-card.dup { display: none; } /* the marquee's second copy, phones only */
+.grask-3-lp .rail-card h3 { width: 100%; font-size: 24px; white-space: pre-line; color: var(--on-night); } /* title role from grask-3.css */
+.grask-3-lp .rail .appear { position: relative; width: 100%; display: flex; justify-content: center; }
+
+/* Glass, the widgets' surface. */
+.grask-3-lp .rail-glass { background: rgba(0, 0, 0, .16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); border-radius: var(--g-radius-control); }
+.grask-3-lp .rail .label { font-size: 13px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); color: rgba(255, 255, 255, .78); }
+.grask-3-lp .rail .stack { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+
+/* live: a call in progress */
+.grask-3-lp .rail .live { width: 300px; padding: 14px 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.grask-3-lp .rail .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--g-radius-pill); background: rgba(0, 0, 0, .18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: 13px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); }
+.grask-3-lp .rail .rec { width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 0 rgba(255, 90, 78, .6); animation: glp3-rail-rec 1.6s ease-out infinite; }
+.grask-3-lp .rail .time { font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, .6); }
+.grask-3-lp .rail-wave { display: flex; align-items: center; gap: 4px; height: 36px; }
+.grask-3-lp .rail-wave i { width: 4px; height: calc(var(--h) * 100%); border-radius: var(--g-radius-pill); background: linear-gradient(#fff, var(--tint)); transform-origin: center; animation: glp3-rail-voice .9s ease-in-out calc(var(--i) * -.17s) infinite alternate; }
+.grask-3-lp .rail .said { font-family: var(--g-font-secondary); font-size: 14px; letter-spacing: var(--g-tracking-caption); line-height: 1.35; text-align: center; color: rgba(255, 255, 255, .88); text-wrap: balance; }
+@keyframes glp3-rail-rec { to { box-shadow: 0 0 0 8px rgba(255, 90, 78, 0); } }
+@keyframes glp3-rail-voice { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+
+/* quote: the student's words, matched to a criterion */
+.grask-3-lp .rail .quote { width: 100%; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+.grask-3-lp .rail .quote blockquote { font-size: 20px; line-height: 1.15; color: var(--on-night); } /* title role via .display */
+.grask-3-lp .rail .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.grask-3-lp .rail .tags span { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--g-radius-pill); background: rgba(0, 0, 0, .2); font-size: 12px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); color: rgba(255, 255, 255, .9); }
+.grask-3-lp .rail .tags b { color: var(--ok); font-weight: 600; }
+
+/* rubric: criteria ticked, a suggested grade */
+.grask-3-lp .rail .rubric { width: 100%; padding: 14px 18px; }
+.grask-3-lp .rail .rubric ul { display: flex; flex-direction: column; gap: 7px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, .14); }
+.grask-3-lp .rail .rubric li { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.grask-3-lp .rail .tick { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--tint); font-size: 10px; font-weight: 600; color: var(--g-ink); }
+.grask-3-lp .rail .rubric .name { flex: 1; color: rgba(255, 255, 255, .9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.grask-3-lp .rail .pts { font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, .6); }
+.grask-3-lp .rail .total { display: flex; align-items: baseline; justify-content: space-between; padding-top: 10px; font-size: 13px; color: rgba(255, 255, 255, .7); }
+.grask-3-lp .rail .total b { font-size: 28px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--on-night); }
+.grask-3-lp .rail .total small { font-size: 15px; font-weight: var(--g-weight-ui); color: rgba(255, 255, 255, .55); }
+
+/* bars: the cohort by criterion, one weak spot */
+.grask-3-lp .rail .chart { width: 100%; padding: 14px 18px 12px; display: flex; flex-direction: column; gap: 10px; }
+.grask-3-lp .rail .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; height: 136px; }
+.grask-3-lp .rail .col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; }
+.grask-3-lp .rail .col i { width: 100%; max-width: 44px; height: calc(var(--p) * .8px); border-radius: var(--g-radius-control) var(--g-radius-control) 3px 3px; background: linear-gradient(rgba(255, 255, 255, .85), rgba(255, 255, 255, .35)); }
+.grask-3-lp .rail .col .pct { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.grask-3-lp .rail .col .name { font-size: 11px; color: rgba(255, 255, 255, .65); white-space: nowrap; }
+.grask-3-lp .rail .col.weak i { background: linear-gradient(var(--warn), color-mix(in oklab, var(--warn) 35%, transparent)); box-shadow: 0 0 18px rgba(251, 191, 36, .35); }
+.grask-3-lp .rail .col.weak .pct { color: var(--warn); }
+
+/* team: every member checked */
+.grask-3-lp .rail .team { padding: 14px 16px; display: flex; align-items: center; gap: 14px; }
+.grask-3-lp .rail .avs { display: flex; }
+.grask-3-lp .rail .av { position: relative; width: 40px; height: 40px; margin-left: -8px; border-radius: 50%; display: grid; place-items: center; background: #2B2F3A; box-shadow: 0 0 0 2px rgba(20, 12, 18, .9); font-size: 13px; font-weight: 600; }
+.grask-3-lp .rail .av:first-child { margin-left: 0; }
+.grask-3-lp .rail .av::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 2px #1d1016; }
+.grask-3-lp .rail .av[data-state="done"]::after { background: var(--ok); }
+.grask-3-lp .rail .av[data-state="flag"]::after { background: var(--warn); }
+.grask-3-lp .rail .av[data-state="live"]::after { background: var(--live); animation: glp3-rail-rec 1.6s ease-out infinite; }
+.grask-3-lp .rail .av:nth-child(1) { background: #3B5BDB; } .grask-3-lp .rail .av:nth-child(2) { background: #0E7C86; } .grask-3-lp .rail .av:nth-child(3) { background: #9D4EDD; } .grask-3-lp .rail .av:nth-child(4) { background: #C2415B; }
+.grask-3-lp .rail .sum { display: flex; flex-direction: column; font-size: 15px; line-height: 1.25; color: rgba(255, 255, 255, .8); }
+.grask-3-lp .rail .sum b { font-weight: 600; color: var(--on-night); }
+.grask-3-lp .rail .sum .n { white-space: nowrap; }
+.grask-3-lp .rail .sum .flag { font-size: 12px; color: var(--warn); }
+
+/* lms: the assignment row with the check switched on */
+.grask-3-lp .rail .lms { padding: 16px 16px 16px 20px; display: flex; align-items: center; gap: 16px; }
+.grask-3-lp .rail .txt { flex: 1; min-width: 0; }
+.grask-3-lp .rail .t { font-size: 16px; font-weight: var(--g-weight-ui); letter-spacing: var(--g-tracking-ui); color: var(--on-night); }
+.grask-3-lp .rail .s { font-size: 13px; color: var(--on-night-2); }
+.grask-3-lp .rail .toggle { flex: none; width: 46px; height: 28px; padding: 3px; border-radius: var(--g-radius-pill); background: #34C759; display: flex; justify-content: flex-end; }
+.grask-3-lp .rail .toggle i { width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .25); }
+
+/* Appear: the widget waits 80px low and transparent; grask-3.rail.ts adds .in once it is in view. Opacity eases plainly (a spring
+   would overshoot past 1 and clip); the rise uses the bouncy spring. --delay (inline, from the card data) staggers neighbours. */
+.grask-3-lp .rail .appear { opacity: 0; transform: translate3d(0, 80px, 0); transition: opacity .5s cubic-bezier(.2, .7, .3, 1) var(--delay, 0s), transform var(--spring-rise-dur) var(--spring-rise) var(--delay, 0s); }
+.grask-3-lp .rail .appear.in { opacity: 1; transform: none; }
+/* Hover nudge, pointer devices only: a small lift on a snappier spring. */
+.grask-3-lp .rail .hov { transition: transform var(--spring-nudge-dur) var(--spring-nudge), background-color .3s ease, box-shadow .3s ease; }
+@media (hover: hover) {
+  .grask-3-lp .rail .hov:hover { transform: translate3d(0, -3px, 0) scale(1.03); background-color: rgba(0, 0, 0, .28); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .2), 0 10px 24px rgba(0, 0, 0, .3); }
+}
+
+/* Phones: no runway, a marquee. The track holds two copies and slides one copy's width (n cards of 320 + 16 gap) at 75px/s. */
+@media (max-width: 719.98px) {
+  .grask-3-lp .rail-stage { position: static; height: auto; gap: 40px; padding: 72px 0 64px; }
+  .grask-3-lp .rail-spacer { display: none; }
+  .grask-3-lp .rail-head { padding: 0 24px; }
+  .grask-3-lp .rail-column { height: auto; overflow: hidden; }
+  .grask-3-lp .rail-track { gap: 16px; padding-right: 16px; animation: glp3-rail-marquee calc(var(--n) * 336 / 75 * 1s) linear infinite; }
+  .grask-3-lp .rail-card.dup { display: flex; }
+  .grask-3-lp .rail-card { width: 320px; height: 320px; padding: 24px; }
+  .grask-3-lp .rail-card h3 { font-size: 22px; }
+  .grask-3-lp .rail .live { width: 100%; padding: 12px 14px 14px; gap: 10px; }
+  .grask-3-lp .rail-wave { height: 28px; }
+  .grask-3-lp .rail .said { font-size: 13px; }
+  .grask-3-lp .rail .quote blockquote { font-size: 18px; }
+  .grask-3-lp .rail .rubric { padding: 12px 14px; }
+  .grask-3-lp .rail .rubric ul { gap: 5px; padding-bottom: 9px; }
+  .grask-3-lp .rail .rubric li { font-size: 13px; }
+  .grask-3-lp .rail .total { padding-top: 8px; }
+  .grask-3-lp .rail .total b { font-size: 24px; }
+  .grask-3-lp .rail .cols { height: 112px; }
+  .grask-3-lp .rail .col i { height: calc(var(--p) * .6px); }
+}
+@keyframes glp3-rail-marquee { to { transform: translate3d(-50%, 0, 0); } }
+
+/* Reduced motion: no loops, widgets fade in place, the marquee becomes a swipeable row (grask-3.rail.ts drops the spring). */
+@media (prefers-reduced-motion: reduce) {
+  .grask-3-lp .rail .rec, .grask-3-lp .rail-wave i, .grask-3-lp .rail .av[data-state="live"]::after { animation: none; }
+  .grask-3-lp .rail .appear { transform: none; transition: opacity .4s ease; }
+  .grask-3-lp .rail .hov { transition: none; }
+}
+@media (max-width: 719.98px) and (prefers-reduced-motion: reduce) {
+  .grask-3-lp .rail-column { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 24px; scrollbar-width: none; }
+  .grask-3-lp .rail-track { animation: none; padding-inline: 24px; }
+  .grask-3-lp .rail-card.dup { display: none; }
+  .grask-3-lp .rail-card { scroll-snap-align: start; }
+}
