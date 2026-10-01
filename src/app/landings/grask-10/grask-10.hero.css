@@ -1,0 +1,65 @@
+/* Grask landing page: the hero's layout, type, copy spacing and calls to action (grask-10). First the C6 brief (2026-10-01): the C6
+   typography on grask-5's centred hero. Then, the same day, the C8 brief: the centred stack became the two-column row of
+   docs/design/hero-c8-reference.html (not in this repo; built from the brief's written values). On the 1280px container with 72px
+   sides (--glp10-pad, which the header's container shares, so the logo, the headline and the card sit on one left edge), a 12-column
+   grid, 24px gutters: the headline in columns 1–8, the kicker, subhead and stacked calls to action in 10–12 (column 9 empty), both
+   bottom-aligned; 96px from the header to the row, 72px from the row to the recording strip, which spans the container. The type,
+   the copy, the kicker, the black button and the text link are the C6 brief's; the strip (grask-10.strip.css) is grask-5's, less the
+   ticks after the criterion names. Three faces, none of them the page's: Fraunces 300 for the headline (its own <link> at the top of
+   grask-10.html), DM Mono for the kicker (a second <link>) and Instrument Sans (the @import below) for the subhead and the calls to
+   action. Everything below the strip stays on the type guide (Piazzolla and Golos Text, grask-10.type.css).
+   Below 1100px the side block drops under the headline, 560px at most, and the sides are the page's clamp(20px, 4vw, 40px); below
+   600px the headline's three set lines wrap naturally. Where the brief is silent, choices: 64px above the row and 56px below it under
+   1100px (48 / 40px under 600px), 36px between the headline and the side block, and the text link kept to one line (white-space:
+   nowrap), so in the three columns it may run a few pixels into the right padding rather than break. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap");
+
+.grask-10-lp {
+  --glp10-pad: clamp(20px, 4vw, 40px);   /* the header's and the hero's side padding; 72px on the 1280px container from 1100px up */
+  --font-hero-display: "Fraunces", Georgia, serif;
+  --font-hero-text: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-hero-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --g-hero-ink: #131516;     /* the brief's near-black: the primary button and the text link */
+  --g-hero-lead: #454A4D;    /* the brief's subhead grey */
+}
+@media (min-width: 1100px) {
+  .grask-10-lp { --glp10-pad: 72px; }
+}
+
+/* The hero: the 1280px container (border-box, so at 1280px its 72px sides are the viewport's), a column holding the row and the strip; no minimum height. */
+.grask-10-lp .hero { max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: 64px var(--glp10-pad) clamp(40px, 5vw, 72px); display: flex; flex-direction: column; align-items: stretch; text-align: left; }
+.grask-10-lp .hero-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px 24px; align-items: end; margin: 0 0 56px; }
+/* Headline: Fraunces 300 at its 144 optical size with SOFT 50 (font-variation-settings wins over the h1 rule's font-optical-sizing: auto),
+   44 → 92px, 0.96 leading, -0.03em, left-aligned. Three set lines (.hero-line, a block from 600px up, inline below so the text wraps on
+   its own; not .hl, which is the tinted transcript quote further down the page):
+   "Every student" / "gets heard." / "Without the hours."; "heard." is the face's true italic at the same weight, in petrol. The landing's
+   h1 rules (Piazzolla 700, em upright, grask-10.css) are overridden here; the word-by-word entrance (.title .w, grask-10.css) stays. */
+.grask-10-lp .hero .hero-title { margin: 0; font-family: var(--font-hero-display); font-weight: 300; font-style: normal; font-variation-settings: "opsz" 144, "SOFT" 50; font-size: clamp(44px, 7.2vw, 92px); line-height: 0.96; letter-spacing: -0.03em; text-align: left; }
+.grask-10-lp .hero .hero-title em { font-style: italic; font-weight: 300; color: var(--g-accent); }
+.grask-10-lp .hero .hero-title .hero-line { display: inline; }
+@media (min-width: 600px) {
+  .grask-10-lp .hero .hero-title .hero-line { display: block; }
+}
+/* The side block: kicker → 18px → subhead → 18px → the calls to action, stacked 10px apart, everything left-aligned. 560px at most
+   while it sits under the headline; in its three columns it takes the column width. */
+.grask-10-lp .hero-side { display: flex; flex-direction: column; align-items: flex-start; max-width: 560px; min-width: 0; }
+.grask-10-lp .hero .hero-kicker { margin: 0 0 18px; font: 400 12px/1.4 var(--font-hero-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--g-accent); }
+.grask-10-lp .hero .hero-sub { margin: 0 0 18px; font: 400 16px/1.5 var(--font-hero-text); color: var(--g-hero-lead); }
+.grask-10-lp .hero .hero-ctas { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 0; }
+/* "Book a demo" (solid near-black, 6px corners; kept on .btn-dark for the landing's press and letter ripple, and :hover pins its colours
+   over the generic link hover) and, under it, the plain underlined link to grask.eu. */
+.grask-10-lp .hero .hero-btn, .grask-10-lp .hero .hero-btn:hover { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 14px 24px; border-radius: 6px; background: var(--g-hero-ink); color: #FFFFFF; font: 600 15px/20px var(--font-hero-text); text-decoration: none; white-space: nowrap; }
+.grask-10-lp .hero .hero-try { padding: 0; border: 0; background: none; font: 500 15px/20px var(--font-hero-text); color: var(--g-hero-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; white-space: nowrap; }
+/* The strip spans the container (grask-5 centred it at 1080px); its own 12px top margin is folded into the row's bottom margin. Nothing inside it changes. */
+.grask-10-lp .hero .strip { max-width: none; margin-top: 0; }
+/* From 1100px up: the reference's row. */
+@media (min-width: 1100px) {
+  .grask-10-lp .hero { padding-top: 96px; }
+  .grask-10-lp .hero-row { grid-template-columns: repeat(12, minmax(0, 1fr)); margin-bottom: 72px; }
+  .grask-10-lp .hero .hero-title { grid-column: 1 / 9; }
+  .grask-10-lp .hero-side { grid-column: 10 / 13; max-width: none; padding-bottom: 8px; } /* the 8px lifts its last line a touch above the headline's */
+}
+@media (max-width: 599.98px) {
+  .grask-10-lp .hero { padding-top: 48px; }
+  .grask-10-lp .hero-row { margin-bottom: 40px; }
+}

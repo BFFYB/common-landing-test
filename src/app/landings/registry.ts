@@ -28,6 +28,21 @@ export interface LandingPage {
 export const LANDINGS: LandingMeta[] = [
   // @new-landing
   {
+    slug: 'grask-10',
+    title: 'Grask · C8 hero row',
+    description:
+      'grask-5 duplicated on 2026-10-01, first with the C6 typography and copy on its centred hero, then the C8 brief: the hero is a two-column row on a 1280px container with 72px sides (the header shares them): the headline in Fraunces 300 on three set lines in columns 1–8 ("heard." in its italic, petrol), the DM Mono kicker, the Instrument Sans subhead and the stacked near-black "Book a demo" and text link in columns 10–12, bottom-aligned; 96px from the header, 72px to the waveform "Watch a check run" card, which now spans the container and has lost the ticks after its criterion names. Below 1100px the side block drops under the headline. The lead type tryout is gone. Everything below the card is grask-5.',
+    created: '2026-10-01',
+    load: () => import('./grask-10/grask-10').then((m) => m.Grask10),
+    pages: [
+      {
+        path: 'pilot',
+        title: 'Grask · C8 hero row · Pilot',
+        load: () => import('./grask-10/pilot/pilot').then((m) => m.Grask10Pilot),
+      },
+    ],
+  },
+  {
     slug: 'grask-6-space-grotesk-2',
     title: 'Grask · Space Grotesk II (type pass)',
     description:
